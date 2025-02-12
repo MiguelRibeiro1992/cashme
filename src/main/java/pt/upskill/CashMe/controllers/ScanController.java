@@ -1,4 +1,4 @@
-/*package pt.upskill.CashMe.controllers;
+package pt.upskill.CashMe.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,4 +55,4 @@ public class ScanController {
 //        return "cart"; // Retorna a view do carrinho
 //    }
 
-}*/
+}

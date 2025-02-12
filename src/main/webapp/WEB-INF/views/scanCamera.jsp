@@ -7,7 +7,8 @@
     <title>Scan Código de Barras | CashMe</title>
 
     <!-- Importação do Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Importação dos estilos personalizados -->
     <link rel="stylesheet" href="/styles/fonts.css">
@@ -15,20 +16,16 @@
     <link rel="stylesheet" href="/styles/forms.css">
     <link rel="stylesheet" href="/styles/custom.css">
     <link rel="stylesheet" href="/styles/footer.css">
+    <link rel="stylesheet" href="/styles/header.css">
 
-    <!-- Importação do script para leitura de código de barras -->
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 </head>
-<body class="login-page">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="/images/Logo_Cash.svg" alt="CashMe" height="40">
-        </a>
-    </div>
-</nav>
+<body class="login-page"> <!-- Aplica fundo branco ao login -->
+
+<%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
 <!-- Scan Container -->
 <div class="container mt-5">
@@ -93,18 +90,10 @@
         });
     });
 
-    <!--document.getElementById("addToCartBtn").addEventListener("click", function () {
-                const barcode = document.getElementById("scanResult").innerText.replace("Código lido: ", "");
-                // Chama o serviço para adicionar o produto ao carrinho (de acordo com o código)
-                fetch(`/addToCart?barcode=${barcode}`, { method: "POST" })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("Produto adicionado ao carrinho!");
-                        }
-                    })
-                    .catch(err => console.error("Erro ao adicionar ao carrinho:", err));
-            }); -->
 </script>
+
+<!-- Footer -->
+<%@ include file="includes/footer.jsp"%>
 
 </body>
 </html>
