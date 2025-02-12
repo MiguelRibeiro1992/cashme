@@ -66,11 +66,29 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 10px;
 }
 
-.download-app img {
-    margin-bottom: 5px;
+.download-app .qrcode {
+    width: 80px; /* Mantém o QR Code pequeno */
+    height: auto;
+    flex-shrink: 0;
+}
+
+.download-app .app-btn {
+    width: 120px; /* Define um tamanho fixo para os botões */
+    margin: 5px 0; /* Adiciona espaçamento entre os botões */
+}
+
+/* Responsividade: Ajusta o tamanho em telas menores */
+@media (max-width: 768px) {
+    .download-app .qrcode {
+        width: 60px; /* Reduz o QR Code para telas menores */
+    }
+
+    .download-app .d-flex {
+        flex-direction: column; /* Empilha os elementos em telas pequenas */
+        align-items: center;
+    }
 }
 
 .social-icons {

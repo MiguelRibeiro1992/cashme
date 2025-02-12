@@ -16,33 +16,16 @@
     <link rel="stylesheet" href="/styles/forms.css">
     <link rel="stylesheet" href="/styles/custom.css">
     <link rel="stylesheet" href="/styles/footer.css">
+    <link rel="stylesheet" href="/styles/header.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 </head>
+
 <body class="login-page"> <!-- Aplica fundo branco ao login -->
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="/images/Logo_Cash.svg" alt="CashMe" height="40">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Sobre nós</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Lojas</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
 <!-- Login Container -->
 <div class="container login-container">
@@ -73,7 +56,7 @@
                     <p class="alert alert-success">${success}</p>
                 </c:if>
 
-                <button type="submit" class="btn btn-primary w-100 text-white">Log In</button>
+                <button type="submit" class="btn btn-primary w-100 text-white">Login</button>
 
                 <div class="text-end mt-2">
                     <a href="#">Esqueceu a password?</a>

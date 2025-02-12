@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <footer class="footer">
     <div class="footer-top-bar"></div> <!-- Barra laranja no topo -->
     <div class="container">
@@ -27,19 +29,20 @@
                 <a href="#">FAQ</a><br>
                 <a href="#">Contacto</a>
             </div>
-            <div class="col download-app">
+            <div class="col-md-3 download-app text-center">
                 <h5>Download App</h5>
-                <div class="row flex-nowrap">
-                    <img class="col" src="/images/qrcode.svg" alt="QR Code" width="100">
-                    <div class="col">
+                <div class="d-flex align-items-center justify-content-center flex-wrap gap-3">
+                    <img class="qrcode" src="/images/qrcode.svg" alt="QR Code">
+                    <div class="d-flex flex-column">
                         <a href="#">
-                            <img src="/images/googleapp.svg" alt="Google Play" width="120">
+                            <img src="/images/googleapp.svg" alt="Google Play" class="app-btn">
                         </a>
                         <a href="#">
-                            <img src="/images/appstore.svg" alt="App Store" width="120">
+                            <img src="/images/appstore.svg" alt="App Store" class="app-btn">
                         </a>
                     </div>
                 </div>
+            </div>
 
                 <div class="social-icons">
                     <a href="#"><img src="/images/facebook.svg" alt="Facebook"></a>
