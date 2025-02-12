@@ -71,7 +71,7 @@
 <div class="container login-container">
     <div class="row">
         <div class="col-md-6 d-flex align-items-center">
-            <img src="/images/shopping-image.png" alt="Shopping" class="img-fluid">
+            <img src="/images/Login_register.svg" alt="Shopping" class="img-fluid">
         </div>
         <div class="col-md-6">
             <h2 class="mb-4">Login</h2>
