@@ -11,6 +11,38 @@ body {
     background-color: #f8f9fa;
 }
 
+/*Alinhar texto */
+
+.text-left {
+    text-align: left;
+}
+
+
+/* Posicionar texto */
+.text-right {
+    float: right;
+    margin-left: 20px; /* Adjust the margin as needed */
+}
+
+/*Overlay text*/
+
+.position-relative {
+    position: relative;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+
+
+
+
 .login-container {
     max-width: 900px;
     margin: 50px auto;

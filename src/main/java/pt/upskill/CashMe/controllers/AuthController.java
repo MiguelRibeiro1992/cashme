@@ -17,6 +17,11 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
+    @GetMapping("/home")
+    public String homePage(){
+        return "home";
+    }
+
     @GetMapping("/login")
     public ModelAndView loginPage(@RequestParam("success") @Nullable String success) {
         ModelAndView mav = new ModelAndView("login");
