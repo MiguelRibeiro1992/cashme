@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 public class BarcodeScanServiceImpl implements BarcodeScanService {
 
     @Override
-    public void processBarcode (String barcode) {
-        //adicionar o processamento necessário
-        //exemplo: associar codigo de barras a um produto do repositorio
-        System.out.println("Código de barras processado: " + barcode);
-    }
+    public boolean processBarcode(String barcode) {
+        // Lógica para processar o código de barras
+        // Quando for impletentado, pode-se consultar o repositorio para obter o produto
 
+        // Falta lógica para false
+        System.out.println("Código de barras processado: " + barcode);
+        return true; // Sucesso
+    }
 }
