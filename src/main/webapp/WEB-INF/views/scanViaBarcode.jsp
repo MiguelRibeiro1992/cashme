@@ -10,7 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
-</head>
+    <!-- <script src="https://unpkg.com/html5-qrcode" type="text/javascript"/> -->
+    </head>
+
 <body>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -33,26 +35,42 @@
   </div>
 </nav>
 
-<!-- Login Container -->
-<div class="container">
-  <div class="barcode-scanner">
-    <h3>Leitor de Código de Barras</h3>
-    <img src="/static/images/scanSymbol.svg" alt="Código de Barras" class="img-fluid">
-    <div class="mt-4">
-      <h5>Leitura de código de barras através de imagem</h5>
-      <input type="file" class="form-control">
-      <button class="btn btn-orange mt-2">Escolher ficheiro</button>
+<!-- Scan Container -->
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <!-- Imagem à esquerda -->
+        <div class="col-md-4 text-center">
+            <img src="/static/images/scanSymbol.svg" alt="Código de Barras" class="img-fluid">
+        </div>
+
+        <!-- Texto e botões à direita -->
+        <div class="col-md-8">
+            <h3>Leitor de Código de Barras</h3>
+
+            <!-- Leitura via câmera -->
+            <div class="mb-3">
+                <h5>Leitura de código de barras através da câmara</h5>
+                <button class="btn btn-outline-success">Ligar a câmara</button>
+                <p class="text-muted mt-2">Nenhum produto detetado</p>
+            </div>
+        </div>
     </div>
 
-    <div class="mt-4">
-      <h5>Leitura de código de barras através da câmara</h5>
-      <button class="btn btn-orange">Ligar a câmara</button>
-      <p>Nenhum produto detectado</p>
-    </div>
+    <!-- Linha com botões NFC e ações -->
+    <div class="row mt-4">
+        <!-- Botão para NFC -->
+        <div class="col-md-6 text-start">
+            <a href="/scanViaNFC" class="btn btn-outline-dark d-flex align-items-center gap-2">
+                <img src="/static/images/button_changeToScanViaNFC.svg" alt="Mudar para NFC" height="60">
+            </a>
+        </div>
 
-    <button class="btn btn-secondary mt-3">Mudar para Scan Via NFC</button>
-    <button class="btn btn-orange mt-3">Adicionar ao carrinho</button>
-  </div>
+        <!-- Botões de ação -->
+        <div class="col-md-6 text-end">
+            <button class="btn btn-secondary me-2">Cancelar</button>
+            <button class="btn btn-primary">Adicionar ao carrinho</button>
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->
