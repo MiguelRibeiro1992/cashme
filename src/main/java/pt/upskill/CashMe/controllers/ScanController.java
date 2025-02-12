@@ -16,40 +16,42 @@ public class ScanController {
     //View inicial
     @GetMapping("/scanViaBarcode")
     public String showBarcodeScanner (){
-        return "scanViaBarcode"; // view de scanViaBarcode.jsp
+        return "scanViaBarcode";
     }
 
-    //Rota para a view que abre a camara
-    @GetMapping("/scanCamara")
+    //Para abrir a camara
+    @GetMapping("/scanCamera")
     public String openCameraPage(){
-        return "scanCamara"; // view de scanCamara.jsp
+        return "scanCamera";
     }
 
-    // Rota para processar o código de barras lido
+    //Processar o código de barras lido
     @GetMapping("/processBarcode")
     public String processBarcode (@RequestParam("barcode") String barcode, Model model) {
-        // Lógica para processar o código de barras
-        // Chamar um serviço para validar ou procurar o produto
+        // Como se vai processar o código de barras? Chamar um serviço para validar ou procurar o produto?
         boolean success = barcodeScanService.processBarcode(barcode);
 
-        // Adiciona o código de barras ao modelo para ser exibido na view
-        model.addAttribute("barcode", barcode);
+        if (!success) {
+            model.addAttribute("error", "Produto não encontrado!");
+        } else {
+            model.addAttribute("barcode", barcode);
+            //precisa de um return aqui?
+        }
 
-        // Redireciona para a página de sucesso com o produto lido
-        return "successScan";
+        // Pode manter-se no scanCamera ou precisa de outra view tipo sucessScan?
+        return "scanCamera";
     }
 
-//    // Rota para adicionar o produto ao carrinho
+//    //Para adicionar o produto ao carrinho??
 //    @GetMapping("/addToCart")
 //    public String addToCart(@RequestParam("barcode") String barcode) {
-//        // Lógica para adicionar o produto ao carrinho
-//        return "redirect:/cart"; // Redireciona para a página de carrinho
+//        return "redirect:/cart";
 //    }
 
-//    // Rota para a página do carrinho
+//    // Para ir para a página do carrinho??
 //    @GetMapping("/cart")
 //    public String showCart() {
-//        // model.addAttribute("cart", cartService.getCart());
+//        model.addAttribute("cart", cartService.getCart()); //mudar os nomes quando estiver criado
 //        return "cart"; // Retorna a view do carrinho
 //    }
 
