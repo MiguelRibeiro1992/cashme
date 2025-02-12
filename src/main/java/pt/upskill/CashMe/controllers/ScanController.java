@@ -1,10 +1,8 @@
 package pt.upskill.CashMe.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pt.upskill.CashMe.services.BarcodeScanServiceImpl;
 
@@ -12,11 +10,18 @@ import pt.upskill.CashMe.services.BarcodeScanServiceImpl;
 public class ScanController {
 
     @Autowired
-    BarcodeScanServiceImpl barcodeScanService;
+    private BarcodeScanServiceImpl barcodeScanService;
 
     @GetMapping("/barcode")
     public String showBarcodeScanner (){
-        return "scanViaBarcode";
+        return "scanViaBarcode"; // JSP com o HTML para scan
+    }
+
+    @GetMapping("/processBarcode")
+    public String processBarcode (@RequestParam("barcode") String barcode) {
+        //processar o código de barras lido e associar ao produto
+        barcodeScanService.processBarcode(barcode);
+        return "redirect:/cart"; // Redireciona para a página do carrinho
     }
 
 
