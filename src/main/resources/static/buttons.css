@@ -1,0 +1,28 @@
+/* buttons.css - Estilos para botões */
+.btn-primary {
+    background-color: var(--laranja1);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--amarelo1);
+}
+
+.btn-secondary {
+    background-color: var(--cinza1);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--cinza2);
+}

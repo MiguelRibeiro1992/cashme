@@ -1,0 +1,24 @@
+/* custom.css - Variáveis globais e ajustes gerais */
+:root {
+    --preto: #000000;
+    --branco: #FFFFFF;
+    --amarelo1: #ffbd59;
+    --laranja1: #E87B38;
+    --cinza1: #606060;
+    --cinza2: #8f8f8f;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.rounded-extra {
+    border-radius: 30px;
+}
+
+.homepage-background {
+    background-image: url("/static/images/background.png");
+    background-attachment: fixed;
+    background-size: cover;
+}

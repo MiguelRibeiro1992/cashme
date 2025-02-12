@@ -1,0 +1,10 @@
+package pt.upskill.CashMe.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import pt.upskill.CashMe.entities.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    User getUserByUsername(String username);
+
+}
