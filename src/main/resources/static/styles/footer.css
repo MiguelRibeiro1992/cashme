@@ -1,0 +1,101 @@
+.footer {
+    background-color: #000;
+    color: white;
+    padding: 40px 0;
+    width: 100%; /* Garante que o footer ocupa toda a largura */
+    position: relative;
+}
+
+.footer-top-bar {
+    width: 100%;
+    height: 10px; /* Ajusta a altura conforme necessário */
+    background-color: #E87B38; /* Cor laranja */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start; /* Mantém alinhado ao topo */
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    padding-top: 20px; /* Ajusta espaçamento após a barra */
+}
+
+/* Garante que cada secção ocupa o mesmo espaço */
+.footer .col {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+    padding: 0 15px;
+}
+
+/* Corrige a largura para evitar quebras de linha */
+.footer > .container > .row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer > .container > .row h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer p, .footer a {
+    font-size: 14px;
+    line-height: 1.5;
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #f18733;
+}
+
+/* Ajusta o QR Code e redes sociais */
+.download-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.download-app img {
+    margin-bottom: 5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-icons a img {
+    width: 30px; /* Ajusta o tamanho dos ícones */
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* Copyright */
+.footer .copyright {
+    margin-top: 30px;
+    font-size: 13px;
+    opacity: 0.8;
+    text-align: center;
+    width: 100%;
+}

@@ -1,24 +1,101 @@
 /* custom.css - Variáveis globais e ajustes gerais */
 :root {
-    --preto: #000000;
-    --branco: #FFFFFF;
     --amarelo1: #ffbd59;
     --laranja1: #E87B38;
     --cinza1: #606060;
     --cinza2: #8f8f8f;
+    --preto: #000000;
 }
 
-.container {
+body {
+    background-color: #f8f9fa;
+}
+
+.login-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--preto);
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     max-width: 1200px;
     margin: auto;
+    padding: 20px;
 }
 
-.rounded-extra {
-    border-radius: 30px;
+.footer .col {
+    flex: 1;
+    min-width: 180px;
+    text-align: left;
 }
 
-.homepage-background {
-    background-image: url("/static/images/background.png");
-    background-attachment: fixed;
-    background-size: cover;
+.footer h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer p, .footer a {
+    font-size: 14px;
+    line-height: 1.5;
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: var(--laranja1);
+    text-decoration: underline;
+}
+
+.footer .download-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer .social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.footer .social-icons a {
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.footer .social-icons a:hover {
+    color: var(--laranja1);
+}
+
+/* Copyright */
+.footer .copyright {
+    margin-top: 30px;
+    font-size: 13px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.footer .copyright i {
+    font-size: 12px;
 }
