@@ -39,8 +39,78 @@ body {
     width: 100%;
 }
 
+.custom-overlay {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    padding: 20px;
+    max-width: 50%; /* Para evitar que ocupe toda a largura */
+}
+
+.custom-overlay h1 {
+    text-align: center;
+    margin-top: 0; /* Ajuste conforme necessário */
+    margin-bottom: 80px; /* Diminui o espaço entre o h1 e o primeiro parágrafo */
+}
 
 
+.custom-overlay p {
+    text-align: center;
+    margin-top: 0; /* Remove espaçamento extra entre os parágrafos */
+}
+
+.custom-overlay-2 {
+    position: absolute;
+    top: 190px;
+    left: 60%;
+    transform: translateX(-50%); /* Move o elemento para que o centro dele fique no centro da página */
+    text-align: center;
+    padding: 20px;
+    width: 50%; /* Define uma largura adequada */
+    max-width: 600px; /* Evita que fique muito largo em telas grandes */
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+
+/* Wrapper para o carrossel */
+.partner-wrapper {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.partner-wrapper img {
+    max-height: 120px; /* Ajusta conforme necessário */
+    width: auto; /* Mantém a proporção correta */
+}
+
+.partner-wrapper .col-md-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Container deslizante */
+.partner-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 20px;
+}
+
+/* Estilo individual dos logótipos */
+.partner {
+    flex: 0 0 25%; /* Mostra 4 logótipos por vez (ajustável) */
+    display: flex;
+    justify-content: center;
+}
 
 
 .login-container {
@@ -138,4 +208,15 @@ body {
 
 .mb-6 {
     margin-bottom: 5rem !important;
+}
+
+/* Garante que o cursor de clique aparece */
+.app-link {
+    cursor: pointer !important;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Efeito ao passar o mouse */
+.app-link:hover {
+    opacity: 0.8;
 }
