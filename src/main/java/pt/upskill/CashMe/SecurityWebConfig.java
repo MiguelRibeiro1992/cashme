@@ -20,7 +20,7 @@ public class SecurityWebConfig {
         });
         httpSecurity.authorizeHttpRequests(auth -> {
 
-            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC").permitAll();
+            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             auth.requestMatchers("**").denyAll();
         });
