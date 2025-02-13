@@ -23,7 +23,7 @@ public class CartController {
 
     @GetMapping("/addToCart")
     public String addToCart(@RequestParam("barcode") String barcode, @RequestParam("name") String name, @RequestParam("price") double price) {
-        cartService.addToCart(new Item(barcode, name, price, 1));
+        cartService.addToCart(new Item(barcode, name, price));
         return "redirect:/cart";
     }
 

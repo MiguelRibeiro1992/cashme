@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-6 text-end">
-            <button class="btn btn-outline-dark me-2">Cancelar</button>
+            <button id="cancelButton" class="btn btn-outline-dark me-2">Cancelar</button>
 
             <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
 
@@ -84,7 +84,6 @@
 
 <script>
     document.getElementById("startScan").addEventListener("click", function () {
-        <!-- Código para mudar da imagem para a camara -->
         document.getElementById("scanSymbol").style.display = "none";
         document.getElementById("reader").style.display = "block";
 
@@ -99,7 +98,6 @@
             (decodedText) => {
                 document.getElementById("scanResult").innerText = "Código lido: " + decodedText;
 
-                <!-- Exemplo - Código para ir buscar o nome do produto em falta -->
                 let produtoNome = "Produto Exemplo";
 
                 document.getElementById("productDetails").style.display = "block";
@@ -113,6 +111,26 @@
         ).catch((err) => {
             console.log("Erro ao iniciar a câmara: ", err);
         });
+    });
+
+    document.getElementById("cancelButton").addEventListener("click", function() {
+        document.getElementById("scanSymbol").style.display = "block";
+        document.getElementById("reader").style.display = "none";
+
+        if (typeof html5QrCode !== "undefined") {
+                html5QrCode.stop().then(() => {
+                    console.log("Leitura cancelada.");
+                }).catch((err) => {
+                    console.log("Erro ao parar a leitura: ", err);
+                });
+            }
+       document.getElementById("scanResult").innerText = "";
+           document.getElementById("productName").innerText = "";
+           document.getElementById("productDetails").style.display = "none";
+
+           setTimeout(() => {
+               document.getElementById("scanResult").innerText = "Nenhum produto detetado";
+           }, 10);
     });
 </script>
 

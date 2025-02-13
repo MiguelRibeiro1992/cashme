@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-6 text-end">
-            <button class="btn btn-outline-dark me-2">Cancelar</button>
+            <button id="cancelButton" class="btn btn-outline-dark me-2">Cancelar</button>
 
             <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
 
@@ -112,6 +112,20 @@ document.getElementById("startScan").addEventListener("click", async () => {
         alert("O teu navegador não suporta NFC.");
     }
 });
+
+document.getElementById("cancelButton").addEventListener("click", function() {
+    document.getElementById("nfcSymbol").style.display = "block";
+    document.getElementById("reader").style.display = "none";
+
+    document.getElementById("scanResult").innerText = "";
+    document.getElementById("productName").innerText = "";
+    document.getElementById("productDetails").style.display = "none";
+
+    setTimeout(() => {
+        document.getElementById("scanResult").innerText = "Nenhum produto detetado";
+    }, 10);
+});
+
 </script>
 -->
 
@@ -130,6 +144,20 @@ document.getElementById("startScan").addEventListener("click", async () => {
         document.getElementById("productName").innerText = simulatedCode;
     }, 2000); // Simula um atraso de 2 segundos para parecer real
 });
+
+    document.getElementById("cancelButton").addEventListener("click", function() {
+        document.getElementById("nfcSymbol").style.display = "block";
+        document.getElementById("reader").style.display = "none";
+
+        document.getElementById("scanResult").innerText = "";
+        document.getElementById("productName").innerText = "";
+        document.getElementById("productDetails").style.display = "none";
+
+        setTimeout(() => {
+            document.getElementById("scanResult").innerText = "Nenhum produto detetado";
+        }, 10);
+    });
+
 </script>
 
 
