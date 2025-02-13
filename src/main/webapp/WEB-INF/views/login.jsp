@@ -67,7 +67,7 @@
                     </button>
                 </div>
                 <div class="text-center mt-3">
-                    Ainda não tem uma conta? <a href="#">Registar</a>
+                    Ainda não tem uma conta? <a href="/signup">Registar</a>
                 </div>
             </form>
         </div>
