@@ -66,16 +66,66 @@
 
         <div class="col-md-6 text-end">
             <button class="btn btn-outline-dark me-2">Cancelar</button>
-            <button class="btn btn-primary btn-login">Adicionar ao carrinho</button>
+            <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
+            <a href="/addToCart?barcode=${barcode}&name=${productName}&price=9.99" class="btn btn-primary btn-login">
+                Adicionar ao Carrinho
+            </a>
         </div>
     </div>
 
 </div>
 
-<!--
+<!-- Script para usar sensor NFC no computador (não funciona neste computador) -->
+<!-- DESATIVADO PARA TESTAR
 <script>
+document.getElementById("startScan").addEventListener("click", async () => {
+    if ("NDEFReader" in window) {
+        try {
+            const nfcReader = new NDEFReader();
+            await nfcReader.scan();
+
+            console.log("NFC ativo! Aproxima uma tag...");
+
+            nfcReader.onreading = event => {
+                const decoder = new TextDecoder();
+                for (const record of event.message.records) {
+                    const text = decoder.decode(record.data);
+                    console.log("Código lido:", text);
+
+                    // Atualizar a UI com os dados lidos
+                    document.getElementById("scanResult").innerText = "Produto identificado!";
+                    document.getElementById("productDetails").style.display = "block";
+                    document.getElementById("productName").innerText = text;
+                }
+            };
+        } catch (error) {
+            console.error("Erro ao ler NFC:", error);
+            alert("Erro ao ativar o NFC. Verifica se o teu dispositivo suporta esta funcionalidade.");
+        }
+    } else {
+        alert("O teu navegador não suporta NFC.");
+    }
+});
 </script>
 -->
+
+<!-- Para teste: Dá um produto fictício -->
+<script>
+document.getElementById("startScan").addEventListener("click", async () => {
+    console.log("Simulação: NFC ativado! Aproxima uma tag...");
+
+    setTimeout(() => {
+        const simulatedCode = "1234567890"; // Código fictício simulado
+        console.log("Código lido (simulado):", simulatedCode);
+
+        // Atualizar UI como se tivesse lido um código real
+        document.getElementById("scanResult").innerText = "Produto identificado!";
+        document.getElementById("productDetails").style.display = "block";
+        document.getElementById("productName").innerText = simulatedCode;
+    }, 2000); // Simula um atraso de 2 segundos para parecer real
+});
+</script>
+
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>

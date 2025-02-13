@@ -66,7 +66,11 @@
 
         <div class="col-md-6 text-end">
             <button class="btn btn-outline-dark me-2">Cancelar</button>
-            <button class="btn btn-primary btn-login">Adicionar ao carrinho</button>
+            <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
+            <!-- ${barcode} - Obtém o código lido & ${productName} - Obtem o nome do produto |||| Substituir o 9.99 pelo preço do produto -->
+            <a href="/addToCart?barcode=${barcode}&name=${productName}&price=9.99" class="btn btn-primary btn-login">
+                Adicionar ao Carrinho
+            </a>
         </div>
     </div>
 
