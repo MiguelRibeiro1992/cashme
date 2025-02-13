@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pt.upskill.CashMe.services.BarcodeScanServiceImpl;
+import pt.upskill.CashMe.services.NFCScanServiceImpl;
 
 @Controller
 public class ScanController {
@@ -13,14 +14,18 @@ public class ScanController {
     @Autowired
     private BarcodeScanServiceImpl barcodeScanService;
 
+    @Autowired
+    private NFCScanServiceImpl nfcScanService;
+
+    //View para Código de Barras
     @GetMapping("/scanViaBarcode")
-    public String showBarcodeScanner (){
+    public String showBarcodeScanner() {
         return "scanViaBarcode";
     }
 
-    //Processar o código de barras lido
+    //Processar o código de barras
     @GetMapping("/processBarcode")
-    public ModelAndView  processBarcode (@RequestParam("barcode") String barcode) {
+    public ModelAndView processBarcode(@RequestParam("barcode") String barcode) {
         ModelAndView mav = new ModelAndView("scanViaBarcode"); // Define a view
 
         // Como se vai processar o código de barras? Chamar um serviço para validar ou procurar o produto?
@@ -32,6 +37,28 @@ public class ScanController {
             mav.addObject("barcode", barcode);
             //substituir "Produto Exemplo" pelo nome do produto quando houver um repositório
             mav.addObject("productName", "Produto Exemplo");
+        }
+
+        return mav;
+    }
+
+    //View para NFC
+    @GetMapping("/scanViaNFC")
+    public String showNFCScanner() {
+        return "scanViaNFC";
+    }
+
+    //Processar o NFC
+    public ModelAndView processNFC(@RequestParam("nfc") String nfc) {
+        ModelAndView mav = new ModelAndView("scanViaNFC");
+
+        boolean sucess = nfcScanService.processNFC(nfc);
+
+        if (!sucess) {
+            mav.addObject("error", "Produto NFC não encontrado!");
+        } else {
+            mav.addObject("nfc", nfc);
+            mav.addObject("productName", "Produto NFC Exemplo");
         }
 
         return mav;

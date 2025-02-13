@@ -42,14 +42,12 @@
         <!-- Texto e botões -->
         <div class="col-md-6 d-flex flex-column justify-content-center">
             <h4 class="mb-3">Leitura de código de barras</h4>
-            <div class="d-flex align-items-center">
-                <div class="bg-orange rounded me-2" style="width: 10px; height: 20px;"></div>
-                <p class="mb-0">Ler um código:</p>
+            <div class="col-md-6 d-flex flex-column align-items-center">
+                 <p class="bg-orange rounded me-2" style="width: 10px; height: 20px;"></p>
+                 <p class="mb-0">Ler um código:</p>
+                 <button id="startScan" class="btn btn-primary mt-3">Ligar a câmara</button>
+                 <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
             </div>
-
-            <button id="startScan" class="btn btn-primary mt-3">Ligar a câmara</button>
-
-            <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
 
             <div id="productDetails" class="mt-4 text-center" style="display: none;">
                 <h5>Produto Lido Com Sucesso</h5>

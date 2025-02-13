@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Scan Código de Barras | CashMe</title>
+    <title>Scan NFC | CashMe</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -42,14 +42,12 @@
         <!-- Texto e botões -->
         <div class="col-md-6 d-flex flex-column justify-content-center">
             <h4 class="mb-3">Leitura de código de barras</h4>
-            <div class="d-flex align-items-center">
-                <div class="bg-orange rounded me-2" style="width: 10px; height: 20px;"></div>
+            <div class="col-md-6 d-flex flex-column align-items-center">
+                <p class="bg-orange rounded me-2" style="width: 10px; height: 20px;"></p>
                 <p class="mb-0">Ler um código:</p>
+                <button id="startScan" class="btn btn-primary mt-3">A ler...</button>
+                <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
             </div>
-
-            <button id="startScan" class="btn btn-primary mt-3">A ler...</button>
-
-            <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
 
             <div id="productDetails" class="mt-4 text-center" style="display: none;">
                 <h5>Produto Detetado Com Sucesso</h5>
