@@ -1,6 +1,8 @@
 package pt.upskill.CashMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.LoginModel;
@@ -8,19 +10,23 @@ import pt.upskill.CashMe.models.SignUpModel;
 import pt.upskill.CashMe.repositories.UserRepository;
 
 @Service
-
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     @Override
     public User validateLogin(LoginModel loginModel) {
-        User user = userRepository.getUserByUsername(loginModel.getUsername());
-        if (user == null || user.getId() == null){
+        // Buscar o utilizador pelo email (que está a ser usado como username)
+        User user = userRepository.findByEmail(loginModel.getUsername()).orElse(null);
+        if (user == null || user.getId() == null) {
             return null;
         }
-        if (user.getPassword().equals(loginModel.getPassword())){
+
+        // Verificar se a palavra-passe fornecida corresponde à encriptada
+        if (passwordEncoder.matches(loginModel.getPassword(), user.getPassword())) {
             return user;
         }
         return null;
@@ -28,9 +34,20 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User registerUser(SignUpModel signUpModel) {
-        if (userRepository.getUserByUsername(signUpModel.getUsername()) != null){
-            throw new RuntimeException("User already exists");
+        // Verifica se o utilizador já existe pelo email
+        if (userRepository.findByEmail(signUpModel.getEmail()).isPresent()) {
+            throw new RuntimeException("Este email já está registado!");
         }
-        return userRepository.save(new User(signUpModel));
+
+        // Criar utilizador manualmente e encriptar password
+        User newUser = new User();
+        newUser.setName(signUpModel.getName());
+        newUser.setEmail(signUpModel.getEmail());
+        newUser.setUsername(signUpModel.getEmail()); // Usa o email como username
+        newUser.setPassword(passwordEncoder.encode(signUpModel.getPassword())); // Encripta password
+        newUser.setAdmin(false); // Define como utilizador normal
+
+        // Guardar na base de dados
+        return userRepository.save(newUser);
     }
 }

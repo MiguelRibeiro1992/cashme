@@ -7,6 +7,9 @@ public class SignUpModel {
     private String email;
     private String name;
 
+    public SignUpModel() {
+    }
+
     public String getUsername() {
         return username;
     }
