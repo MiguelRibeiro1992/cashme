@@ -131,3 +131,11 @@ body {
 .footer .copyright i {
     font-size: 12px;
 }
+
+.mt-6 {
+    margin-top: 6rem !important;
+}
+
+.mb-6 {
+    margin-bottom: 5rem !important;
+}
