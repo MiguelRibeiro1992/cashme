@@ -35,6 +35,13 @@ public class ScanController {
             mav.addObject("error", "Produto não encontrado!");
         } else {
             mav.addObject("barcode", barcode);
+
+            //String productName = barcodeScanService.getProductNameByBarcode(barcode);
+            // if (productName == null) {
+            //     productName = "Produto não encontrado";
+            //}
+            // mav.addObject("productName", productName);
+
             //substituir "Produto Exemplo" pelo nome do produto quando houver um repositório
             mav.addObject("productName", "Produto Exemplo");
         }
