@@ -18,15 +18,19 @@ public class AuthController {
     AuthService authService;
 
     @GetMapping("/home")
-    public String homePage(){
+    public String homePage() {
         return "home";
     }
 
     @GetMapping("/login")
-    public ModelAndView loginPage(@RequestParam("success") @Nullable String success) {
+    public ModelAndView loginPage(@RequestParam(value = "success", required = false) String success,
+                                  @RequestParam(value = "error", required = false) String error) {
         ModelAndView mav = new ModelAndView("login");
-        if(success != null) {
+        if (success != null) {
             mav.addObject("success", "Conta registada com sucesso! Por favor faça login.");
+        }
+        if (error != null) {
+            mav.addObject("error", "Utilizador não encontrado. Crie uma conta.");
         }
         return mav;
     }
@@ -37,17 +41,26 @@ public class AuthController {
     }
 
     @PostMapping(value= "/login")
-    public ModelAndView loginAction(LoginModel login) {
-        ModelAndView mav = new ModelAndView();
-        User user = authService.validateLogin(login);
-        if(user != null) {
-            mav.setView(new RedirectView("/user/" + user.getId() + "/tasks"));
-            return mav;
+    public ModelAndView loginAction(@ModelAttribute LoginModel login) {
+        System.out.println("DEBUG - Email recebido no controlador: " + login.getEmail());
+        System.out.println("DEBUG - Password recebida no controlador: " + login.getPassword());
+
+        if (login.getEmail() == null || login.getEmail().isEmpty()) {
+            System.out.println("⚠ ERRO: O email chegou vazio no controlador!");
+            return new ModelAndView("redirect:/login?error=1");
         }
-        mav.setViewName("login");
-        mav.addObject("error", "Invalid credentials.");
-        return mav;
+
+        User user = authService.validateLogin(login);
+
+        if (user != null) {
+            System.out.println("✅ Login bem-sucedido! Redirecionando para /home");
+            return new ModelAndView("redirect:/home");
+        }
+
+        System.out.println("❌ Login falhou! Redirecionando para /login?error=1");
+        return new ModelAndView("redirect:/login?error=1");
     }
+
 
     @PostMapping("/signup")
     public ModelAndView signUpAction(SignUpModel signUpModel) {

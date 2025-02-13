@@ -6,9 +6,5 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Busca um utilizador pelo username (se realmente for usado)
-    Optional<User> findByUsername(String username);
-
-    // Alternativamente, buscar pelo email, que geralmente é único
-    Optional<User> findByEmail(String email);
+    Optional<User> findByEmailIgnoreCase(String email); // Agora usamos apenas o email como identificador
 }

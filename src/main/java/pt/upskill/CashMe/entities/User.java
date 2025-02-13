@@ -11,9 +11,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Define o ID autoincrementado
     private Long id;
 
-    @Column(nullable = false, unique = true) // O username não pode ser nulo e deve ser único
-    private String username;
-
     @Column(nullable = false) // A password não pode ser nula
     private String password;
 
@@ -31,8 +28,7 @@ public class User {
     }
 
     // Construtor que recebe todos os atributos
-    public User(String username, String password, String name, String email, boolean isAdmin) {
-        this.username = username;
+    public User(String password, String name, String email, boolean isAdmin) {
         this.password = password;
         this.name = name;
         this.email = email;
@@ -41,7 +37,6 @@ public class User {
 
     // Construtor que recebe um objeto SignUpModel
     public User(SignUpModel signUpModel) {
-        this.username = signUpModel.getEmail(); // Usa o email como username
         this.password = signUpModel.getPassword(); // NÃO ESTÁ ENCRIPTADO AQUI! Tem que ser encriptado antes de salvar!
         this.name = signUpModel.getName();
         this.email = signUpModel.getEmail();
@@ -49,14 +44,6 @@ public class User {
     }
 
     // Getters e Setters
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }

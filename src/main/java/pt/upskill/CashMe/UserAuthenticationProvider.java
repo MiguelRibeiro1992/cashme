@@ -23,16 +23,16 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getPrincipal().toString();
+        String email = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
-        LoginModel login = new LoginModel(username, password);
+        LoginModel login = new LoginModel(email, password);
         User user = authService.validateLogin(login);
         if (user != null) {
             List<GrantedAuthority> roleList = new ArrayList<>();
             if(user.isAdmin()) {
                 roleList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             }
-            return new UsernamePasswordAuthenticationToken(username, password, roleList);
+            return new UsernamePasswordAuthenticationToken(email, password, roleList);
 
         }
         return null;

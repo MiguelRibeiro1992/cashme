@@ -2,7 +2,6 @@ package pt.upskill.CashMe.models;
 
 public class SignUpModel {
 
-    private String username;
     private String password;
     private String email;
     private String name;
@@ -10,13 +9,6 @@ public class SignUpModel {
     public SignUpModel() {
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

@@ -48,6 +48,8 @@
                     <input type="password" name="password" class="form-control" placeholder="Insira a sua password" required>
                 </div>
 
+                <button type="submit" class="btn btn-primary w-100 text-white">Login</button>
+
                 <!-- Exibição de Erros e Sucessos -->
                 <c:if test="${error != null}">
                     <p class="alert alert-danger">${error}</p>
@@ -56,7 +58,6 @@
                     <p class="alert alert-success">${success}</p>
                 </c:if>
 
-                <button type="submit" class="btn btn-primary w-100 text-white">Login</button>
 
                 <div class="text-end mt-2">
                     <a href="#">Esqueceu a password?</a>
