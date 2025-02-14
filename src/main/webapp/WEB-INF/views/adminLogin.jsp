@@ -29,11 +29,11 @@
 
 <!-- Login Container -->
 <div class="container login-container">
-    <div class="row">
+    <div class="row d-flex justify-content-around">
         <div class="col-md-6 d-flex align-items-center">
-            <img src="/images/Login_register.svg" alt="Shopping" class="img-fluid">
+            <img src="/images/adminLogin.svg" alt="Shopping" class="img-fluid">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 ps-5">
             <h2 class="mb-4">Login - Admin</h2>
             <p>Insira os seus dados para aceder à área de administração</p>
 
@@ -58,14 +58,6 @@
                     <p class="alert alert-success">${success}</p>
                 </c:if>
 
-                <div class="text-end mt-2">
-                    <a href="#">Esqueceu a password?</a>
-                </div>
-                <div class="mt-3 text-center">
-                    <button class="btn btn-light w-100">
-                        <img src="/images/Icon-Google.svg" alt="Google" width="20" class="me-2"> Entrar com Google
-                    </button>
-                </div>
                 <div class="text-center mt-3">
                     Não é administrador? <a href="/login">Faça login como usuário</a>
                 </div>
