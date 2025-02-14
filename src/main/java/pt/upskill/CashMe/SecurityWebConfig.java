@@ -20,7 +20,7 @@ public class SecurityWebConfig {
         });
         httpSecurity.authorizeHttpRequests(auth -> {
 
-            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/adminLogin", "/admin/dashboard").permitAll();
+            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/adminLogin", "/adminDashboard").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             auth.requestMatchers("categories/", "categories/**").authenticated();
             auth.requestMatchers("**").denyAll();
@@ -35,7 +35,7 @@ public class SecurityWebConfig {
         httpSecurity.formLogin(adminLoginConfig -> {
             adminLoginConfig.loginPage("/adminLogin");
             adminLoginConfig.loginProcessingUrl("/adminLogin");
-            adminLoginConfig.defaultSuccessUrl("/admin/dashboard", true);
+            adminLoginConfig.defaultSuccessUrl("/adminDashboard", true);
         });
         httpSecurity.authenticationProvider(userAuthenticationProvider);
         return httpSecurity.build();

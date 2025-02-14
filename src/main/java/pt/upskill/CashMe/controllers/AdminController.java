@@ -19,7 +19,7 @@ public class AdminController {
     }
 
     // Dashboard do admin
-    @GetMapping("/admin/dashboard")
+    @GetMapping("/adminDashboard")
     public String adminDashboard() {
         return "adminDashboard";
     }

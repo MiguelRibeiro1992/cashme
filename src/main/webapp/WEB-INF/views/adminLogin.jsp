@@ -38,7 +38,7 @@
             <p>Insira os seus dados para aceder à área de administração</p>
 
             <!-- Formulário de Login -->
-            <form method="POST" action="/admin/login">
+            <form method="POST" action="/adminLogin">
                 <div class="mb-3">
                     <label class="form-label">Email</label>
                     <input type="email" name="username" class="form-control" placeholder="Insira o seu email" required>

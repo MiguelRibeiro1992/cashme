@@ -31,45 +31,13 @@
 <div class="container login-container">
     <div class="row">
         <div class="col-md-6 d-flex align-items-center">
-            <img src="/images/Login_register.svg" alt="Shopping" class="img-fluid">
         </div>
         <div class="col-md-6">
             <h2 class="mb-4">Login - Admin</h2>
-            <p>Insira os seus dados para aceder à área de administração</p>
+            <h1><p>INSERIR COISAS AQUI</p></h1>
 
-            <!-- Formulário de Login -->
-            <form method="POST" action="/admin/login">
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="username" class="form-control" placeholder="Insira o seu email" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Insira a sua password" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100 text-white">Login</button>
-
-                <!-- Exibição de Erros e Sucessos -->
-                <c:if test="${error != null}">
-                    <p class="alert alert-danger">${error}</p>
-                </c:if>
-                <c:if test="${success != null}">
-                    <p class="alert alert-success">${success}</p>
-                </c:if>
-
-                <div class="text-end mt-2">
-                    <a href="#">Esqueceu a password?</a>
-                </div>
-                <div class="mt-3 text-center">
-                    <button class="btn btn-light w-100">
-                        <img src="/images/Icon-Google.svg" alt="Google" width="20" class="me-2"> Entrar com Google
-                    </button>
-                </div>
-                <div class="text-center mt-3">
-                    Não é administrador? <a href="/login">Faça login como usuário</a>
-                </div>
-            </form>
+            <!-- Dashboard -->
+            <p></p>
         </div>
     </div>
 </div>
