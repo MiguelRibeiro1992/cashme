@@ -22,6 +22,7 @@ public class SecurityWebConfig {
 
             auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
+            auth.requestMatchers("categories/", "categories/**").authenticated();
             auth.requestMatchers("**").denyAll();
         });
         httpSecurity.formLogin(loginConfig -> {
