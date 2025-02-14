@@ -5,6 +5,7 @@ public class SignUpModel {
     private String password;
     private String name;
     private String username;
+    private boolean admin;
 
     public SignUpModel() {
     }
@@ -33,4 +34,11 @@ public class SignUpModel {
         this.name = name;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }

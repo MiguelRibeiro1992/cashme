@@ -13,19 +13,25 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    //apagar quando o role estiver bem feito
     private boolean admin;
 
+    private String name;
+    private String username;
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    // Construtor vazio necessário para JPA
     public User() {}
 
     public User(SignUpModel model) {
         this.name = model.getName();
         this.username = model.getUsername();
         this.password = model.getPassword(); //encriptar aqui!
+        this.role = model.isAdmin() ? Role.ADMIN : Role.USER;
     }
-
-    private String name;
-    private String username;
-    private String password;
 
     public Long getId() {
         return id;
@@ -59,12 +65,19 @@ public class User {
         this.password = password;
     }
 
-
     public boolean isAdmin() {
         return admin;
     }
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
