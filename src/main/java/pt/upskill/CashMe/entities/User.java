@@ -3,53 +3,36 @@ package pt.upskill.CashMe.entities;
 import jakarta.persistence.*;
 import pt.upskill.CashMe.models.SignUpModel;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users") // Mapeia explicitamente para a tabela "users"
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Define o ID autoincrementado
+    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false) // A password não pode ser nula
+    private boolean admin;
+
+    public User() {}
+
+    public User(SignUpModel model) {
+        this.name = model.getName();
+        this.username = model.getUsername();
+        this.password = model.getPassword(); //encriptar aqui!
+    }
+
+    private String name;
+    private String username;
     private String password;
 
-    @Column(nullable = false) // O nome não pode ser nulo
-    private String name;
-
-    @Column(nullable = false, unique = true) // O email deve ser único e não pode ser nulo
-    private String email;
-
-    @Column(nullable = false) // O isAdmin não pode ser nulo
-    private boolean isAdmin;
-
-    // Construtor padrão
-    public User() {
+    public Long getId() {
+        return id;
     }
 
-    // Construtor que recebe todos os atributos
-    public User(String password, String name, String email, boolean isAdmin) {
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.isAdmin = isAdmin;
-    }
-
-    // Construtor que recebe um objeto SignUpModel
-    public User(SignUpModel signUpModel) {
-        this.password = signUpModel.getPassword(); // NÃO ESTÁ ENCRIPTADO AQUI! Tem que ser encriptado antes de salvar!
-        this.name = signUpModel.getName();
-        this.email = signUpModel.getEmail();
-        this.isAdmin = false; // Por padrão, um novo utilizador não é admin
-    }
-
-    // Getters e Setters
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -60,27 +43,28 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Long getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 }

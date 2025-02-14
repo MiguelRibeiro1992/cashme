@@ -42,10 +42,10 @@ public class AuthController {
 
     @PostMapping(value= "/login")
     public ModelAndView loginAction(@ModelAttribute LoginModel login) {
-        System.out.println("DEBUG - Email recebido no controlador: " + login.getEmail());
+        System.out.println("DEBUG - Email recebido no controlador: " + login.getUsername());
         System.out.println("DEBUG - Password recebida no controlador: " + login.getPassword());
 
-        if (login.getEmail() == null || login.getEmail().isEmpty()) {
+        if (login.getUsername() == null || login.getUsername().isEmpty()) {
             System.out.println("⚠ ERRO: O email chegou vazio no controlador!");
             return new ModelAndView("redirect:/login?error=1");
         }

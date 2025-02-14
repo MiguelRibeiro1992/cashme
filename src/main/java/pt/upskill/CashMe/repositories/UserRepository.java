@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByEmailIgnoreCase(String email); // Agora usamos apenas o email como identificador
+    Optional<User> findByUsername(String username); // Agora usamos apenas o email como identificador
 }
