@@ -22,6 +22,11 @@ public class AuthController {
         return "home";
     }
 
+    @GetMapping("/mainPage")
+    public String mainPage() {
+        return "mainPage";
+    }
+
     @GetMapping("/login")
     public ModelAndView loginPage(@RequestParam(value = "success", required = false) String success,
                                   @RequestParam(value = "error", required = false) String error) {
