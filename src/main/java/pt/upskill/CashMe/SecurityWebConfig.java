@@ -27,6 +27,7 @@ public class SecurityWebConfig {
         httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");
             loginConfig.loginProcessingUrl("/login");
+            loginConfig.defaultSuccessUrl("/home", true);
         });
         httpSecurity.authenticationProvider(userAuthenticationProvider);
         return httpSecurity.build();
