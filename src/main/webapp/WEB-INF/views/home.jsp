@@ -126,7 +126,8 @@
 <section class="container mt-5">
     <div class="d-flex align-items-center">
         <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
-        <h3 class="ms-3 me-auto">Parceiros</h3>
+        <span class="ms-2 span-highlight">Parceiros</span>
+        <div class="ms-auto d-flex">
 
         <!-- Botão Seta Esquerda -->
         <button class="arrow-btn" id="prevBtn">
@@ -137,6 +138,7 @@
         <button class="arrow-btn" id="nextBtn">
             <img src="images/rightArrow.svg" alt="Seta Direita">
         </button>
+    </div>
     </div>
 </section>
 
@@ -176,7 +178,9 @@
 <section class="container mt-5">
     <div class="d-flex align-items-center">
         <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
-        <h3 class="ms-3">Novidades</h3>
+        <span class="ms-2 span-highlight">Novidades</span>
+        <div class="ms-auto d-flex">
+    </div>
     </div>
 </section>
 

@@ -34,3 +34,28 @@
     height: auto;
     transition: transform 0.2s ease-in-out;
 }
+
+
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.star {
+    color: #E87B38; /* Laranja */
+    transition: color 0.3s;
+}
+
+.star:hover,
+.star.active {
+    color: #FFA500; /* Destaque ao passar o mouse */
+}
+
+.rating-value {
+    font-size: 1rem;
+    color: #777;
+    margin-left: 8px;
+}
+

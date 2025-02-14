@@ -110,6 +110,79 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    //Adiciona eventos de classificação
+    document.querySelectorAll(".rating").forEach(rating => {
+        const stars = Array.from(rating.querySelectorAll(".star")).reverse(); // Inverte a ordem das estrelas
+        const ratingValue = rating.querySelector(".rating-value");
+
+        stars.forEach(star => {
+            star.addEventListener("mouseover", function() {
+                highlightStars(this);
+            });
+
+            star.addEventListener("click", function() {
+                toggleRating(this, ratingValue);
+            });
+
+            rating.addEventListener("mouseleave", function() {
+                resetStars(rating);
+            });
+        });
+
+        function highlightStars(star) {
+            const value = parseInt(star.getAttribute("data-value"));
+            resetStars(star.parentNode);
+            star.parentNode.querySelectorAll(".star").forEach(s => {
+                if (parseInt(s.getAttribute("data-value")) >= value) { // Da direita para a esquerda
+                    s.classList.add("active");
+                }
+            });
+        }
+
+        function toggleRating(star, ratingValue) {
+            const value = parseInt(star.getAttribute("data-value"));
+            const ratingContainer = star.parentNode;
+            const selectedValue = ratingContainer.getAttribute("data-selected");
+
+            if (selectedValue === value.toString()) {
+                // Se a mesma estrela for clicada novamente, desselecionar e decrementar votos
+                ratingContainer.removeAttribute("data-selected");
+                resetStars(ratingContainer);
+                decrementVotes(ratingValue);
+            } else {
+                // Senão, atribuir a classificação e incrementar votos
+                ratingContainer.setAttribute("data-selected", value);
+                highlightStars(star);
+                incrementVotes(ratingValue);
+            }
+        }
+
+        function resetStars(rating) {
+            const selectedValue = rating.getAttribute("data-selected");
+            rating.querySelectorAll(".star").forEach(s => {
+                s.classList.remove("active");
+            });
+            if (selectedValue) {
+                rating.querySelectorAll(".star").forEach(s => {
+                    if (parseInt(s.getAttribute("data-value")) >= selectedValue) { // Mantém lógica invertida
+                        s.classList.add("active");
+                    }
+                });
+            }
+        }
+
+        function incrementVotes(ratingValue) {
+            let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10);
+            ratingValue.textContent = `(${currentVotes + 1})`;
+        }
+
+        function decrementVotes(ratingValue) {
+            let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10);
+            ratingValue.textContent = `(${Math.max(currentVotes - 1, 0)})`; // Garante que não fica negativo
+        }
+    });
+
+
 });
 
 
