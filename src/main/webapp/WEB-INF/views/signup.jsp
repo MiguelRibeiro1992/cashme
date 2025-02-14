@@ -41,17 +41,21 @@
             <!-- Formulário de Criação de Conta -->
             <form method="POST" action="/signup">
                 <div class="mb-3">
-                    <label class="form-label">Nome</label>
-                    <input type="text" name="name" class="form-control" placeholder="Insira o seu nome" required>
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" name="name" class="form-control" id="name">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Insira o seu email" required>
+                    <label for="username" class="form-label">Email</label>
+                    <input type="text" name="username" class="form-control" id="username">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Palavra-passe</label>
-                    <input type="password" name="password" class="form-control" placeholder="Crie uma palavra-passe" required>
+                    <input id="password" name="password" type="password" class="form-control">
                 </div>
+
+                <c:if test="${error != null}">
+                    <p class="alert alert-danger">${error}</p>
+                </c:if>
 
                 <button type="submit" class="btn btn-primary w-100 text-white">Criar Conta</button>
 

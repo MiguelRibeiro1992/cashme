@@ -9,8 +9,6 @@ import pt.upskill.CashMe.models.LoginModel;
 import pt.upskill.CashMe.models.SignUpModel;
 import pt.upskill.CashMe.repositories.UserRepository;
 
-import java.util.Optional;
-
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -23,52 +21,23 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User validateLogin(LoginModel loginModel) {
-        // Buscar o utilizador pelo email
-
-        String email = loginModel.getUsername();
-
-        if (email == null || email.isEmpty()) {
-            System.out.println("Erro: Email do login está vazio!");
+        User user = userRepository.findByUsername(loginModel.getUsername());
+        if(user == null || user.getId() == null) {
             return null;
         }
 
-        System.out.println("Procurar utilizador com email: " + loginModel.getUsername());
-
-        Optional<User> optionalUser = userRepository.findByUsername(email.trim());
-
-        if (optionalUser.isEmpty()) {
-            System.out.println("Utilizador não encontrado");
-            return null; // Se o utilizador não existir, retorna null
-        }
-
-        User user = optionalUser.get();
-        System.out.println("Utilizador encontrado: " + user.getUsername());
-
-        // Verificar se a palavra-passe fornecida corresponde à encriptada
         if (passwordEncoder.matches(loginModel.getPassword(), user.getPassword())) {
-            System.out.println("Login bem-sucedido");
-            return user; // Login bem-sucedido
+            return user;
         }
-
-        System.out.println("Password incorreta");
-        return null; // Password incorreta
+        return null;
     }
 
     @Override
     public User registerUser(SignUpModel signUpModel) {
-        // Verifica se o utilizador já existe pelo email
-        if (userRepository.findByUsername(signUpModel.getUsername()).isPresent()) {
-            throw new RuntimeException("Este email já está registado!");
+        if(userRepository.findByUsername(signUpModel.getUsername()) != null) {
+            throw new RuntimeException("User already exists!");
         }
-
-        // Criar utilizador manualmente e encriptar password
-        User newUser = new User();
-        newUser.setName(signUpModel.getName());
-        newUser.setUsername(signUpModel.getUsername());
-        newUser.setPassword(passwordEncoder.encode(signUpModel.getPassword())); // Encripta password
-        newUser.setAdmin(false); // Define como utilizador normal
-
-        // Guardar na base de dados
-        return userRepository.save(newUser);
+        signUpModel.setPassword(passwordEncoder.encode(signUpModel.getPassword()));
+        return userRepository.save(new User(signUpModel));
     }
 }

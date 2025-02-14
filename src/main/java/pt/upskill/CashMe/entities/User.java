@@ -6,7 +6,7 @@ import pt.upskill.CashMe.models.SignUpModel;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "users") // Mapeia explicitamente para a tabela "users"
+@Table(name = "user") // Mapeia explicitamente para a tabela "user"
 public class User {
 
     @Id
