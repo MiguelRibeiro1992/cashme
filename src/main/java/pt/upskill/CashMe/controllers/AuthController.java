@@ -59,7 +59,7 @@ public class AuthController {
 
         if (user != null) {
             System.out.println("✅ Login bem-sucedido! Redirecionando para /home");
-            return new ModelAndView("redirect:/home");
+            return new ModelAndView("redirect:/mainPage");
         }
 
         System.out.println("❌ Login falhou! Redirecionando para /login?error=1");

@@ -20,7 +20,7 @@ public class SecurityWebConfig {
         });
         httpSecurity.authorizeHttpRequests(auth -> {
 
-            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/admin/login", "/admin/dashboard", "/mainPage").permitAll();
+            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/adminLogin", "/admin/dashboard").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             auth.requestMatchers("categories/", "categories/**").authenticated();
             auth.requestMatchers("**").denyAll();
@@ -28,12 +28,14 @@ public class SecurityWebConfig {
         httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");
             loginConfig.loginProcessingUrl("/login");
-            loginConfig.defaultSuccessUrl("/home", true);
+            loginConfig.defaultSuccessUrl("/mainpage", true);
+        });
 
             // Autorização ADMIN
-            loginConfig.loginPage("/admin/login");
-            loginConfig.loginProcessingUrl("/admin/login");
-            loginConfig.defaultSuccessUrl("/admin/dashboard", true);
+        httpSecurity.formLogin(adminLoginConfig -> {
+            adminLoginConfig.loginPage("/adminLogin");
+            adminLoginConfig.loginProcessingUrl("/adminLogin");
+            adminLoginConfig.defaultSuccessUrl("/admin/dashboard", true);
         });
         httpSecurity.authenticationProvider(userAuthenticationProvider);
         return httpSecurity.build();
