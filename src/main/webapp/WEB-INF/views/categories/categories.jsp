@@ -24,7 +24,7 @@
 </head>
 <body class="login-page"> <!-- Aplica fundo branco ao login -->
 
-<%@ include file="includes/header.jsp" %> <!-- Navbar -->
+<%@ include file="../includes/header.jsp" %> <!-- Navbar -->
 
 <div class="container">
     <h2>Olá ${user.getName()}</h2>

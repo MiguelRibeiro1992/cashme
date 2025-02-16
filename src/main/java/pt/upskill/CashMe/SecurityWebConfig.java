@@ -22,7 +22,10 @@ public class SecurityWebConfig {
 
             auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/adminLogin", "/adminDashboard", "/manageItems").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
-            auth.requestMatchers("categories/", "categories/**").authenticated();
+            // Qualquer utilizador autenticado pode ver categorias
+            auth.requestMatchers("/categories", "/categories/**").hasAnyRole("USER", "ADMIN");
+            // Apenas admins podem modificar categorias
+            auth.requestMatchers("/categories/add", "/categories/edit/**", "/categories/delete/**").hasRole("ADMIN");
             auth.requestMatchers("**").denyAll();
         });
         httpSecurity.formLogin(loginConfig -> {

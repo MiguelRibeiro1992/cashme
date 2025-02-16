@@ -1,34 +1,99 @@
 package pt.upskill.CashMe.services;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Category;
-import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.AddCategoryModel;
 import pt.upskill.CashMe.repositories.CategoryRepository;
+import pt.upskill.CashMe.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
-    CategoryRepository categoryRepository;
 
     @Autowired
-    UserService userService;
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private UserService userService; // Para verificar se o utilizador é admin
 
     @Override
-    public List<Category> getUserCategories() {
-        User user = userService.getCurrentUser();
-        return categoryRepository.findAllByUser(user);
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @Override
+    public Category getCategoryById(Long categoryId) {
+        // Verifica se a categoria existe antes de retornar
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada."));
+    }
+
+
+    @Override
+    public List<Category> getActiveCategories() {
+        return categoryRepository.findByIsActiveTrue();
     }
 
     @Override
     public Category addCategory(AddCategoryModel categoryModel) {
-        User user = userService.getCurrentUser();
+        User currentUser = userService.getCurrentUser();
+
+        // Verifica se o utilizador é admin antes de criar uma nova categoria
+        if (!currentUser.isAdmin()) {
+            throw new SecurityException("Apenas administradores podem criar categorias.");
+        }
+
+        // Verifica se já existe uma categoria com o mesmo nome
+        if (categoryRepository.existsByName(categoryModel.getName())) {
+            throw new IllegalArgumentException("Já existe uma categoria com este nome.");
+        }
+
         Category category = new Category();
-        category.setUser(user);
         category.setName(categoryModel.getName());
+        category.setActive(categoryModel.isActive()); // Definir se a categoria estará ativa na mainPage
+
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category editCategory(Long categoryId, String newName) {
+        User currentUser = userService.getCurrentUser();
+
+        // Verifica se o utilizador é admin antes de editar a categoria
+        if (!currentUser.isAdmin()) {
+            throw new SecurityException("Apenas administradores podem editar categorias.");
+        }
+
+        // Verifica se a categoria existe
+        Optional<Category> categoryOpt = categoryRepository.findById(categoryId);
+        if (categoryOpt.isEmpty()) {
+            throw new IllegalArgumentException("Categoria não encontrada.");
+        }
+
+        Category category = categoryOpt.get();
+        category.setName(newName); // Atualiza o nome da categoria
+
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteCategory(Long categoryId) {
+        User currentUser = userService.getCurrentUser();
+
+        // Apenas administradores podem remover categorias
+        if (!currentUser.isAdmin()) {
+            throw new SecurityException("Apenas administradores podem remover categorias.");
+        }
+
+        // Verifica se a categoria existe antes de remover
+        if (!categoryRepository.existsById(categoryId)) {
+            throw new IllegalArgumentException("Categoria não encontrada.");
+        }
+
+        categoryRepository.deleteById(categoryId);
     }
 }
