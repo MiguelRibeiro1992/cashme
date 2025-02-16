@@ -92,8 +92,8 @@
         </div>
         <div class="col-md-6 d-flex flex-column align-items-center">
             <p class="fw-semibold">Crie a sua conta e comece já a usufruir!</p>
-            <button class="btn btn-primary" onclick="window.location.href='signup.jsp'">Registar Conta</button>
-            <p class="mt-4">Já tem uma conta? <a href="login.jsp" class="fw-semibold text-dark">Entrar</a></p>
+            <button class="btn btn-primary" onclick="window.location.href='signup'">Registar Conta</button>
+            <p class="mt-4">Já tem uma conta? <a href="login" class="fw-semibold text-dark">Entrar</a></p>
 
         </div>
     </div>

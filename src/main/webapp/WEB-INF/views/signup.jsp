@@ -65,7 +65,7 @@
                     </button>
                 </div>
                 <div class="text-center mt-3">
-                    Já tem uma conta? <a href="/login.jsp">Entrar</a>
+                    Já tem uma conta? <a href="/login">Entrar</a>
                 </div>
             </form>
         </div>

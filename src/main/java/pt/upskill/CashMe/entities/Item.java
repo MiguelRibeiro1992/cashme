@@ -1,6 +1,15 @@
 package pt.upskill.CashMe.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Item {
+
+    @Id
+    @GeneratedValue
+    private long id;
 
     private String barcode;
     private String name;

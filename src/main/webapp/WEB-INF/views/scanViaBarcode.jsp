@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-6 text-end">
-            <button id="cancelButton" class="btn btn-outline-dark me-2">Cancelar</button>
+            <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
 
             <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
 
@@ -133,6 +133,9 @@
            }, 10);
     });
 </script>
+
+<br>
+<br>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>

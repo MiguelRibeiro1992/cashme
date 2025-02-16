@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login | CashMe</title>
+    <title>Scan NFC | CashMe</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,7 +22,7 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 
-             <style>
+ <style>
                     body {
                         background-color: #f8f9fa;
                     }
@@ -63,28 +63,9 @@
 
 </head>
 
-<body class="login-page"> <!-- Aplica fundo branco ao login -->
-
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
-<!-- Dashboard Container -->
-
-<!--
-<div class="container login-container">
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-        </div>
-        <div class="col-md-6">
-            <h2 class="mb-4">Login - Admin</h2>
-            <h1><p>INSERIR COISAS AQUI</p></h1>
-
-            <!-- Dashboard -->
-            <p></p>
-        </div>
-    </div>
-</div>
--->
-
+<!-- AddItem Container -->
 <div class="container-fluid">
     <div class="row">
 
@@ -115,65 +96,69 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
             <p>Selecione uma opção no menu à esquerda.</p>
+            <!-- Exemplo de um Formulário para Adicionar Item -->
+            <div class="card mt-3">
 
-    </div>
-</div>
-
-<!-- Footer -->
-<%@ include file="includes/footer.jsp"%>
-
-</body>
-</html><!-- Dashboard Container -->
-
-<!--
-<div class="container login-container">
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-        </div>
-        <div class="col-md-6">
-            <h2 class="mb-4">Login - Admin</h2>
-            <h1><p>INSERIR COISAS AQUI</p></h1>
-
-            <!-- Dashboard -->
-            <p></p>
-        </div>
-    </div>
-</div>
--->
-
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <h4>Admin Dashboard</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="adminDashboard">Dashboard</a>
-                    </li>
-                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="manageStores">Lojas</a>
-                    </li>
-                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="manageItems">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
-                    </li>
-                </ul>
+            <div>
+                <h3>Adicionar Novo Produto</h3>
+                <form action="manageItems" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Código de Barras</label>
+                        <input type="text" class="form-control" name="barcode" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nome do Produto</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Marca</label>
+                        <input type="text" class="form-control" name="brand" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <textarea class="form-control" name="description" required></textarea>
+                    </div>
+                    <!--
+                    <div class="mb-3">
+                        <label class="form-label">Imagem</label>
+                        <img class="form-control" name="imageURL" required></img>
+                    </div>
+                    -->
+                    <!-- ALTERAR CATEGORIAS QUANDO ESTIVER FEITO -->
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-control" name="category">
+                            <option value="category1">Livros</option>
+                            <option value="category2">Tecnologia</option>
+                            <option value="category3">Vestuário</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preço (€)</label>
+                        <input type="number" class="form-control" name="price" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Quantidade</label>
+                        <input type="number" class="form-control" name="quantity" required>
+                    </div>
+                    <!-- ALTERAR, PODER ESCOLHER MAIS DO QUE UMA OPÇÃO-->
+                    <div class="mb-3">
+                        <label class="form-label">Lojas Associadas</label>
+                        <select class="form-control" name="store">
+                            <option value="loja1">Worten</option>
+                            <option value="loja2">Fnac</option>
+                            <option value="loja3">Continente</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+                </form>
+                </div>
             </div>
-        </nav>
+        </main>
 
-        <!-- Área de Conteúdo -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
-            <p>Selecione uma opção no menu à esquerda.</p>
 
-    </div>
-</div>
+<br>
+<br>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>
