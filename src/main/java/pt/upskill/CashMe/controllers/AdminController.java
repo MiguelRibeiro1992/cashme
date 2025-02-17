@@ -55,18 +55,25 @@ public class AdminController {
                              @RequestParam("storeId") Long storeId,
                              @RequestParam("category") List<Long> categoryIds) {
         System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
-        System.out.println("IDs das Categorias recebidas: " + categoryIds);
 
         Optional<Store> store = storeService.findStoreById(storeId);
-        store.ifPresent(item::setStore);
+        if (!store.isPresent()) {
+            System.out.println("Erro: Loja não encontrada!");
+            return "redirect:/manageItems";
+        }
+        item.setStore(store.get());
 
         List<Category> categories = categoryService.findCategoriesByIds(categoryIds);
+        if (categories.isEmpty()) {
+            System.out.println("Erro: Nenhuma categoria válida encontrada!");
+            return "redirect:/manageItems";
+        }
         item.setCategory(categories);
 
         itemService.save(item);
-
         return "redirect:/manageItems";
     }
+
 
 
     //Adicionar depois ao public

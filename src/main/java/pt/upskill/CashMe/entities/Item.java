@@ -16,8 +16,13 @@ public class Item {
     private String name;
     private String description;
     private String imageUrl;
-    @OneToMany
-    private List<Category> category = new ArrayList<>();    private String brand;
+
+    //ALTERADO 17/02
+    @ManyToMany
+    @JoinTable(name = "item_category", joinColumns = @JoinColumn (name = "item_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> category = new ArrayList<>();
+
+    private String brand;
 
     @ManyToOne
     private Store store;

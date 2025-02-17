@@ -38,6 +38,7 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    @Transactional
     @Override
     public void save(Item item) {
         System.out.println("Item guardado: " + item.getName());
