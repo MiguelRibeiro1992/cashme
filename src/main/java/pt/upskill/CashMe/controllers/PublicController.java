@@ -25,8 +25,12 @@ public class PublicController {
 
     @GetMapping("/item")
     public String itemPage(Model model) {
-        ItemModel itemModel = itemService.getItemById(1); // Supondo que você tenha um serviço para buscar o item
-        model.addAttribute("item", itemModel);
+        ItemModel itemModel = itemService.getItemById(1); // Assuming you have a service to fetch the item
+        if (itemModel != null) {
+            model.addAttribute("item", itemModel);
+        } else {
+            model.addAttribute("error", "Item not found");
+        }
         return "item";
     }
 

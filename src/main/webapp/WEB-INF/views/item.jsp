@@ -26,20 +26,16 @@
     <div class="row">
         <!-- Galeria de Imagens -->
         <div class="col-md-5 d-flex">
-            <div class="d-flex flex-column me-3">
-                <img src="/images/product-thumbnail-placeholder.svg" alt="Thumbnail 1" class="img-thumbnail mb-2">
-                <img src="/images/product-thumbnail-placeholder.svg" alt="Thumbnail 2" class="img-thumbnail mb-2">
-                <img src="/images/product-thumbnail-placeholder.svg" alt="Thumbnail 3" class="img-thumbnail mb-2">
-                <img src="/images/product-thumbnail-placeholder.svg" alt="Thumbnail 4" class="img-thumbnail">
-            </div>
-            <div class="flex-grow-1">
-                <img src="/images/product-main-placeholder.svg" alt="Produto Principal" class="img-fluid w-100 border rounded">
+            <div class="col-md-5 d-flex">
+                <div class="flex-grow-1">
+                    <img src="/images/${item.id}.svg" alt="Produto Principal" class="img-fluid w-100 border rounded">
+                </div>
             </div>
         </div>
 
         <!-- Informações do Produto -->
         <div class="col-md-7">
-            <h2 class="fw-bold">Nome do Produto</h2>
+            <h2 class="fw-bold">${item.name}Nome do Produto</h2>
             <div class="d-flex align-items-center">
                 <div class="rating text-warning">
                     <span class="star">&#9733;</span>
@@ -51,7 +47,7 @@
                 <span class="ms-2 text-muted">(150 Reviews)</span>
                 <span class="text-success ms-3">In Stock</span>
             </div>
-            <h3 class="mt-3 fw-bold">69,99€</h3>
+            <h3 class="mt-3 fw-bold">${item.price}</h3>
             <p class="mt-2">${item.description}</p>
 
             <!-- Opções de Cores -->
@@ -70,8 +66,12 @@
             </div>
 
             <!-- Botões Extras -->
-            <button class="btn btn-orange mt-3 w-100">Ler Código de Barras</button>
-            <button class="btn btn-orange mt-2 w-100">Ler NFC</button>
+            <div>
+                <button class="btn btn-primary mt-3 w-100">Ler Código de Barras</button>
+            </div>
+
+            <button class="btn btn-primary mt-3 w-100 ">Ler NFC</button>
+
         </div>
     </div>
 </section>
@@ -86,7 +86,7 @@
     <div class="row mt-4">
         <div class="col-md-3 text-center">
             <img src="/images/store-placeholder.svg" alt="Loja" class="img-fluid">
-            <p class="mt-2">Worten</p>
+            <p class="mt-2">Loja 1</p>
             <div class="rating">
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
@@ -98,7 +98,7 @@
         </div>
         <div class="col-md-3 text-center">
             <img src="/images/store-placeholder.svg" alt="Loja" class="img-fluid">
-            <p class="mt-2">FNAC</p>
+            <p class="mt-2">Loja 2</p>
             <div class="rating">
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
@@ -110,7 +110,7 @@
         </div>
         <div class="col-md-3 text-center">
             <img src="/images/store-placeholder.svg" alt="Loja" class="img-fluid">
-            <p class="mt-2">Global Data</p>
+            <p class="mt-2">Loja 3</p>
             <div class="rating">
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
@@ -122,7 +122,7 @@
         </div>
         <div class="col-md-3 text-center">
             <img src="/images/store-placeholder.svg" alt="Loja" class="img-fluid">
-            <p class="mt-2">PC Diga</p>
+            <p class="mt-2">Loja 4</p>
             <div class="rating">
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
@@ -133,7 +133,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center mt-4">
+    <div class="d-flex justify-content-center mt-4 mb-5">
         <button class="btn btn-primary">Ver todas</button>
     </div>
 </section>
