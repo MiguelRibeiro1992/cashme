@@ -3,6 +3,9 @@ package pt.upskill.CashMe.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Item {
@@ -15,11 +18,16 @@ public class Item {
     private String name;
     private String description;
     private String imageUrl;
-    private String category;
+    @OneToMany
+    private List<Category> category;
     private String brand;
     private double price;
     private double discount = 0.0;
     private int quantity = 1;
+
+    public Item(){
+
+    }
 
     public Item(String barcode, String name, double price) {
         this.barcode = barcode;
@@ -79,11 +87,19 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
-    public String getCategory() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
 
