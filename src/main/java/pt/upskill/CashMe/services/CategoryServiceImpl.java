@@ -1,6 +1,7 @@
 package pt.upskill.CashMe.services;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Category;
@@ -18,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private UserService userService; // Para verificar se o utilizador é admin
+    private UserServiceImpl userService; // Para verificar se o utilizador é admin
 
     @Override
     public List<Category> getAllCategories() {
@@ -100,5 +101,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> findCategoriesByIds(List<Long> categoryIds) {
         return categoryRepository.findAllById(categoryIds);
+    }
+
+    @Override
+    public Category saveCategory(Category category) {
+        return categoryRepository.save(category);
     }
 }

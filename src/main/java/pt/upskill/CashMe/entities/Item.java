@@ -17,7 +17,7 @@ public class Item {
     private String description;
     private String imageUrl;
 
-    //ALTERADO 17/02
+    //ALTERADO
     @ManyToMany
     @JoinTable(name = "item_category", joinColumns = @JoinColumn (name = "item_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> category = new ArrayList<>();

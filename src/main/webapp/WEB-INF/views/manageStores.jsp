@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Scan NFC | CashMe</title>
+    <title>Adicionar Lojas | CashMe</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -70,41 +70,43 @@
     <div class="row">
 
         <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <h4>Admin Dashboard</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="adminDashboard">Dashboard</a>
-                    </li>
-                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="manageStores">Lojas</a>
-                    </li>
-                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="manageItems">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                            <div class="position-sticky">
+                                <h4>Admin Dashboard</h4>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="adminDashboard">Dashboard</a>
+                                    </li>
+                                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="manageStores">Lojas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="manageCategories">Categorias</a>
+                                    </li>
+                                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="manageItems">Produtos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
 
         <!-- Área de Conteúdo -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
             <p>Selecione uma opção no menu à esquerda.</p>
              <div class="container">
-                    <h2>Gerenciar Lojas</h2>
-
                     <!-- Exibição de mensagens de sucesso -->
                     <c:if test="${not empty message}">
                         <div class="alert alert-success">${message}</div>
                     </c:if>
 
                     <!-- Formulário para adicionar uma nova loja -->
+                    <div class="card mt-3">
                     <h3>Adicionar Nova Loja</h3>
                     <form action="/manageStores" method="post">
                         <div class="mb-3">

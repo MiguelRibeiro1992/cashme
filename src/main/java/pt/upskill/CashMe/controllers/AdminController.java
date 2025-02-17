@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
+import pt.upskill.CashMe.models.AddCategoryModel;
+import pt.upskill.CashMe.repositories.CategoryRepository;
+import pt.upskill.CashMe.repositories.ItemRepository;
+import pt.upskill.CashMe.repositories.StoreRepository;
 import pt.upskill.CashMe.services.CategoryServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.StoreServiceImpl;
@@ -27,6 +31,15 @@ public class AdminController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private StoreRepository storeRepository;
+
     // Página de login do admin
     @GetMapping("/adminLogin")
     public String adminLoginPage() {
@@ -42,10 +55,12 @@ public class AdminController {
     //Mesma pagina para adicionar e ver lista (mudar aqui se mudar as views)
     @GetMapping("/manageItems")
     public String listAndAddProduct(Model model) {
+        List<Category> categories = categoryService.getAllCategories();
         List<Store> stores = storeService.findAllStores();
+        model.addAttribute("categories", categories);
+        model.addAttribute("stores", stores);
         model.addAttribute("items", itemService.findAll());
         model.addAttribute("item", new Item("", "", 0.0));
-        model.addAttribute("stores", stores);
         return "manageItems";
     }
 
@@ -53,7 +68,7 @@ public class AdminController {
     @PostMapping("/manageItems")
     public String addProduct(@ModelAttribute("item") Item item,
                              @RequestParam("storeId") Long storeId,
-                             @RequestParam("category") List<Long> categoryIds) {
+                             @RequestParam("categoryId") Long categoryId) {
         System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
 
         Optional<Store> store = storeService.findStoreById(storeId);
@@ -63,32 +78,47 @@ public class AdminController {
         }
         item.setStore(store.get());
 
-        List<Category> categories = categoryService.findCategoriesByIds(categoryIds);
-        if (categories.isEmpty()) {
-            System.out.println("Erro: Nenhuma categoria válida encontrada!");
+        Category category = categoryService.getCategoryById(categoryId);
+        if (category == null) {
+            System.out.println("Erro: Categoria não encontrada!");
             return "redirect:/manageItems";
         }
-        item.setCategory(categories);
+
+        item.setCategory(List.of(category));
 
         itemService.save(item);
         return "redirect:/manageItems";
     }
 
+    @RequestMapping(value = "/categories", method = RequestMethod.POST)
+    public String addCategory(@ModelAttribute("category") Category category) {
+        System.out.println("Categoria recebida: " + category.getName() + " | Ativa: " + category.isActive());
+
+        categoryService.saveCategory(category);
+        return "redirect:/manageCategories";
+    }
+
+    @GetMapping("/manageCategories")
+    public String manageCategories(Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+        model.addAttribute("category", new Category());
+        return "manageCategories";
+    }
 
 
-    //Adicionar depois ao public
+    @PostMapping("/stores")
+    public String addStore(@ModelAttribute("store") Store store) {
+        storeService.saveStore(store);
+        return "redirect:/manageStores";
+    }
+
     @GetMapping("/manageStores")
     public String manageStores(Model model) {
         List<Store> stores = storeService.findAllStores();
         model.addAttribute("stores", stores);
         model.addAttribute("store", new Store());
         return "manageStores";
-    }
-
-    @PostMapping("/stores")
-    public String addStore(@ModelAttribute("store") Store store) {
-        storeService.saveStore(store);
-        return "redirect:/manageStores";
     }
 
 }

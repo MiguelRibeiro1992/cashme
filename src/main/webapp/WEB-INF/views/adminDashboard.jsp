@@ -100,6 +100,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="manageStores">Lojas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manageCategories">Categorias</a>
+                    </li>
                     <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
                     <li class="nav-item">
                         <a class="nav-link" href="manageItems">Produtos</a>
@@ -124,22 +127,6 @@
 
 </body>
 </html><!-- Dashboard Container -->
-
-<!--
-<div class="container login-container">
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-        </div>
-        <div class="col-md-6">
-            <h2 class="mb-4">Login - Admin</h2>
-            <h1><p>INSERIR COISAS AQUI</p></h1>
-
-            <!-- Dashboard -->
-            <p></p>
-        </div>
-    </div>
-</div>
--->
 
 <div class="container-fluid">
     <div class="row">

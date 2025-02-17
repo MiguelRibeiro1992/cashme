@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Menu Produtos | CashMe</title>
+    <title>Menu Categorias | CashMe</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -99,60 +99,26 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
             <p>Selecione uma opção no menu à esquerda.</p>
-            <!-- Exemplo de um Formulário para Adicionar Item -->
-                        <div class="card mt-3">
+            <!-- Formulário para Adicionar Item -->
+            <div class="card mt-3">
             <div>
-            <h3>Adicionar Novo Produto</h3>
-            <form action="manageItems" method="post">
+            <h3>Adicionar Nova Categoria</h3>
+            <form action="/categories" method="POST">
                 <div class="mb-3">
-                    <label class="form-label">Código de Barras</label>
-                    <input type="text" class="form-control" name="barcode" required>
+                    <label for="name" class="form-label">Nome da Categoria</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label">Nome do Produto</label>
-                    <input type="text" class="form-control" name="name" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Marca</label>
-                    <input type="text" class="form-control" name="brand" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Descrição</label>
-                    <textarea class="form-control" name="description" required></textarea>
-                </div>
-                <!--
-                <div class="mb-3">
-                     <label class="form-label">Imagem</label>
-                     <img class="form-control" name="imageURL" required></img>
-                </div>
-                -->
-                <!-- Seleção de categoria -->
-                <div class="mb-3">
-                    <label for="category" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoryId" name="categoryId" required>
-                        <c:forEach var="category" items="${categories}">
-                            <option value="${category.id}">${category.name}</option>
-                        </c:forEach>
+                    <label class="form-label">Ativar na Página Principal?</label>
+                    <select class="form-select" name="isActive">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Preço (€)</label>
-                    <input type="number" class="form-control" name="price" step="0.01" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Quantidade</label>
-                        <input type="number" class="form-control" name="quantity" required>
-                </div>
-                <!-- Seleção de loja -->
-                <div class="mb-3">
-                    <label for="store" class="form-label">Loja</label>
-                    <select class="form-select" id="storeId" name="storeId" required>
-                         <c:forEach var="store" items="${stores}">
-                              <option value="${store.id}">${store.name}</option>
-                         </c:forEach>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+
+                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <a href="/manageCategories" class="btn btn-secondary">Voltar</a>
             </form>
             </div>
         </main>

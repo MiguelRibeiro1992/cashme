@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Garante que o ID é gerado corretamente no banco
+    @GeneratedValue // Garante que o ID é gerado corretamente no banco
     private Long id;
 
     @Column(unique = true, length = 100, nullable = false) // Nome único e obrigatório

@@ -6,14 +6,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pt.upskill.CashMe.models.AddCategoryModel;
+import pt.upskill.CashMe.repositories.CategoryRepository;
 import pt.upskill.CashMe.services.CategoryService;
+import pt.upskill.CashMe.services.CategoryServiceImpl;
 
 @Controller
 @RequestMapping("/categories")
 public class CategoryController {
 
     @Autowired
-    private CategoryService categoryService;
+    private CategoryServiceImpl categoryService;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     /**
      * Obtém a lista de todas as categorias e envia-as para a vista.
@@ -21,7 +26,7 @@ public class CategoryController {
      */
     @GetMapping
     public ModelAndView categoryList() {
-        ModelAndView mav = new ModelAndView("categories");
+        ModelAndView mav = new ModelAndView("categories/categories");
         mav.addObject("categories", categoryService.getAllCategories());
         return mav;
     }
