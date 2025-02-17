@@ -140,15 +140,16 @@
                     <label class="form-label">Quantidade</label>
                         <input type="number" class="form-control" name="quantity" required>
                 </div>
-                <!-- ALTERAR, PODER ESCOLHER MAIS DO QUE UMA OPÇÃO-->
-                <div class="mb-3">
-                    <label class="form-label">Lojas Associadas</label>
-                    <select class="form-control" name="store">
-                        <option value="loja1">Worten</option>
-                        <option value="loja2">Fnac</option>
-                        <option value="loja3">Continente</option>
-                    </select>
-                </div>
+
+                <!-- Seleção de loja -->
+                            <div class="mb-3">
+                                <label for="store" class="form-label">Loja</label>
+                                <select class="form-select" id="storeId" name="storeId" required>
+                                    <c:forEach var="store" items="${stores}">
+                                        <option value="${store.id}">${store.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
                 <button type="submit" class="btn btn-primary">Adicionar Produto</button>
             </form>
             </div>

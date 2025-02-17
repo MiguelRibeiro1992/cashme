@@ -96,26 +96,48 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
             <p>Selecione uma opção no menu à esquerda.</p>
-            <!-- Exemplo de um Formulário para Adicionar Loja -->
-                        <div class="card mt-3">
+             <div class="container">
+                    <h2>Gerenciar Lojas</h2>
 
-                        <div>
-                            <h3>Adicionar Nova Loja</h3>
-                            <form action="manageStores" method="post">
-                                <div class="mb-3">
-                                    <label class="form-label">Nome da Loja</label>
-                                    <input type="text" class="form-control" name="name" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Localização</label>
-                                    <input type="text" class="form-control" name="location" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Adicionar Loja</button>
-                            </form>
-                            </div>
+                    <!-- Exibição de mensagens de sucesso -->
+                    <c:if test="${not empty message}">
+                        <div class="alert alert-success">${message}</div>
+                    </c:if>
+
+                    <!-- Formulário para adicionar uma nova loja -->
+                    <h3>Adicionar Nova Loja</h3>
+                    <form action="/manageStores" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome da Loja</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Localização</label>
+                            <input type="text" class="form-control" id="location" name="location" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Adicionar Loja</button>
+                    </form>
 
-            </div>
+                    <h3>Lista de Lojas</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Localização</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="manageStores" items="${manageStores}">
+                                <tr>
+                                    <td>${store.id}</td>
+                                    <td>${store.name}</td>
+                                    <td>${store.location}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
         </main>
 
 
