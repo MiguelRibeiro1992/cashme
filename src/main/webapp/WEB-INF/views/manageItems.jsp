@@ -140,7 +140,6 @@
                     <label class="form-label">Quantidade</label>
                         <input type="number" class="form-control" name="quantity" required>
                 </div>
-
                 <!-- Seleção de loja -->
                             <div class="mb-3">
                                 <label for="store" class="form-label">Loja</label>
