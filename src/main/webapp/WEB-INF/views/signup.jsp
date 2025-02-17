@@ -42,19 +42,19 @@
             <form method="POST" action="/signup">
                 <div class="mb-3">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" name="name" class="form-control" id="name">
+                    <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Email</label>
-                    <input type="text" name="username" class="form-control" id="username">
+                    <input type="email" name="username" class="form-control" id="username" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Palavra-passe</label>
-                    <input id="password" name="password" type="password" class="form-control">
+                    <input id="password" name="password" type="password" class="form-control" required>
                 </div>
 
                 <c:if test="${error != null}">
-                    <p class="alert alert-danger">${error}</p>
+                    <p class="alert alert-danger">Oops... erro ao criar a conta: ${error}</p>
                 </c:if>
 
                 <button type="submit" class="btn btn-primary w-100 text-white">Criar Conta</button>

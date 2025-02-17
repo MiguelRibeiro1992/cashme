@@ -28,9 +28,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         LoginModel login = new LoginModel(email, password);
         User user = authService.validateLogin(login);
         if (user != null) {
+            System.out.println("User: " + user.getUsername());
             List<GrantedAuthority> roleList = new ArrayList<>();
             if(user.isAdmin()) {
                 roleList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                System.out.println("É Admin");
             }
             return new UsernamePasswordAuthenticationToken(email, password, roleList);
 
