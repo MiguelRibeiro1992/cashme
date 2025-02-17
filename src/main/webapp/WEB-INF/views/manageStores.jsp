@@ -96,21 +96,61 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
             <p>Selecione uma opção no menu à esquerda.</p>
-            <!-- Exemplo de um Formulário para Adicionar Loja -->
+            <!-- Exemplo de um Formulário para Adicionar Item -->
             <div class="card mt-3">
 
             <div>
-                <h3>Adicionar Nova Loja</h3>
-                <form action="manageStores" method="post">
+                <h3>Adicionar Novo Produto</h3>
+                <form action="manageItems" method="post">
                     <div class="mb-3">
-                        <label class="form-label">Nome da Loja</label>
+                        <label class="form-label">Código de Barras</label>
+                        <input type="text" class="form-control" name="barcode" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nome do Produto</label>
                         <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Localização</label>
-                        <input type="text" class="form-control" name="location" required>
+                        <label class="form-label">Marca</label>
+                        <input type="text" class="form-control" name="brand" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Adicionar Loja</button>
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <textarea class="form-control" name="description" required></textarea>
+                    </div>
+                    <!--
+                    <div class="mb-3">
+                        <label class="form-label">Imagem</label>
+                        <img class="form-control" name="imageURL" required></img>
+                    </div>
+                    -->
+                    <!-- ALTERAR CATEGORIAS QUANDO ESTIVER FEITO -->
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-control" name="category">
+                            <option value="category1">Livros</option>
+                            <option value="category2">Tecnologia</option>
+                            <option value="category3">Vestuário</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preço (€)</label>
+                        <input type="number" class="form-control" name="price" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Quantidade</label>
+                        <input type="number" class="form-control" name="quantity" required>
+                    </div>
+                    <!-- ALTERAR, PODER ESCOLHER MAIS DO QUE UMA OPÇÃO-->
+                    <div class="mb-3">
+                        <label class="form-label">Lojas Associadas</label>
+                        <select class="form-control" name="store">
+                            <option value="loja1">Worten</option>
+                            <option value="loja2">Fnac</option>
+                            <option value="loja3">Continente</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Adicionar Produto</button>
                 </form>
                 </div>
             </div>

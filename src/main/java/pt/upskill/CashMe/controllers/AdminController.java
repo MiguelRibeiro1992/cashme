@@ -10,6 +10,7 @@ import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.StoreServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -33,24 +34,38 @@ public class AdminController {
         return "adminDashboard";
     }
 
-
     //Mesma pagina para adicionar e ver lista (mudar aqui se mudar as views)
     @GetMapping("/manageItems")
     public String listAndAddProduct(Model model) {
         List<Store> stores = storeService.findAllStores();
         model.addAttribute("items", itemService.findAll());
         model.addAttribute("item", new Item("", "", 0.0));
+        model.addAttribute("stores", stores);
         return "manageItems";
     }
 
-    //Adicionar o produto mesmo
+    //Adicionar o produto
     @PostMapping("/items")
     public String addProduct(@ModelAttribute("item") Item item, @RequestParam("storeId") Long storeId) {
-        Store store = storeService.findStoreById(storeId).orElse(null);
-        if (store != null) {
-            item.setStore(store);
-            itemService.save(item);
-        }
+        Optional<Store> store = storeService.findStoreById(storeId);
+        store.ifPresent(item::setStore);
+        itemService.save(item);
         return "redirect:/manageItems";
     }
+
+    //Adicionar depois ao public
+    @GetMapping("/manageStores")
+    public String manageStores(Model model) {
+        List<Store> stores = storeService.findAllStores();
+        model.addAttribute("stores", stores);
+        model.addAttribute("store", new Store());
+        return "manageStores";
+    }
+
+    @PostMapping("/stores")
+    public String addStore(@ModelAttribute("store") Store store) {
+        storeService.saveStore(store);
+        return "redirect:/manageStores";
+    }
+
 }

@@ -24,4 +24,9 @@ public class StoreServiceImpl implements StoreService {
     public Optional<Store> findStoreById(Long id) {
         return storeRepository.findById(id);
     }
+
+    @Override
+    public Store saveStore(Store store) {
+        return storeRepository.save(store);
+    }
 }

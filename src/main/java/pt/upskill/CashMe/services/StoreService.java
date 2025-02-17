@@ -11,4 +11,6 @@ public interface StoreService {
 
 
     public Optional<Store> findStoreById(Long id);
+
+    public Store  saveStore(Store store);
 }
