@@ -24,4 +24,6 @@ public interface CategoryService {
 
     // Remover uma categoria (apenas admin pode executar esta ação)
     void deleteCategory(Long categoryId);
+
+    public List<Category> findCategoriesByIds(List<Long> categoryIds);
 }

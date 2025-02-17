@@ -123,13 +123,10 @@
                      <img class="form-control" name="imageURL" required></img>
                 </div>
                 -->
-                <!-- ALTERAR CATEGORIAS QUANDO ESTIVER FEITO -->
                 <div class="mb-3">
-                    <label class="form-label">Categoria</label>
-                    <select class="form-control" name="category">
-                        <option value="category1">Livros</option>
-                        <option value="category2">Tecnologia</option>
-                        <option value="category3">Vestuário</option>
+                    <label for="categories">Categorias:</label>
+                    <select name="category" id="categories" multiple>
+                        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                     </select>
                 </div>
                 <div class="mb-3">

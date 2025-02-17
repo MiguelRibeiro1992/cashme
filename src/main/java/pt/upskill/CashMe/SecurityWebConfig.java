@@ -25,7 +25,7 @@ public class SecurityWebConfig {
             // Qualquer utilizador autenticado pode ver categorias
             auth.requestMatchers("/categories", "/categories/**").hasAnyRole("USER");
             // Apenas admins podem modificar categorias
-            auth.requestMatchers("/categories/add", "/categories/edit/**", "/categories/delete/**", "/adminDashboard", "/manageItems", "/manageStores").hasRole("ADMIN");
+            auth.requestMatchers("/categories/add", "/categories/edit/**", "/categories/delete/**", "/adminDashboard", "/manageItems", "/manageItems/**", "/manageStores", "/manageStores/**").hasRole("ADMIN");
             auth.requestMatchers("**").denyAll();
         });
         httpSecurity.formLogin(loginConfig -> {

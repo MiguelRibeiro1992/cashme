@@ -2,6 +2,7 @@ package pt.upskill.CashMe.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,8 +17,7 @@ public class Item {
     private String description;
     private String imageUrl;
     @OneToMany
-    private List<Category> category;
-    private String brand;
+    private List<Category> category = new ArrayList<>();    private String brand;
 
     @ManyToOne
     private Store store;
@@ -125,5 +125,6 @@ public class Item {
     }
 
     public void setStore(Store store) {
+        this.store = store;
     }
 }

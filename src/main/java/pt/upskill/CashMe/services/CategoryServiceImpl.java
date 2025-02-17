@@ -96,4 +96,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryRepository.deleteById(categoryId);
     }
+
+    @Override
+    public List<Category> findCategoriesByIds(List<Long> categoryIds) {
+        return categoryRepository.findAllById(categoryIds);
+    }
 }

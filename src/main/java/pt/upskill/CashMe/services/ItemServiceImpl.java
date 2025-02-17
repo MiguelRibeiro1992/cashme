@@ -1,5 +1,6 @@
 package pt.upskill.CashMe.services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Item;
@@ -39,6 +40,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void save(Item item) {
+        System.out.println("Item guardado: " + item.getName());
         itemRepository.save(item);
     }
 

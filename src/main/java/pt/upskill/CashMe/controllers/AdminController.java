@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
+import pt.upskill.CashMe.services.CategoryServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.StoreServiceImpl;
 
@@ -21,6 +23,9 @@ public class AdminController {
 
     @Autowired
     private StoreServiceImpl storeService;
+
+    @Autowired
+    private CategoryServiceImpl categoryService;
 
     // Página de login do admin
     @GetMapping("/adminLogin")
@@ -45,13 +50,24 @@ public class AdminController {
     }
 
     //Adicionar o produto
-    @PostMapping("/items")
-    public String addProduct(@ModelAttribute("item") Item item, @RequestParam("storeId") Long storeId) {
+    @PostMapping("/manageItems")
+    public String addProduct(@ModelAttribute("item") Item item,
+                             @RequestParam("storeId") Long storeId,
+                             @RequestParam("category") List<Long> categoryIds) {
+        System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
+        System.out.println("IDs das Categorias recebidas: " + categoryIds);
+
         Optional<Store> store = storeService.findStoreById(storeId);
         store.ifPresent(item::setStore);
+
+        List<Category> categories = categoryService.findCategoriesByIds(categoryIds);
+        item.setCategory(categories);
+
         itemService.save(item);
+
         return "redirect:/manageItems";
     }
+
 
     //Adicionar depois ao public
     @GetMapping("/manageStores")
