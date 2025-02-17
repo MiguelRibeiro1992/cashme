@@ -13,15 +13,11 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    //apagar quando o role estiver bem feito
     private boolean admin;
 
     private String name;
     private String username;
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     // Construtor vazio necessário para JPA
     public User() {}
@@ -30,7 +26,6 @@ public class User {
         this.name = model.getName();
         this.username = model.getUsername();
         this.password = model.getPassword(); //encriptar aqui!
-        this.role = model.isAdmin() ? Role.ADMIN : Role.USER;
     }
 
     public Long getId() {
@@ -73,11 +68,4 @@ public class User {
         this.admin = admin;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

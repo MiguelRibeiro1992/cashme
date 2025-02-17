@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pt.upskill.CashMe.entities.Role;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.LoginModel;
 import pt.upskill.CashMe.models.SignUpModel;
@@ -38,17 +37,13 @@ public class AuthServiceImpl implements AuthService {
         if(userRepository.findByUsername(signUpModel.getUsername()) != null) {
             throw new RuntimeException("User already exists!");
         }
-        signUpModel.setPassword(passwordEncoder.encode(signUpModel.getPassword()));
 
-
-        //Parte adicionada por causa do Role
         User newUser = new User(signUpModel);
 
-        if (signUpModel.isAdmin()) {
-            newUser.setRole(Role.ADMIN);
-        } else {
-            newUser.setRole(Role.USER);
-        }
+        newUser.setPassword(passwordEncoder.encode(signUpModel.getPassword()));
+
+        // Definir se é admin ou não
+        newUser.setAdmin(false);
 
         return userRepository.save(newUser);
     }
