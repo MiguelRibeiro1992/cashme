@@ -61,6 +61,35 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public void saveCategory(Long id, String name) {
+        User currentUser = userService.getCurrentUser();
+
+        // Apenas administradores podem criar ou editar categorias
+        if (!currentUser.isAdmin()) {
+            throw new SecurityException("Apenas administradores podem criar ou editar categorias.");
+        }
+
+        Category category;
+
+        if (id != null) {
+            // Se um ID for passado, significa que é uma edição
+            category = categoryRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada."));
+        } else {
+            // Se não houver ID, é uma nova categoria
+            category = new Category();
+        }
+
+        // Verifica se já existe outra categoria com o mesmo nome
+        if (categoryRepository.existsByName(name) && (id == null || !category.getName().equals(name))) {
+            throw new IllegalArgumentException("Já existe uma categoria com este nome.");
+        }
+
+        category.setName(name);
+        categoryRepository.save(category);
+    }
+
+    @Override
     public Category editCategory(Long categoryId, String newName) {
         User currentUser = userService.getCurrentUser();
 

@@ -107,6 +107,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="manageItems">Produtos</a>
                     </li>
+                    <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="adminDashboard/categories">Categorias</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
                     </li>

@@ -16,7 +16,7 @@ public interface CategoryService {
     // Buscar uma categoria pelo ID
     Category getCategoryById(Long categoryId);
 
-    // Criar uma nova categoria (apenas admin pode chamar este metodo)
+    // Criar uma nova categoria (apenas admin pode chamar este método)
     Category addCategory(AddCategoryModel categoryModel);
 
     // Editar uma categoria (apenas admin pode mudar o nome)
@@ -25,7 +25,6 @@ public interface CategoryService {
     // Remover uma categoria (apenas admin pode executar esta ação)
     void deleteCategory(Long categoryId);
 
-    public List<Category> findCategoriesByIds(List<Long> categoryIds);
+    void saveCategory(Long id, String name);
 
-    public Category saveCategory(Category category);
 }
