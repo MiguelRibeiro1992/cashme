@@ -3,10 +3,12 @@ package pt.upskill.CashMe.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import pt.upskill.CashMe.entities.User;
+import pt.upskill.CashMe.models.ItemModel;
 import pt.upskill.CashMe.models.LoginModel;
 import pt.upskill.CashMe.models.SignUpModel;
 import pt.upskill.CashMe.services.AuthService;
@@ -16,16 +18,6 @@ public class AuthController {
 
     @Autowired
     AuthService authService;
-
-    @GetMapping("/home")
-    public String homePage() {
-        return "home";
-    }
-
-    @GetMapping("/mainPage")
-    public String mainPage() {
-        return "mainPage";
-    }
 
     @GetMapping("/login")
     public ModelAndView loginPage(@RequestParam(value = "success", required = false) String success,

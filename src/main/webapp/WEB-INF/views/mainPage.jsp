@@ -451,7 +451,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
-        <button class="btn btn-primary" onclick="window.location.href=''">Ver todas as lojas</button>
+        <button class="btn btn-primary" onclick="window.location.href=''">Ver todos os produtos</button>
     </div>
 </section>
 
