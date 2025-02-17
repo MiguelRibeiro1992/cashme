@@ -1,9 +1,6 @@
 package pt.upskill.CashMe.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -21,6 +18,10 @@ public class Item {
     @OneToMany
     private List<Category> category;
     private String brand;
+
+    @ManyToOne
+    private Store store;
+
     private double price;
     private double discount = 0.0;
     private int quantity = 1;
@@ -117,5 +118,12 @@ public class Item {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
     }
 }
