@@ -23,6 +23,11 @@ public class PublicController {
         return "mainPage";
     }
 
+    @GetMapping("/storeView")
+    public String storeView() {
+        return "storeView";
+    }
+
     @GetMapping("/item")
     public String itemPage(Model model) {
         ItemModel itemModel = itemService.getItemById(1); // Assuming you have a service to fetch the item
@@ -33,6 +38,8 @@ public class PublicController {
         }
         return "item";
     }
+
+
 
 
 }

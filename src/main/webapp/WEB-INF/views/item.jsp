@@ -28,7 +28,7 @@
         <div class="col-md-5 d-flex">
             <div class="col-md-5 d-flex">
                 <div class="flex-grow-1">
-                    <img src="/images/${item.id}.svg" alt="Produto Principal" class="img-fluid w-100 border rounded">
+                    <img src="/images/${item.imageUrl}.svg" alt="Produto Principal" class="img-fluid w-100 border rounded">
                 </div>
             </div>
         </div>

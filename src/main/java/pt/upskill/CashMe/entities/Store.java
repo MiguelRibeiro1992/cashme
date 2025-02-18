@@ -16,15 +16,26 @@ public class Store {
 
     private String name;
     private String location;
+    private String imageUrl;
 
     @OneToMany
     private List<Item> items;
 
     public Store() {}
 
-    public Store(String name, String location) {
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Store(String name, String location, String imageUrl) {
         this.name = name;
         this.location = location;
+        this.imageUrl = imageUrl;
+
     }
 
     public Long getId() { return id; }
