@@ -33,7 +33,7 @@
                         <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Electrónica</b></p>
+                        <p class="mb-3"><b>Escritório</b></p>
                         <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
@@ -41,7 +41,7 @@
                         <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Medicina</b></p>
+                        <p class="mb-3"><b>Livraria</b></p>
                         <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">

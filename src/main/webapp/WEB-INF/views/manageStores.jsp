@@ -109,7 +109,7 @@
                     <!-- Formulário para adicionar uma nova loja -->
                     <div class="card mt-3">
                     <h3>Adicionar Nova Loja</h3>
-                    <form action="/manageStores" method="post">
+                    <form action="adminDashboard/manageStores" method="post">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome da Loja</label>
                             <input type="text" class="form-control" id="name" name="name" required>
