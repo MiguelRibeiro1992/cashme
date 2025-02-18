@@ -109,7 +109,10 @@
                                 <td>${category.name}</td>
                                 <td>
                                     <button class="btn btn-warning" onclick="openEditModal('${category.id}', '${category.name}')">Editar</button>
-                                    <a href="/adminDashboard/categories" class="btn btn-danger">Eliminar</a>
+                                    <form action="/adminDashboard/categories/${category.id}" method="POST" style="display:inline;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>

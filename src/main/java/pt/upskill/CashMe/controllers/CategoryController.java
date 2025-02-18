@@ -38,12 +38,6 @@ public class CategoryController {
         return mav;
     }
 
-    @PostMapping("/adminDashboard/categories/{id}")
-    public String deleteCategory(@PathVariable Long id) {
-        categoryService.deleteCategory(id);
-        return "redirect:/adminDashboard/categories";
-    }
-
 
 
 }

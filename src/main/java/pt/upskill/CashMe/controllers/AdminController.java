@@ -109,5 +109,11 @@ public class AdminController {
         return "redirect:/adminDashboard/categories"; // Redireciona para a lista após salvar
     }
 
+    @PostMapping("/adminDashboard/categories/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return "redirect:/adminDashboard/categories";
+    }
+
 
 }
