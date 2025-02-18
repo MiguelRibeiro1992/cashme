@@ -62,12 +62,12 @@ public class AdminController {
                              @RequestParam("categoryId") Long categoryId) {
         System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
 
-        Optional<Store> store = storeService.findStoreById(storeId);
-        if (!store.isPresent()) {
+        Store store = storeService.findStoreById(storeId);
+        if (store == null) {
             System.out.println("Erro: Loja não encontrada!");
             return "redirect:/adminDashboard/manageItems";
         }
-        item.setStore(store.get());
+        item.setStore(store);
 
         Category category = categoryService.getCategoryById(categoryId);
         if (category == null) {

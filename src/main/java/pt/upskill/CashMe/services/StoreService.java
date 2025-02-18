@@ -10,7 +10,7 @@ public interface StoreService {
     public List<Store> findAllStores();
 
 
-    public Optional<Store> findStoreById(Long id);
+    public Store findStoreById(Long id);
 
     public Store  saveStore(Store store);
 }

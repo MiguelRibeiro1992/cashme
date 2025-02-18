@@ -102,8 +102,8 @@
     <div class="partner-wrapper mt-6 mb-6">
         <div class="partner-carousel row flex-nowrap" id="partnerCarousel">
             <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="https://www.continente.pt" target="_blank">
-                    <img src="/images/continente.svg" alt="Continente" class="img-fluid partner-link">
+                <a href="/store/${store.id}" target="_blank">
+                    <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid">
                 </a>
                 <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
                     <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>

@@ -25,7 +25,7 @@
 <!-- Seção da Loja -->
 <section class="container mt-5">
     <div class="d-flex align-items-center">
-        <img src="/images/store-logo-placeholder.svg" alt="Logo da Loja" class="img-fluid me-3" style="height: 50px;">
+        <img src="images/${store.imageUrl}" alt="Logo da Loja" class="img-fluid me-3" style="height: 50px;">
         <h2 class="fw-bold">${store.name}</h2>
     </div>
 </section>
