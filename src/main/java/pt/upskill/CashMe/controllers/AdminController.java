@@ -15,6 +15,7 @@ import pt.upskill.CashMe.services.CategoryServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.StoreServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,10 +76,21 @@ public class AdminController {
             return "redirect:/adminDashboard/manageItems";
         }
 
-        item.setCategory(List.of(category));
+        // Inicializa a lista de categorias do item se for null
+        if (item.getCategory() == null) {
+            item.setCategory(new ArrayList<>());
+        }
+
+        // 🔍 Verificar na base de dados se a relação já existe antes de adicionar
+        if (!itemService.itemHasCategory(item.getId(), category.getId())) {
+            item.getCategory().add(category);
+            System.out.println("Categoria adicionada ao item.");
+        } else {
+            System.out.println("Categoria já estava associada ao item.");
+        }
 
         itemService.save(item);
-        return "redirect:/manageItems";
+        return "redirect:/adminDashboard/manageItems";
     }
 
 

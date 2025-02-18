@@ -19,7 +19,8 @@ public class Item {
 
     //ALTERADO
     @ManyToMany
-    @JoinTable(name = "item_category", joinColumns = @JoinColumn (name = "item_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "item_category",  joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> category = new ArrayList<>();
 
     private String brand;

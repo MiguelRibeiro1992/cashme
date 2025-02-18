@@ -129,12 +129,22 @@
                 -->
                 <!-- Seleção de categoria -->
                 <div class="mb-3">
-                    <label for="category" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoryId" name="categoryId" required>
-                        <c:forEach var="category" items="${categories}">
-                            <option value="${category.id}">${category.name}</option>
-                        </c:forEach>
-                    </select>
+                        <label for="categoryId" class="form-label">Categoria</label>
+                        <select class="form-select" id="categoryId" name="categoryId" required onchange="updateCategoryName()">
+                            <c:forEach var="category" items="${categories}">
+                                <option value="${category.id}" data-name="${category.name}">${category.name}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="hidden" id="categoryName" name="categoryName">
+                    </div>
+
+                    <script>
+                        function updateCategoryName() {
+                            const select = document.getElementById("categoryId");
+                            const selectedOption = select.options[select.selectedIndex];
+                            document.getElementById("categoryName").value = selectedOption.getAttribute("data-name");
+                        }
+                    </script>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Preço (€)</label>
@@ -146,7 +156,7 @@
                 </div>
                 <!-- Seleção de loja -->
                 <div class="mb-3">
-                    <label for="store" class="form-label">Loja</label>
+                    <label for="storeId" class="form-label">Loja</label>
                     <select class="form-select" id="storeId" name="storeId" required>
                          <c:forEach var="store" items="${stores}">
                               <option value="${store.id}">${store.name}</option>

@@ -49,4 +49,17 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
+
+
+    public boolean itemHasCategory(Long itemId, Long categoryId) {
+        Optional<Item> itemOpt = itemRepository.findById(itemId);
+        if (itemOpt.isPresent()) {
+            Item item = itemOpt.get();
+            return item.getCategory().stream()
+                    .anyMatch(cat -> cat.getId().equals(categoryId));
+        }
+        return false;
+    }
+
+
 }

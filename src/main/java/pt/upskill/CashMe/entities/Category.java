@@ -2,6 +2,9 @@ package pt.upskill.CashMe.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Category {
 
@@ -14,6 +17,10 @@ public class Category {
 
     @Column(nullable = false)
     private boolean isActive; // Indica se a categoria está ativa na mainPage
+
+    @ManyToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Item> items = new ArrayList<>();
+
 
     // Construtor padrão obrigatório para JPA
     public Category() {
@@ -32,6 +39,14 @@ public class Category {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public String getName() {
