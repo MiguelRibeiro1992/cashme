@@ -31,32 +31,22 @@
     <c:if test="${empty cartItems}">
         <p>Seu carrinho está vazio.</p>  <!-- Exibe se o carrinho estiver vazio -->
     </c:if>
-    <c:if test="${not empty cartItems}">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Produto</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
-                    <th>Total</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="item" items="${cartItems}">
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.price} €</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.price * item.quantity} €</td>
-                        <td>
-                            <a href="/removeFromCart?barcode=${item.barcode}" class="btn btn-danger btn-sm">Remover</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+
+    <c:if test="${not empty success}">
+        <div class="alert alert-success">${success}</div>
     </c:if>
+
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger">${error}</div>
+    </c:if>
+
+    <c:forEach var="item" items="${cartItems}">
+        <tr>
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>${item.price}</td>
+        </tr>
+    </c:forEach>
 
     <h4 class="mt-4">Total: ${totalPrice} €</h4>
 

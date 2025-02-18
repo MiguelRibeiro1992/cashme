@@ -41,6 +41,7 @@ public class ScanController {
         } else {
             mav = new ModelAndView("redirect:/cart");  // Redireciona para o carrinho
             cartService.addItemToCart(barcode);
+            mav.addObject("success", "Produto adicionado ao carrinho!");
         }
         return mav;
     }

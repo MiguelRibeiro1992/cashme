@@ -3,7 +3,6 @@ package pt.upskill.CashMe.services;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.upskill.CashMe.entities.Cart;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.CartRepository;
 import pt.upskill.CashMe.repositories.ItemRepository;

@@ -89,9 +89,8 @@
                    qrbox: { width: 250, height: 250 }
                },
                (decodedText) => {
-                   scannedBarcode = decodedText; // Guarda o código de barras lido
+                   scannedBarcode = decodedText;
 
-                   // Atualiza a interface com o produto lido
                    document.getElementById("scanResult").innerText = "Código lido: " + scannedBarcode;
                    document.getElementById("productDetails").style.display = "block";
                    document.getElementById("productName").innerText = "Produto Exemplo"; // Substituir por fetch se necessário
@@ -99,7 +98,7 @@
                    html5QrCode.stop();
                },
                (errorMessage) => {
-                   console.log("Erro na leitura: ", errorMessage);
+                    console.log("Erro na leitura: ", errorMessage);
                }
            ).catch((err) => {
                console.log("Erro ao iniciar a câmara: ", err);
@@ -108,35 +107,36 @@
 
        // Captura o clique no link existente e adiciona o produto antes de redirecionar
        const addToCartButton = document.querySelector('a[href="/cart"]');
-       if (addToCartButton) {
-           addToCartButton.addEventListener("click", function (event) {
-               if (scannedBarcode) {
-                   event.preventDefault(); // Evita o redirecionamento imediato
+           if (addToCartButton) {
+               addToCartButton.addEventListener("click", function (event) {
+                   if (scannedBarcode) {
+                       event.preventDefault(); // Evita o redirecionamento imediato
 
-                   fetch("/addToCart?barcode=" + scannedBarcode, {
-                       method: 'GET',
-                       headers: {
-                           'Content-Type': 'application/json',
-                       }
-                   }).then(response => {
-                       if (response.ok) {
-                           window.location.href = "/cart"; // Redireciona após adicionar ao carrinho
-                       } else {
-                           alert("Erro ao adicionar produto ao carrinho!");
-                       }
-                   }).catch((error) => {
-                       console.log("Erro ao adicionar ao carrinho:", error);
-                   });
-               } else {
-                   alert("Nenhum produto foi lido!");
-                   event.preventDefault(); // Evita redirecionamento se não houver código lido
-               }
-           });
-       }
+                       fetch("/addToCart?barcode=" + scannedBarcode, {
+                           method: 'GET',
+                           headers: {
+                               'Content-Type': 'application/json',
+                           }
+                       }).then(response => {
+                           if (response.ok) {
+                               // Redireciona para o carrinho após adicionar ao carrinho
+                               window.location.href = "/cart";
+                           } else {
+                               alert("Erro ao adicionar produto ao carrinho!");
+                           }
+                       }).catch((error) => {
+                           console.log("Erro ao adicionar ao carrinho:", error);
+                       });
+                   } else {
+                       alert("Nenhum produto foi lido!");
+                       event.preventDefault(); // Evita redirecionamento se não houver código lido
+                   }
+               });
+           }
 
        // Evento para cancelar a leitura e resetar o scanner
        document.getElementById("cancelButton").addEventListener("click", function () {
-           scannedBarcode = ""; // Reset da variável
+           scannedBarcode = "";
 
            document.getElementById("scanSymbol").style.display = "block";
            document.getElementById("reader").style.display = "none";

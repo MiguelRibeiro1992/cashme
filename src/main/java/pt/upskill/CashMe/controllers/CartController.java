@@ -1,5 +1,6 @@
 package pt.upskill.CashMe.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.CartServiceImpl;
@@ -24,18 +24,20 @@ public class CartController {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private HttpSession session;
+
     @GetMapping("/addToCart")
     public String addToCart(@RequestParam("barcode") String barcode, Model model) {
         boolean added = cartService.addItemToCart(barcode);
         if (!added) {
             model.addAttribute("error", "Produto não encontrado");
-            return "cart";
+            return "redirect:/cart";
         }
-        return "cart";
+        return "redirect:/cart";
     }
 
     @GetMapping("/getProductByBarcode")
-    @ResponseBody
     public ResponseEntity<Item> getProductByBarcode(@RequestParam String barcode) {
         Item item = itemRepository.findByBarcode(barcode);
         if (item != null) {
