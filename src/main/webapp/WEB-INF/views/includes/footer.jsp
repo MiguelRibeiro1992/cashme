@@ -32,7 +32,7 @@
             <div class="col-md-3 download-app text-center">
                 <h5>Download App</h5>
                 <div class="d-flex align-items-center justify-content-center flex-wrap gap-3">
-                    <img class="qrcode" src="/images/qrcode.svg" alt="QR Code">
+                    <img class="qrcode" src="/images/qrcode_cash.svg" alt="QR Code">
                     <div class="d-flex flex-column">
                         <a href="#">
                             <img src="/images/googleapp.svg" alt="Google Play" class="app-btn">

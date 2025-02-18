@@ -13,7 +13,7 @@ public class PublicController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String homePage() {
         return "home";
     }

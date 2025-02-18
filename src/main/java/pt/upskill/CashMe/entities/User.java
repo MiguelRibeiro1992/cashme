@@ -3,8 +3,6 @@ package pt.upskill.CashMe.entities;
 import jakarta.persistence.*;
 import pt.upskill.CashMe.models.SignUpModel;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "user") // Mapeia explicitamente para a tabela "user"
 public class User {

@@ -106,7 +106,7 @@
                                 <td>${category.name}</td>
                                 <td>
                                     <button class="btn btn-warning" onclick="openEditModal('${category.id}', '${category.name}')">Editar</button>
-                                    <a href="/adminDashboard/categories/delete/${category.id}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/adminDashboard/categories" class="btn btn-danger">Eliminar</a>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -38,25 +38,12 @@ public class CategoryController {
         return mav;
     }
 
-    /**
-     * Adiciona uma nova categoria.
-     * Apenas administradores podem executar esta ação.
-     */
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/add")
-    public String addCategory(@ModelAttribute AddCategoryModel categoryModel) {
-        categoryService.addCategory(categoryModel);
-        return "redirect:/categories";
+    @PostMapping("/adminDashboard/categories/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return "redirect:/adminDashboard/categories";
     }
 
-    /**
-     * Edita o nome de uma categoria existente.
-     * Apenas administradores podem modificar categorias.
-     */
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/edit/{id}")
-    public String editCategory(@PathVariable Long id, @RequestParam String newName) {
-        categoryService.editCategory(id, newName);
-        return "redirect:/categories";
-    }
+
+
 }

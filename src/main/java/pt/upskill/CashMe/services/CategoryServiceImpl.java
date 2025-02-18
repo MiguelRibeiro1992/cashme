@@ -119,8 +119,9 @@ public class CategoryServiceImpl implements CategoryService {
             throw new SecurityException("Apenas administradores podem remover categorias.");
         }
 
-        // Verifica se a categoria existe antes de remover
-        if (!categoryRepository.existsById(categoryId)) {
+        // Verifica se a categoria existe
+        Optional<Category> categoryOpt = categoryRepository.findById(categoryId);
+        if (categoryOpt.isEmpty()) {
             throw new IllegalArgumentException("Categoria não encontrada.");
         }
 
