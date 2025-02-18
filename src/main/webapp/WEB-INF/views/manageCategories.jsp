@@ -4,11 +4,10 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Menu Categorias | CashMe</title>
+    <title>Gerir Categorias | Admin</title>
 
     <!-- Importação do Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Importação dos estilos personalizados -->
     <link rel="stylesheet" href="/styles/fonts.css">
@@ -18,117 +17,153 @@
     <link rel="stylesheet" href="/styles/footer.css">
     <link rel="stylesheet" href="/styles/header.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
- <style>
-                    body {
-                        background-color: #f8f9fa;
-                    }
-
-                    .sidebar {
-                        height: 100vh;
-                        background-color: #fff;
-                        border-right: 2px solid #ddd;
-                    }
-
-                    .sidebar h4 {
-                        color: #ff6600;
-                        padding: 20px;
-                        font-weight: bold;
-                    }
-
-                    .sidebar .nav-link {
-                        color: #333;
-                        font-weight: 500;
-                        padding: 10px 20px;
-                        border-radius: 5px;
-                        display: block;
-                    }
-
-                    .sidebar .nav-link:hover,
-                    .sidebar .nav-link.active {
-                        background-color: #ff6600;
-                        color: white;
-                    }
-
-                    .card {
-                        border-radius: 10px;
-                        padding: 20px;
-                        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                    }
-                </style>
-
-
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #fff;
+            border-right: 2px solid #ddd;
+        }
+        .sidebar h4 {
+            color: #ff6600;
+            padding: 20px;
+            font-weight: bold;
+        }
+        .sidebar .nav-link {
+            color: #333;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: block;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #ff6600;
+            color: white;
+        }
+        .card {
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
+
+<body>
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
-<!-- AddItem Container -->
 <div class="container-fluid">
     <div class="row">
 
         <!-- Sidebar -->
-                <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                    <div class="position-sticky">
-                        <h4>Admin Dashboard</h4>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="adminDashboard">Dashboard</a>
-                            </li>
-                            <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="manageStores">Lojas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="manageCategories">Categorias</a>
-                            </li>
-                            <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="manageItems">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <div class="position-sticky">
+                <h4>Admin Dashboard</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/adminDashboard">Dashboard</a>
+                    </li>
+                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="manageStores">Lojas</a>
+                    </li>
+                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="manageItems">Produtos</a>
+                    </li>
+                    <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/adminDashboard/categories">Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
         <!-- Área de Conteúdo -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
-            <p>Selecione uma opção no menu à esquerda.</p>
-            <!-- Formulário para Adicionar Item -->
-            <div class="card mt-3">
-            <div>
-            <h3>Adicionar Nova Categoria</h3>
-            <form action="/categories" method="POST">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nome da Categoria</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
+            <h2 class="mt-4">Gestão de Categorias</h2>
 
-                <div class="mb-3">
-                    <label class="form-label">Ativar na Página Principal?</label>
-                    <select class="form-select" name="isActive">
-                        <option value="true">Sim</option>
-                        <option value="false">Não</option>
-                    </select>
-                </div>
+            <!-- Tabela de Categorias -->
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="category" items="${categories}">
+                            <tr>
+                                <td>${category.id}</td>
+                                <td>${category.name}</td>
+                                <td>
+                                    <button class="btn btn-warning" onclick="openEditModal('${category.id}', '${category.name}')">Editar</button>
+                                    <a href="/adminDashboard/categories" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
 
-                <button type="submit" class="btn btn-primary">Adicionar</button>
-                <a href="/manageCategories" class="btn btn-secondary">Voltar</a>
-            </form>
+                    <!-- Botão para abrir o modal de adicionar categoria -->
+                    <button class="btn btn-primary" onclick="openAddModal()">Nova Categoria</button>
+                </div>
             </div>
+
+            <!-- Modal para Adicionar/Editar Categoria -->
+            <div id="categoryModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Adicionar/Editar Categoria</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/adminDashboard/categories/save" method="POST">
+                                <input type="hidden" id="categoryId" name="id">
+                                <label>Nome da Categoria:</label>
+                                <input type="text" id="categoryName" name="name" class="form-control" required>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
-
-
-<br>
-<br>
+    </div>
+</div>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>
+
+<script>
+    function openAddModal() {
+        document.getElementById("categoryId").value = "";
+        document.getElementById("categoryName").value = "";
+        new bootstrap.Modal(document.getElementById("categoryModal")).show();
+    }
+
+    function openEditModal(id, name) {
+        document.getElementById("categoryId").value = id;
+        document.getElementById("categoryName").value = name;
+        new bootstrap.Modal(document.getElementById("categoryModal")).show();
+    }
+</script>
 
 </body>
 </html>

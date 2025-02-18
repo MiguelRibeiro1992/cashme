@@ -44,7 +44,7 @@ public class AdminController {
     }
 
     //Mesma pagina para adicionar e ver lista (mudar aqui se mudar as views)
-    @GetMapping("/manageItems")
+    @GetMapping("/adminDashboard/manageItems")
     public String listAndAddProduct(Model model) {
         List<Category> categories = categoryService.getAllCategories();
         List<Store> stores = storeService.findAllStores();
@@ -56,7 +56,7 @@ public class AdminController {
     }
 
     //Adicionar o produto
-    @PostMapping("/manageItems")
+    @PostMapping("/adminDashboard/manageItems")
     public String addProduct(@ModelAttribute("item") Item item,
                              @RequestParam("storeId") Long storeId,
                              @RequestParam("categoryId") Long categoryId) {
@@ -65,14 +65,14 @@ public class AdminController {
         Optional<Store> store = storeService.findStoreById(storeId);
         if (!store.isPresent()) {
             System.out.println("Erro: Loja não encontrada!");
-            return "redirect:/manageItems";
+            return "redirect:/adminDashboard/manageItems";
         }
         item.setStore(store.get());
 
         Category category = categoryService.getCategoryById(categoryId);
         if (category == null) {
             System.out.println("Erro: Categoria não encontrada!");
-            return "redirect:/manageItems";
+            return "redirect:/adminDashboard/manageItems";
         }
 
         item.setCategory(List.of(category));
@@ -85,10 +85,10 @@ public class AdminController {
     @PostMapping("/stores")
     public String addStore(@ModelAttribute("store") Store store) {
         storeService.saveStore(store);
-        return "redirect:/manageStores";
+        return "redirect:/adminDashboard/manageStores";
     }
 
-    @GetMapping("/manageStores")
+    @GetMapping("/adminDashboard/manageStores")
     public String manageStores(Model model) {
         List<Store> stores = storeService.findAllStores();
         model.addAttribute("stores", stores);
@@ -100,7 +100,7 @@ public class AdminController {
     @GetMapping("/adminDashboard/categories")
     public String manageCategories(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "admin_cat"; // O ficheiro deve estar em WEB-INF/views/admin_cat.jsp
+        return "manageCategories"; // O ficheiro deve estar em WEB-INF/views/manageCategories.jsp
     }
 
     @PostMapping("/adminDashboard/categories/save")

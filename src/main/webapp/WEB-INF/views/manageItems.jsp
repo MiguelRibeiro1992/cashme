@@ -70,30 +70,31 @@
     <div class="row">
 
         <!-- Sidebar -->
-                <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                    <div class="position-sticky">
-                        <h4>Admin Dashboard</h4>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="adminDashboard">Dashboard</a>
-                            </li>
-                            <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="manageStores">Lojas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="manageCategories">Categorias</a>
-                            </li>
-                            <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="manageItems">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <div class="position-sticky">
+                <h4>Admin Dashboard</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/adminDashboard">Dashboard</a>
+                    </li>
+                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="manageStores">Lojas</a>
+                    </li>
+                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="manageItems">Produtos</a>
+                    </li>
+                    <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/adminDashboard/categories">Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
         <!-- Área de Conteúdo -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
