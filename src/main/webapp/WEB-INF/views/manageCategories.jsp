@@ -130,7 +130,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/adminDashboard/categories/save" method="POST">
+                            <form action="${pageContext.request.contextPath}/adminDashboard/categories/save" method="POST">
                                 <input type="hidden" id="categoryId" name="id">
                                 <label>Nome da Categoria:</label>
                                 <input type="text" id="categoryName" name="name" class="form-control" required>
