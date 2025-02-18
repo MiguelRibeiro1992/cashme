@@ -93,15 +93,15 @@
                 <h4>Admin Dashboard</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="adminDashboard">Dashboard</a>
+                        <a class="nav-link active" href="/adminDashboard">Dashboard</a>
                     </li>
                     <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
                     <li class="nav-item">
-                        <a class="nav-link" href="manageStores">Lojas</a>
+                        <a class="nav-link" href="/adminDashboard/manageStores">Lojas</a>
                     </li>
                     <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
                     <li class="nav-item">
-                        <a class="nav-link" href="manageItems">Produtos</a>
+                        <a class="nav-link" href="/adminDashboard/manageItems">Produtos</a>
                     </li>
                     <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
                     <li class="nav-item">
