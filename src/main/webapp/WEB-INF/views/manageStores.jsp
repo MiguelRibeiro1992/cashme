@@ -109,7 +109,7 @@
                     <!-- Formulário para adicionar uma nova loja -->
                     <div class="card mt-3">
                     <h3>Adicionar Nova Loja</h3>
-                    <form action="adminDashboard/manageStores" method="post">
+                    <form action="/adminDashboard/manageStores" method="post">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome da Loja</label>
                             <input type="text" class="form-control" id="name" name="name" required>
@@ -118,16 +118,24 @@
                             <label for="location" class="form-label">Localização</label>
                             <input type="text" class="form-control" id="location" name="location" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Adicionar Loja</button>
+
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Url da imagem</label>
+                            <input type="text" class="form-control" id="imageUrl" name="image" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">Adicionar Loja</button>
                     </form>
 
-                    <h3>Lista de Lojas</h3>
+                        <div class="card mt-3">
+                    <h3> Lista de Lojas</h3>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Localização</th>
+                                <th scope="col">ImageUrl</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -136,11 +144,13 @@
                                     <td>${store.id}</td>
                                     <td>${store.name}</td>
                                     <td>${store.location}</td>
+                                    <td>${store.imageUrl}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                 </div>
+                    </div>
         </main>
 
 

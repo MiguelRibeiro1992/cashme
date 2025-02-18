@@ -82,7 +82,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/stores")
+    @PostMapping("/adminDashboard/manageStores")
     public String addStore(@ModelAttribute("store") Store store) {
         storeService.saveStore(store);
         return "redirect:/adminDashboard/manageStores";
