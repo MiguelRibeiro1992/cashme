@@ -10,9 +10,6 @@ public interface CartService {
 
     public double getTotalPrice();
 
-    public void addToCart(Item item);
+    public boolean addItemToCart(String barcode);
 
-    public void removeFromCart(String barcode);
-
-    public void clearCart();
 }

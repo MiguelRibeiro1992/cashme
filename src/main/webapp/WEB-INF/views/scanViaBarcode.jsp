@@ -66,73 +66,87 @@
 
         <div class="col-md-6 text-end">
             <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-
-            <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
-
-            <!-- ${barcode} - Obtém o código lido & ${productName} - Obtem o nome do produto |||| Substituir o 9.99 pelo preço do produto -->
-            <!-- <a href="/addToCart?barcode=${barcode}&name=${productName}&price=9.99" class="btn btn-primary btn-login">
-                Adicionar ao Carrinho
-            </a> -->
-
-        <a href="/cart?barcode=1234567890&name=Produto%20Exemplo&price=9.99" class="btn btn-primary btn-login">
-                Adicionar ao Carrinho </a>
-
+            <a href="/cart" class="btn btn-primary"> Adicionar ao Carrinho </a>
         </div>
     </div>
 
 </div>
 
 <script>
-    document.getElementById("startScan").addEventListener("click", function () {
-        document.getElementById("scanSymbol").style.display = "none";
-        document.getElementById("reader").style.display = "block";
+   document.addEventListener("DOMContentLoaded", function () {
+       let scannedBarcode = ""; // Variável global para armazenar o código de barras lido
 
-        const html5QrCode = new Html5Qrcode("reader");
+       document.getElementById("startScan").addEventListener("click", function () {
+           document.getElementById("scanSymbol").style.display = "none";
+           document.getElementById("reader").style.display = "block";
 
-        html5QrCode.start(
-            { facingMode: "environment" },
-            {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            },
-            (decodedText) => {
-                document.getElementById("scanResult").innerText = "Código lido: " + decodedText;
+           const html5QrCode = new Html5Qrcode("reader");
 
-                let produtoNome = "Produto Exemplo";
+           html5QrCode.start(
+               { facingMode: "environment" },
+               {
+                   fps: 10,
+                   qrbox: { width: 250, height: 250 }
+               },
+               (decodedText) => {
+                   scannedBarcode = decodedText; // Guarda o código de barras lido
 
-                document.getElementById("productDetails").style.display = "block";
-                document.getElementById("productName").innerText = productData.name;
+                   // Atualiza a interface com o produto lido
+                   document.getElementById("scanResult").innerText = "Código lido: " + scannedBarcode;
+                   document.getElementById("productDetails").style.display = "block";
+                   document.getElementById("productName").innerText = "Produto Exemplo"; // Substituir por fetch se necessário
 
-                html5QrCode.stop();
-            },
-            (errorMessage) => {
-                console.log("Erro na leitura: ", errorMessage);
-            }
-        ).catch((err) => {
-            console.log("Erro ao iniciar a câmara: ", err);
-        });
-    });
+                   html5QrCode.stop();
+               },
+               (errorMessage) => {
+                   console.log("Erro na leitura: ", errorMessage);
+               }
+           ).catch((err) => {
+               console.log("Erro ao iniciar a câmara: ", err);
+           });
+       });
 
-    document.getElementById("cancelButton").addEventListener("click", function() {
-        document.getElementById("scanSymbol").style.display = "block";
-        document.getElementById("reader").style.display = "none";
+       // Captura o clique no link existente e adiciona o produto antes de redirecionar
+       const addToCartButton = document.querySelector('a[href="/cart"]');
+       if (addToCartButton) {
+           addToCartButton.addEventListener("click", function (event) {
+               if (scannedBarcode) {
+                   event.preventDefault(); // Evita o redirecionamento imediato
 
-        if (typeof html5QrCode !== "undefined") {
-                html5QrCode.stop().then(() => {
-                    console.log("Leitura cancelada.");
-                }).catch((err) => {
-                    console.log("Erro ao parar a leitura: ", err);
-                });
-            }
-       document.getElementById("scanResult").innerText = "";
-           document.getElementById("productName").innerText = "";
+                   fetch("/addToCart?barcode=" + scannedBarcode, {
+                       method: 'GET',
+                       headers: {
+                           'Content-Type': 'application/json',
+                       }
+                   }).then(response => {
+                       if (response.ok) {
+                           window.location.href = "/cart"; // Redireciona após adicionar ao carrinho
+                       } else {
+                           alert("Erro ao adicionar produto ao carrinho!");
+                       }
+                   }).catch((error) => {
+                       console.log("Erro ao adicionar ao carrinho:", error);
+                   });
+               } else {
+                   alert("Nenhum produto foi lido!");
+                   event.preventDefault(); // Evita redirecionamento se não houver código lido
+               }
+           });
+       }
+
+       // Evento para cancelar a leitura e resetar o scanner
+       document.getElementById("cancelButton").addEventListener("click", function () {
+           scannedBarcode = ""; // Reset da variável
+
+           document.getElementById("scanSymbol").style.display = "block";
+           document.getElementById("reader").style.display = "none";
+           document.getElementById("scanResult").innerText = "Nenhum produto detetado";
            document.getElementById("productDetails").style.display = "none";
+       });
+   });
 
-           setTimeout(() => {
-               document.getElementById("scanResult").innerText = "Nenhum produto detetado";
-           }, 10);
-    });
 </script>
+
 
 <br>
 <br>

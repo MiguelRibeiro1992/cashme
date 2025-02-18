@@ -6,13 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.services.BarcodeScanServiceImpl;
+import pt.upskill.CashMe.services.CartServiceImpl;
 import pt.upskill.CashMe.services.NFCScanServiceImpl;
 
-import java.util.Optional;
 
 @Controller
 public class ScanController {
@@ -23,6 +21,9 @@ public class ScanController {
     @Autowired
     private NFCScanServiceImpl nfcScanService;
 
+    @Autowired
+    private CartServiceImpl cartService;
+
     //View para Código de Barras
     @GetMapping("/scanViaBarcode")
     public String showBarcodeScanner() {
@@ -32,26 +33,15 @@ public class ScanController {
     //Processar o código de barras
     @GetMapping("/processBarcode")
     public ModelAndView processBarcode(@RequestParam("barcode") String barcode) {
-        ModelAndView mav = new ModelAndView("scanViaBarcode"); // Define a view
-
-        // Como se vai processar o código de barras? Chamar um serviço para validar ou procurar o produto?
+        ModelAndView mav;
         boolean success = barcodeScanService.processBarcode(barcode);
-
         if (!success) {
+            mav = new ModelAndView("scanViaBarcode");
             mav.addObject("error", "Produto não encontrado!");
         } else {
-            mav.addObject("barcode", barcode);
-
-            String productName = barcodeScanService.getItemNameByBarcode(barcode);
-             if (productName == null) {
-                 productName = "Produto não encontrado";
-            }
-             mav.addObject("productName", productName);
-
-            //substituir "Produto Exemplo" pelo nome do produto quando houver um repositório
-            mav.addObject("productName", "Produto Exemplo");
+            mav = new ModelAndView("redirect:/cart");  // Redireciona para o carrinho
+            cartService.addItemToCart(barcode);
         }
-
         return mav;
     }
 

@@ -26,50 +26,45 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
-
 <div class="container mt-5">
     <h3>Carrinho de Compras</h3>
+    <c:if test="${empty cartItems}">
+        <p>Seu carrinho está vazio.</p>  <!-- Exibe se o carrinho estiver vazio -->
+    </c:if>
+    <c:if test="${not empty cartItems}">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Total</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="item" items="${cartItems}">
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.price} €</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price * item.quantity} €</td>
+                        <td>
+                            <a href="/removeFromCart?barcode=${item.barcode}" class="btn btn-danger btn-sm">Remover</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
 
-        <c:choose>
-            <c:when test="${empty cartItems}">
-                <p class="text-muted">O seu carrinho está vazio.</p>
-            </c:when>
-            <c:otherwise>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
-                            <th>Total</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="item" items="${cartItems}">
-                            <tr>
-                                <td>${item.name}</td>
-                                <td>${item.price} €</td>
-                                <td>${item.quantity}</td>
-                                <td>${item.price * item.quantity} €</td>
-                                <td>
-                                    <a href="/removeFromCart?barcode=${item.barcode}" class="btn btn-danger btn-sm">Remover</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+    <h4 class="mt-4">Total: ${totalPrice} €</h4>
 
-                <h4 class="mt-4">Total: ${totalPrice} €</h4>
-
-                <!-- Ainda não há esta view -->
-                <div class="mt-3">
-                    <a href="/clearCart" class="btn btn-warning">Limpar Carrinho</a>
-                    <a href="/" class="btn btn-success">Finalizar Compra</a>
-                </div>
-            </c:otherwise>
-        </c:choose>
+    <div class="mt-3">
+        <a href="/clearCart" class="btn btn-warning">Limpar Carrinho</a>
+        <a href="/" class="btn btn-success">Finalizar Compra</a>
     </div>
+</div>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>
