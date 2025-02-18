@@ -121,9 +121,8 @@
 
                         <div class="mb-3">
                             <label for="location" class="form-label">Url da imagem</label>
-                            <input type="text" class="form-control" id="imageUrl" name="image" required>
+                            <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
                         </div>
-
                         <button type="submit" class="btn btn-primary mt-3">Adicionar Loja</button>
                     </form>
 
@@ -139,7 +138,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="manageStores" items="${manageStores}">
+                            <c:forEach var="store" items="${stores}">
                                 <tr>
                                     <td>${store.id}</td>
                                     <td>${store.name}</td>

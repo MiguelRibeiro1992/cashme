@@ -6,4 +6,6 @@ import pt.upskill.CashMe.entities.Store;
 
 @Repository
 public interface StoreRepository  extends JpaRepository <Store, Long> {
+
+    Store findByName(String name);
 }
