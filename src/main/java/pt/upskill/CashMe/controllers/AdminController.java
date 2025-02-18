@@ -31,15 +31,6 @@ public class AdminController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
-    private StoreRepository storeRepository;
-
     // Página de login do admin
     @GetMapping("/adminLogin")
     public String adminLoginPage() {
@@ -90,22 +81,6 @@ public class AdminController {
         return "redirect:/manageItems";
     }
 
-    @RequestMapping(value = "/categories", method = RequestMethod.POST)
-    public String addCategory(@ModelAttribute("category") Category category) {
-        System.out.println("Categoria recebida: " + category.getName() + " | Ativa: " + category.isActive());
-
-        categoryService.saveCategory(category);
-        return "redirect:/manageCategories";
-    }
-
-    @GetMapping("/manageCategories")
-    public String manageCategories(Model model) {
-        List<Category> categories = categoryRepository.findAll();
-        model.addAttribute("categories", categories);
-        model.addAttribute("category", new Category());
-        return "manageCategories";
-    }
-
 
     @PostMapping("/stores")
     public String addStore(@ModelAttribute("store") Store store) {
@@ -120,5 +95,19 @@ public class AdminController {
         model.addAttribute("store", new Store());
         return "manageStores";
     }
+
+    // Página de gestão de categorias
+    @GetMapping("/adminDashboard/categories")
+    public String manageCategories(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "admin_cat"; // O ficheiro deve estar em WEB-INF/views/admin_cat.jsp
+    }
+
+    @PostMapping("/adminDashboard/categories/save")
+    public String saveCategory(@RequestParam(required = false) Long id, @RequestParam String name) {
+        categoryService.saveCategory(id, name);
+        return "redirect:/adminDashboard/categories"; // Redireciona para a lista após salvar
+    }
+
 
 }
