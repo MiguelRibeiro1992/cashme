@@ -101,125 +101,30 @@
 
     <div class="partner-wrapper mt-6 mb-6">
         <div class="partner-carousel row flex-nowrap" id="partnerCarousel">
-            <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="/store/${store.id}" target="_blank">
-                    <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid">
-                </a>
-                <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                    <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                    <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
+            <c:forEach var="store" items="${stores}">
+                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                    <a href="/storeView/${store.id}" target="_blank">
+                        <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid">
+                    </a>
+                    <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
+                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
+                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
+                    </div>
+                    <p class="mt-3 text-left"><b>${store.name}</b></p>
+                    <div class="rating">
+                        <span class="star" data-value="5">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="1">&#9733;</span>
+                    </div>
                 </div>
-                <p class="mt-3 text-left"><b>Continente</b></p>
-                <div class="rating">
-                    <span class="star" data-value="5">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="rating-value">(88)</span>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="https://www.zara.pt" target="_blank">
-                    <img src="/images/zara.svg" alt="Zara" class="img-fluid partner-link">
-                </a>
-                <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                    <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                    <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                </div>
-                <p class="mt-5 text-left"><b>Zara</b></p>
-                <div class="rating">
-                    <span class="star" data-value="5">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="rating-value">(75)</span>
-                </div>
-            </div>
-
-            <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="https://www.lidl.pt" target="_blank">
-                    <img src="/images/lidl.svg" alt="Lidl" class="img-fluid partner-link">
-                </a>
-                <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                    <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                    <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                </div>
-                <p class="mt-3 text-left"><b>LIDL</b></p>
-                <div class="rating">
-                    <span class="star" data-value="5">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="rating-value">(99)</span>
-                </div>
-            </div>
-
-            <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="https://www.fnac.pt" target="_blank">
-                    <img src="/images/fnac.svg" alt="Fnac" class="img-fluid partner-link">
-                </a>
-                <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                    <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                    <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                </div>
-                <p class="mt-3 text-left"><b>FNAC</b></p>
-                <div class="rating">
-                    <span class="star" data-value="5">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="rating-value">(32)</span>
-                </div>
-            </div>
-
-            <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="https://www.nike.com.pt" target="_blank">
-                    <img src="/images/nike.svg" alt="Nike" class="img-fluid partner-link">
-                </a>
-                <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                    <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                    <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                </div>
-                <p class="mt-3 text-left"><b>Nike</b></p>
-                <div class="rating">
-                    <span class="star" data-value="5">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="rating-value">(157)</span>
-                </div>
-            </div>
-
-            <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                <a href="https://www.adidas.pt" target="_blank">
-                    <img src="/images/adidas.svg" alt="Adidas" class="img-fluid partner-link">
-                </a>
-                <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                    <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                    <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                </div>
-                <p class="mt-3 text-left"><b>Adidas</b></p>
-                <div class="rating">
-                    <span class="star" data-value="5">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="rating-value">(46)</span>
-                </div>
-            </div>
-
+            </c:forEach>
         </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
         <button class="btn btn-primary" onclick="window.location.href=''">Ver todas as lojas</button>
     </div>
-</section>
 
 
 

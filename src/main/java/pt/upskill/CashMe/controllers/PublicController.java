@@ -10,6 +10,8 @@ import pt.upskill.CashMe.models.ItemModel;
 import pt.upskill.CashMe.services.ItemService;
 import pt.upskill.CashMe.services.StoreService;
 
+import java.util.List;
+
 @Controller
 public class PublicController {
 
@@ -25,7 +27,8 @@ public class PublicController {
     }
 
     @GetMapping("/mainPage")
-    public String mainPage() {
+    public String mainPage(Model model) {
+        model.addAttribute("stores", storeService.findAllStores());
         return "mainPage";
     }
 
@@ -45,7 +48,7 @@ public class PublicController {
         return "item";
     }
 
-    @GetMapping("/store/{id}")
+    @GetMapping("/storeView/{id}")
     public String storeView(@PathVariable Long id, Model model) {
         Store store = storeService.findStoreById(id);
         if (store != null) {
