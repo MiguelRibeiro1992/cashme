@@ -129,22 +129,22 @@
                 -->
                 <!-- Seleção de categoria -->
                 <div class="mb-3">
-                        <label for="categoryId" class="form-label">Categoria</label>
-                        <select class="form-select" id="categoryId" name="categoryId" required onchange="updateCategoryName()">
-                            <c:forEach var="category" items="${categories}">
-                                <option value="${category.id}" data-name="${category.name}">${category.name}</option>
-                            </c:forEach>
-                        </select>
-                        <input type="hidden" id="categoryName" name="categoryName">
-                    </div>
+                    <label for="categoryId" class="form-label">Categoria</label>
+                    <select class="form-select" id="categoryId" name="categoryId" required onchange="updateCategoryName()">
+                        <c:forEach var="category" items="${categories}">
+                            <option value="${category.id}" data-name="${category.name}">${category.name}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" id="categoryName" name="categoryName">
+                </div>
 
-                    <script>
-                        function updateCategoryName() {
-                            const select = document.getElementById("categoryId");
-                            const selectedOption = select.options[select.selectedIndex];
-                            document.getElementById("categoryName").value = selectedOption.getAttribute("data-name");
-                        }
-                    </script>
+                <script>
+                    function updateCategoryName() {
+                        const select = document.getElementById("categoryId");
+                        const selectedOption = select.options[select.selectedIndex];
+                        document.getElementById("categoryName").value = selectedOption.getAttribute("data-name");
+                    }
+                </script>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Preço (€)</label>

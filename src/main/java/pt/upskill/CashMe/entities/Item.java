@@ -31,6 +31,7 @@ public class Item {
     private double price;
     private double discount = 0.0;
     private int quantity = 1;
+    private String categoryName;
 
     public Item(){
 
@@ -40,6 +41,14 @@ public class Item {
         this.barcode = barcode;
         this.name = name;
         this.price = price;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getBarcode() {

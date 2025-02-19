@@ -60,7 +60,8 @@ public class AdminController {
     @PostMapping("/adminDashboard/manageItems")
     public String addProduct(@ModelAttribute("item") Item item,
                              @RequestParam("storeId") Long storeId,
-                             @RequestParam("categoryId") Long categoryId) {
+                             @RequestParam("categoryId") Long categoryId,
+                             @RequestParam("categoryName") String categoryName) {
         System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
 
         Store store = storeService.findStoreById(storeId);
@@ -88,6 +89,11 @@ public class AdminController {
         } else {
             System.out.println("Categoria já estava associada ao item.");
         }
+
+        item.setCategoryName(categoryName);
+        System.out.printf("Item: %s, %s, %s, %s, %s, %s, %s, %s\n",
+                item.getName(), item.getBarcode(), item.getDescription(), item.getImageUrl(),
+                item.getBrand(), item.getPrice(), item.getDiscount(), item.getQuantity(),item.getCategoryName());
 
         itemService.save(item);
         return "redirect:/adminDashboard/manageItems";
