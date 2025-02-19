@@ -57,13 +57,6 @@ public class Category {
         this.name = name;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) { // Melhor nome para o setter
-        this.isActive = isActive;
-    }
 
     public void setActive(boolean active) {
         this.isActive = active;

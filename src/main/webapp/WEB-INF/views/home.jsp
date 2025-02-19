@@ -110,7 +110,7 @@
         <p class="mt-1">compras sem ter de esperar em filas!</p>
         <div class="mt-4">
             <div class="col-md-12 d-flex justify-content-center">
-                <img src="/images/qrCode.svg" alt="QR Code" class="img-fluid" style="width: 150px; height: auto; position: relative; top: 5px; left: -120px;">
+                <img src="/images/qrcode_cash_black.svg" alt="QR Code" class="img-fluid" style="width: 150px; height: auto; position: relative; top: 5px; left: -120px;">
             </div>
             <div class="col-md-12 d-flex flex-column justify-content-center align-items-center mt-3">
                 <img src="/images/googlePlay.svg" alt="QR Code Google Play" class="img-fluid mb-2 app-link" data-url="https://play.google.com/" style="width: 200px; height: auto; position: relative; top: -150px; left: 60px;">

@@ -27,7 +27,7 @@ public class CategoryController {
     @GetMapping
     public ModelAndView categoryList() {
         ModelAndView mav = new ModelAndView("categories/categories");
-        mav.addObject("categories", categoryService.getAllCategories());
+        mav.addObject("categories", categoryService.getActiveCategories()); // Apenas categorias ativas
         return mav;
     }
 
