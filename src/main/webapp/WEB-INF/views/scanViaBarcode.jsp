@@ -50,8 +50,9 @@
             </div>
 
             <div id="productDetails" class="mt-4 text-center" style="display: none;">
-                <h5>Produto Lido Com Sucesso</h5>
-                <p id="productName"></p>
+                <h5>Produto Lido</h5>
+                <p id="barcodeNumber"></p>
+                <a id="addToCart" href="#" class="btn btn-primary mt-2" style="display: none;">Adicionar ao Carrinho</a>
             </div>
         </div>
     </div>
@@ -66,17 +67,14 @@
 
         <div class="col-md-6 text-end">
             <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-
-                    <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
-                    <a href="/addToCart?barcode=${barcode}&name=${productName}&price=9.99" class="btn btn-primary btn-login">
-                        Adicionar ao Carrinho
-                    </a>
+            <a href="/cart" class="btn btn-primary btn-login">Ver Carrinho</a>
         </div>
     </div>
 
 </div>
 
 <script>
+    // Função para iniciar a leitura do código de barras
     document.getElementById("startScan").addEventListener("click", function () {
         document.getElementById("scanSymbol").style.display = "none";
         document.getElementById("reader").style.display = "block";
@@ -90,13 +88,36 @@
                 qrbox: { width: 250, height: 250 }
             },
             (decodedText) => {
+                // Mostrar o código lido na página
                 document.getElementById("scanResult").innerText = "Código lido: " + decodedText;
+                document.getElementById("barcodeNumber").innerText = decodedText;
 
-                let produtoNome = "Produto Exemplo";
-
+                // Mostrar o botão de adicionar ao carrinho
                 document.getElementById("productDetails").style.display = "block";
-                document.getElementById("productName").innerText = productData.name;
+                document.getElementById("addToCart").style.display = "inline-block";
 
+                // Ação para adicionar o produto ao carrinho
+                document.getElementById("addToCart").onclick = function() {
+                    // Fazer a adição ao carrinho e redirecionar para /cart
+                    fetch(`/addToCart?barcode=${decodedText}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    }).then(response => {
+                        if (response.ok) {
+                            // Redirecionar para a página do carrinho
+                            window.location.href = '/cart';
+                        } else {
+                            alert("Produto não encontrado.");
+                        }
+                    }).catch(error => {
+                        console.error("Erro ao adicionar o produto:", error);
+                        alert("Erro ao adicionar ao carrinho.");
+                    });
+                };
+
+                // Parar a leitura do código após o scan
                 html5QrCode.stop();
             },
             (errorMessage) => {
@@ -107,24 +128,26 @@
         });
     });
 
+    // Botão de cancelamento
     document.getElementById("cancelButton").addEventListener("click", function() {
         document.getElementById("scanSymbol").style.display = "block";
         document.getElementById("reader").style.display = "none";
 
         if (typeof html5QrCode !== "undefined") {
-                html5QrCode.stop().then(() => {
-                    console.log("Leitura cancelada.");
-                }).catch((err) => {
-                    console.log("Erro ao parar a leitura: ", err);
-                });
-            }
-       document.getElementById("scanResult").innerText = "";
-           document.getElementById("productName").innerText = "";
-           document.getElementById("productDetails").style.display = "none";
+            html5QrCode.stop().then(() => {
+                console.log("Leitura cancelada.");
+            }).catch((err) => {
+                console.log("Erro ao parar a leitura: ", err);
+            });
+        }
 
-           setTimeout(() => {
-               document.getElementById("scanResult").innerText = "Nenhum produto detetado";
-           }, 10);
+        document.getElementById("scanResult").innerText = "";
+        document.getElementById("barcodeNumber").innerText = "";
+        document.getElementById("productDetails").style.display = "none";
+
+        setTimeout(() => {
+            document.getElementById("scanResult").innerText = "Nenhum produto detetado";
+        }, 10);
     });
 </script>
 

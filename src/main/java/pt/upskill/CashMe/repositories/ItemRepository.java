@@ -14,10 +14,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Item findByName(String name);
 
-    //Item findByBarcode(String barcode);
-
-    @Query("SELECT i FROM Item i WHERE LOWER(i.barcode) = LOWER(:barcode)")
-    Item findByBarcode(@Param("barcode") String barcode);
+    Item findByBarcode(String barcode);
 
     @Nullable
     Optional<Item> findById(Long id);
