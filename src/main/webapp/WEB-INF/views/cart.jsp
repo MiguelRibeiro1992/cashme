@@ -26,35 +26,37 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
-<div class="container mt-5">
-    <h3>Carrinho de Compras</h3>
-    <c:if test="${empty cartItems}">
-        <p>Seu carrinho está vazio.</p>  <!-- Exibe se o carrinho estiver vazio -->
-    </c:if>
+<c:if test="${empty cartItems}">
+    <p>Seu carrinho está vazio.</p>
+</c:if>
+<c:if test="${not empty cartItems}">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="cartItem" items="${cartItems}">
+                <tr>
+                    <td>${cartItem.item.name}</td>
+                    <td>${cartItem.item.price} €</td>
+                    <td>${cartItem.quantity}</td>
+                    <td>${cartItem.totalPrice} €</td>
+                    <td>
+                        <a href="/removeFromCart?barcode=${cartItem.item.barcode}" class="btn btn-danger btn-sm">Remover</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</c:if>
 
-    <c:if test="${not empty success}">
-        <div class="alert alert-success">${success}</div>
-    </c:if>
-
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger">${error}</div>
-    </c:if>
-
-    <c:forEach var="item" items="${cartItems}">
-        <tr>
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td>${item.price}</td>
-        </tr>
-    </c:forEach>
-
-    <h4 class="mt-4">Total: ${totalPrice} €</h4>
-
-    <div class="mt-3">
-        <a href="/clearCart" class="btn btn-warning">Limpar Carrinho</a>
-        <a href="/" class="btn btn-success">Finalizar Compra</a>
-    </div>
-</div>
+<h4 class="mt-4">Total: ${totalPrice} €</h4>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>

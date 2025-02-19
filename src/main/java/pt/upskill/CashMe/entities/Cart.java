@@ -16,14 +16,28 @@ public class Cart {
     private Long id;
 
     @OneToMany
-    private List<Item> items = new ArrayList<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
     public void addItem(Item item) {
-        items.add(item);
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getItem().getBarcode().equals(item.getBarcode())) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                return;
+            }
+        }
+        cartItems.add(new CartItem(item, 1));
     }
 
-    public List<Item> getItems() {
-        return items;
+    public void removeItem(String barcode) {
+        cartItems.removeIf(cartItem -> cartItem.getItem().getBarcode().equals(barcode));
+    }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public double getTotalPrice() {
+        return cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
     }
 
 }
