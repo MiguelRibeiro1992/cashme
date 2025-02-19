@@ -20,7 +20,7 @@ public class SecurityWebConfig {
         });
         httpSecurity.authorizeHttpRequests(auth -> {
 
-            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/storeView", "/adminLogin").permitAll();
+            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/storeView", "/adminLogin","/").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             // Qualquer utilizador autenticado pode ver categorias
             auth.requestMatchers("/categories", "/categories/**").hasAnyRole("USER", "ADMIN");
