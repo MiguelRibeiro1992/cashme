@@ -39,5 +39,4 @@ public class Cart {
     public double getTotalPrice() {
         return cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
     }
-
 }

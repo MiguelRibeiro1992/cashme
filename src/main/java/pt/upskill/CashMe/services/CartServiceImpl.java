@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-    private final Cart cart = new Cart();
 
     @Autowired
     private CartRepository cartRepository;
@@ -20,34 +19,34 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ItemRepository itemRepository;
 
+    private Cart activeCart = new Cart();
+
     @Override
-    public boolean addItemToCart(String barcode) {
+    public void addItemToCart(String barcode) {
         Item item = itemRepository.findByBarcode(barcode);
         if (item != null) {
-            cart.addItem(item);
-            return true;
+            activeCart.addItem(item);
         }
-        return false;
     }
 
     @Override
-    public boolean removeItemFromCart(String barcode) {
-        cart.removeItem(barcode);
-        return true;
+    public void removeItemFromCart(String barcode) {
+        activeCart.removeItem(barcode);
     }
 
     @Override
     public List<CartItem> getCartItems() {
-        return cart.getCartItems();
+        return activeCart.getCartItems();
     }
 
     @Override
     public double getTotalPrice() {
-        return cart.getTotalPrice();
+        return activeCart.getTotalPrice();
     }
 
     @Override
     public Cart getCart() {
-        return cart;
+        return activeCart;
     }
+
 }

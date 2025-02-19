@@ -1,12 +1,11 @@
 package pt.upskill.CashMe.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pt.upskill.CashMe.services.BarcodeScanServiceImpl;
 import pt.upskill.CashMe.services.CartServiceImpl;
 import pt.upskill.CashMe.services.NFCScanServiceImpl;
@@ -33,18 +32,19 @@ public class ScanController {
     //Processar o código de barras
     @GetMapping("/processBarcode")
     public ModelAndView processBarcode(@RequestParam("barcode") String barcode) {
-        ModelAndView mav;
         boolean success = barcodeScanService.processBarcode(barcode);
+
         if (!success) {
-            mav = new ModelAndView("scanViaBarcode");
+            ModelAndView mav = new ModelAndView("scanViaBarcode");
             mav.addObject("error", "Produto não encontrado!");
-        } else {
-            mav = new ModelAndView("redirect:/cart");  // Redireciona para o carrinho
-            cartService.addItemToCart(barcode);
-            mav.addObject("success", "Produto adicionado ao carrinho!");
+            return mav;
         }
-        return mav;
+
+        cartService.addItemToCart(barcode);
+
+        return new ModelAndView("redirect:/cart");
     }
+
 
     //View para NFC
     @GetMapping("/scanViaNFC")

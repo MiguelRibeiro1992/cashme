@@ -1,20 +1,21 @@
 package pt.upskill.CashMe.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pt.upskill.CashMe.entities.Cart;
+import pt.upskill.CashMe.entities.CartItem;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.CartServiceImpl;
+import pt.upskill.CashMe.services.ItemServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CartController {
@@ -23,16 +24,38 @@ public class CartController {
     private CartServiceImpl cartService;
 
     @Autowired
+    private ItemServiceImpl itemService;
+
+    @Autowired
     private ItemRepository itemRepository;
 
-    @GetMapping("/addToCart")
-    public String addToCart(@RequestParam("barcode") String barcode, Model model) {
-        boolean added = cartService.addItemToCart(barcode);
-        if (!added) {
-            model.addAttribute("error", "Produto não encontrado");
+    @ModelAttribute("cartItems")
+    public List<CartItem> initializeCartItems(HttpSession session) {
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        if (cartItems == null) {
+            cartItems = new ArrayList<>();
+            session.setAttribute("cartItems", cartItems);
         }
-        return "redirect:/cart";
+        return cartItems;
     }
+
+    @GetMapping("/addToCart")
+    public String addToCart(@RequestParam("barcode") String barcode, HttpSession session, Model model) {
+        System.out.println("Barcode received (with trim): '" + barcode.trim() + "'"); // Verifique o valor após trim
+
+        barcode = barcode.trim(); // Limpar espaços em branco antes de buscar
+        Item item = itemRepository.findByBarcode(barcode); // Buscar diretamente no repositório
+
+        if (item == null) {
+            System.out.println("Item not found in the database.");
+            model.addAttribute("error", "Produto não encontrado");
+            return "redirect:/scanViaBarcode";
+        }
+
+        System.out.println("Item found: " + item.getName());
+        return "cart";
+    }
+
 
     @GetMapping("/removeFromCart")
     public String removeFromCart(@RequestParam("barcode") String barcode) {

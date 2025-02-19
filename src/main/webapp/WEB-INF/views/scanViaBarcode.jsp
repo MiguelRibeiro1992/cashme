@@ -98,24 +98,25 @@
 
                 // Ação para adicionar o produto ao carrinho
                 document.getElementById("addToCart").onclick = function() {
-                    // Fazer a adição ao carrinho e redirecionar para /cart
-                    fetch(`/addToCart?barcode=${decodedText}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    }).then(response => {
-                        if (response.ok) {
-                            // Redirecionar para a página do carrinho
-                            window.location.href = '/cart';
-                        } else {
-                            alert("Produto não encontrado.");
-                        }
-                    }).catch(error => {
-                        console.error("Erro ao adicionar o produto:", error);
-                        alert("Erro ao adicionar ao carrinho.");
-                    });
-                };
+                    console.log("Código de barras para adicionar ao carrinho:", decodedText); // Log para depuração
+                        fetch(`/addToCart?barcode=${decodedText}`, {
+                                           method: 'GET',
+                                           headers: {
+                                             'Content-Type': 'application/json',
+                                           },
+                                         }).then(response => {
+                                           if (response.ok) {
+                                             window.location.href = '/cart';
+                                           } else {
+                                             alert("Produto não encontrado.");
+                                           }
+                                         }).catch(error => {
+                                           console.error("Erro ao adicionar ao carrinho:", error);
+                                           alert("Erro ao adicionar ao carrinho.");
+                                         });
+                                       };
+
+
 
                 // Parar a leitura do código após o scan
                 html5QrCode.stop();

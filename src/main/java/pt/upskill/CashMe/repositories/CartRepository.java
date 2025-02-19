@@ -6,5 +6,4 @@ import pt.upskill.CashMe.entities.Cart;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
-    Cart findFirstByOrderByIdAsc();
 }

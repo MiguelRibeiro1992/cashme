@@ -8,7 +8,7 @@ import java.util.List;
 public interface CartService {
     public List<CartItem> getCartItems();
     public double getTotalPrice();
-    public boolean addItemToCart(String barcode);
-    public boolean removeItemFromCart(String barcode);
+    public void addItemToCart(String barcode);
+    public void removeItemFromCart(String barcode);
     public Cart getCart();
 }

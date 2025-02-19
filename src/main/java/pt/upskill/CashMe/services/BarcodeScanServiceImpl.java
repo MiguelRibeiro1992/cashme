@@ -11,28 +11,12 @@ public class BarcodeScanServiceImpl implements BarcodeScanService {
     @Autowired
     private ItemRepository itemRepository;
 
-    @Autowired
-    private CartService cartService;
-
     @Override
     public boolean processBarcode(String barcode) {
         if (barcode == null || barcode.isEmpty()) {
             return false;
         }
-
         Item item = itemRepository.findByBarcode(barcode);
-
-        if (item != null) {
-            cartService.addItemToCart(barcode);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public String getItemNameByBarcode(String barcode) {
-        Item item = itemRepository.findByBarcode(barcode);
-        return (item != null) ? item.getName() : "Produto não encontrado";
+        return item != null;
     }
 }

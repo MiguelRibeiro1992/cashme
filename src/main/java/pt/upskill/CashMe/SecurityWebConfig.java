@@ -4,6 +4,7 @@ import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -18,7 +19,11 @@ public class SecurityWebConfig {
         httpSecurity.csrf(csrfConfigurer -> {
             csrfConfigurer.disable();
         });
+
         httpSecurity.authorizeHttpRequests(auth -> {
+
+            // Permitir todas as requisições GET - ADICIONADO 19/02
+            auth.requestMatchers(HttpMethod.GET, "/addToCart").permitAll();
 
             auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/mainPage", "/storeView/**", "/storeView", "/adminLogin","/").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
