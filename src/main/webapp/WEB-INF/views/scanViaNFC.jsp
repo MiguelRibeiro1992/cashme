@@ -66,16 +66,7 @@
 
         <div class="col-md-6 text-end">
             <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-
-            <!-- <button class="btn btn-primary btn-login">Adicionar ao carrinho</button> -->
-
-            <!-- <a href="/addToCart?barcode=${barcode}&name=${productName}&price=9.99" class="btn btn-primary btn-login">
-                Adicionar ao Carrinho
-            </a> -->
-
-            <a href="/cart?barcode=1234567890&name=Produto%20Exemplo&price=9.99" class="btn btn-primary btn-login">
-                            Adicionar ao Carrinho </a>
-
+            <a id="addToCart" href="/cart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
         </div>
     </div>
 
@@ -98,7 +89,6 @@ document.getElementById("startScan").addEventListener("click", async () => {
                     const text = decoder.decode(record.data);
                     console.log("Código lido:", text);
 
-                    // Atualizar a UI com os dados lidos
                     document.getElementById("scanResult").innerText = "Produto identificado!";
                     document.getElementById("productDetails").style.display = "block";
                     document.getElementById("productName").innerText = text;
@@ -131,21 +121,61 @@ document.getElementById("cancelButton").addEventListener("click", function() {
 
 <!-- Para teste: Dá um produto fictício -->
 <script>
-document.getElementById("startScan").addEventListener("click", async () => {
-    console.log("Simulação: NFC ativado! Aproxima uma tag...");
+document.addEventListener("DOMContentLoaded", () => {
+    const startScanButton = document.getElementById("startScan");
+    const addToCartButton = document.getElementById("addToCart");
+    const cancelButton = document.getElementById("cancelButton");
 
-    setTimeout(() => {
-        const simulatedCode = "1234567890"; // Código fictício simulado
-        console.log("Código lido (simulado):", simulatedCode);
+    if (!startScanButton) {
+        console.error("startScan button not found");
+        return;
+    }
 
-        // Atualizar UI como se tivesse lido um código real
-        document.getElementById("scanResult").innerText = "Produto identificado!";
-        document.getElementById("productDetails").style.display = "block";
-        document.getElementById("productName").innerText = simulatedCode;
-    }, 2000); // Simula um atraso de 2 segundos para parecer real
-});
+    if (!addToCartButton) {
+        console.error("addToCart button not found");
+        return;
+    }
 
-    document.getElementById("cancelButton").addEventListener("click", function() {
+    if (!cancelButton) {
+        console.error("cancelButton not found");
+        return;
+    }
+
+    startScanButton.addEventListener("click", async () => {
+        console.log("Simulação: NFC ativado! Aproxima uma tag...");
+
+        setTimeout(() => {
+            const decodedText = "9780241458747"; // Código simulado
+            console.log("Código lido (simulado):", decodedText);
+
+            // Atualizar UI como se tivesse lido um código real
+            document.getElementById("scanResult").innerText = "Produto identificado!";
+            document.getElementById("productDetails").style.display = "block";
+            document.getElementById("productName").innerText = decodedText;
+
+            // Adicionar evento ao botão "Adicionar ao Carrinho"
+            addToCartButton.onclick = function() {
+                console.log("Adicionar ao Carrinho clicked");
+                fetch("/addToCart?barcode=" + decodedText, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/cart';
+                    } else {
+                        alert("Produto não encontrado.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao adicionar ao carrinho:", error);
+                    alert("Erro ao adicionar ao carrinho.");
+                });
+            };
+        }, 2000); // Simula um atraso de 2 segundos para parecer real
+    });
+
+    cancelButton.addEventListener("click", function() {
         document.getElementById("nfcSymbol").style.display = "block";
         document.getElementById("reader").style.display = "none";
 
@@ -157,7 +187,7 @@ document.getElementById("startScan").addEventListener("click", async () => {
             document.getElementById("scanResult").innerText = "Nenhum produto detetado";
         }, 10);
     });
-
+});
 </script>
 
 <br>

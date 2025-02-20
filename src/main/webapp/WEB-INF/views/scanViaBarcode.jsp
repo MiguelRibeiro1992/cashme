@@ -52,7 +52,6 @@
             <div id="productDetails" class="mt-4 text-center" style="display: none;">
                 <h5>Produto Lido</h5>
                 <p id="barcodeNumber"></p>
-                <a id="addToCart" href="#" class="btn btn-primary mt-2" style="display: none;">Adicionar ao Carrinho</a>
             </div>
         </div>
     </div>
@@ -67,7 +66,7 @@
 
         <div class="col-md-6 text-end">
             <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-            <a href="/cart" class="btn btn-primary btn-login">Ver Carrinho</a>
+            <a id="addToCart" href="/cart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
         </div>
     </div>
 

@@ -52,19 +52,19 @@ public class ScanController {
     }
 
     //Processar o NFC
+    @GetMapping("/processNFC")
     public ModelAndView processNFC(@RequestParam("nfc") String nfc) {
-        ModelAndView mav = new ModelAndView("scanViaNFC");
+        boolean success = nfcScanService.processNFC(nfc);
 
-        boolean sucess = nfcScanService.processNFC(nfc);
-
-        if (!sucess) {
+        if (!success) {
+            ModelAndView mav = new ModelAndView("scanViaNFC");
             mav.addObject("error", "Produto NFC não encontrado!");
-        } else {
-            mav.addObject("nfc", nfc);
-            mav.addObject("productName", "Produto NFC Exemplo");
+            return mav;
         }
 
-        return mav;
+        cartService.addItemToCart(nfc);
+
+        return new ModelAndView("redirect:/cart");
     }
 
 }

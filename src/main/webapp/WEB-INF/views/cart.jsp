@@ -26,6 +26,13 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
+<!-- Cart Container -->
+<!-- Colocar mais para a esquerda -->
+
+<div class="container mt-5">
+
+<h2 class="mb-4">Carrinho</h2>
+
 <c:if test="${empty cartItems}">
     <p>O seu carrinho está vazio.</p>
 </c:if>
@@ -92,6 +99,8 @@
 
 <br>
 <br>
+</div>
+
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>
 
