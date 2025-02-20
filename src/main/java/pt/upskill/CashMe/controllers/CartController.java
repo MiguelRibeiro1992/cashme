@@ -17,6 +17,7 @@ import pt.upskill.CashMe.services.ItemServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+//Assim o carrinho está a dar
 @Controller
 public class CartController {
 
