@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pt.upskill.CashMe.entities.Cart;
 import pt.upskill.CashMe.entities.CartItem;
 import pt.upskill.CashMe.entities.Item;
@@ -18,7 +16,6 @@ import pt.upskill.CashMe.services.ItemServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/cart")
