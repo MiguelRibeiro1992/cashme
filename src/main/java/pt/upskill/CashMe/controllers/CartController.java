@@ -19,6 +19,7 @@ import pt.upskill.CashMe.services.QRCodeServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 //Assim o carrinho está a dar
 @Controller
@@ -79,10 +80,20 @@ public class CartController {
         return ResponseEntity.ok("Item removido com sucesso");
     }
 
+    @GetMapping("/checkout")
+    public String checkout(Model model) {
+        Cart cart = cartService.getCart();
+        model.addAttribute("cartItems", cart.getCartItems());
+        model.addAttribute("totalPrice", cart.getTotalPrice());
+        return "checkout";
+    }
+
     // Endpoint para gerar QR Code para checkout
     @GetMapping("/checkout/qrcode")
     public ResponseEntity<byte[]> generateQrCode() {
-        String checkoutUrl = "https://meusite.com/checkout"; // Pode ser um ID único
+        String checkoutId = UUID.randomUUID().toString();
+        String checkoutUrl = "http://localhost:8080/checkout/" + checkoutId;
+
         byte[] qrCodeImage = qrCodeService.generateQRCode(checkoutUrl, 250, 250);
 
         HttpHeaders headers = new HttpHeaders();
@@ -90,35 +101,4 @@ public class CartController {
 
         return new ResponseEntity<>(qrCodeImage, headers, HttpStatus.OK);
     }
-
-
 }
-
-
-    //Isto não deve ser preciso
-//    @ModelAttribute("cartItems")
-//    public List<CartItem> initializeCartItems(HttpSession session) {
-//        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-//        if (cartItems == null) {
-//            cartItems = new ArrayList<>();
-//            session.setAttribute("cartItems", cartItems);
-//        }
-//        return cartItems;
-//    }
-
-    //NAO ESTÁ A SER USADO
-//    @GetMapping("/getProductByBarcode")
-//    @ResponseBody
-//    public ResponseEntity<?> getProductByBarcode(@RequestParam String barcode) {
-//        System.out.println("Barcode recebido: " + barcode); // Log para ver o barcode recebido
-//        Item item = itemRepository.findByBarcode(barcode);
-//
-//        if (item == null) {
-//            System.out.println("Produto não encontrado no banco de dados.");
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
-//        }
-//
-//        System.out.println("Produto encontrado: " + item.getName());
-//        return ResponseEntity.ok(item);
-//    }
-

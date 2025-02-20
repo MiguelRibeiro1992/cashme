@@ -61,14 +61,30 @@
     <!-- QR Code para pagamento -->
     <div class="text-center mt-4">
         <h5>Apresente este QR Code para pagamento</h5>
-        <img id="qrCode" src="/generateQRCode?data=${checkoutId}" alt="QR Code de Pagamento">
+        <img id="qrcode" alt="QR Code" />
     </div>
 
     <div class="text-center mt-4">
         <a href="/cart" class="btn btn-secondary">Voltar ao Carrinho</a>
-        <a href="/confirmPayment?checkoutId=${checkoutId}" class="btn btn-success">Confirmar Pagamento</a>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/checkout/qrcode')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                document.getElementById('qrcode').src = url;
+            })
+            .catch(error => console.error('Error fetching QR code:', error));
+    });
+</script>
 
 
 <br>
