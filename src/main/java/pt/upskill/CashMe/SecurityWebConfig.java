@@ -48,8 +48,8 @@ public class SecurityWebConfig {
         httpSecurity.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/storeView", "/storeView/**", "/").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
-            // Qualquer utilizador autenticado pode ver categorias
-            auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage", "/").hasAnyRole("USER", "ADMIN");
+            // Qualquer utilizador autenticado pode ver :
+            auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage","/checkout", "/").hasAnyRole("USER", "ADMIN");
             auth.requestMatchers("/**").denyAll();
         });
 
