@@ -41,11 +41,10 @@ public class CartController {
     }
 
     @GetMapping("/addToCart")
-    public String addToCart(@RequestParam("barcode") String barcode, HttpSession session, Model model) {
-        System.out.println("Barcode received (with trim): '" + barcode.trim() + "'"); // Verifique o valor após trim
+    public String addToCart(@RequestParam("barcode") String barcode, Model model) {
+        System.out.println("Barcode received (with trim): '" + barcode.trim() + "'");
 
-        barcode = barcode.trim(); // Limpar espaços em branco antes de buscar
-        Item item = itemRepository.findByBarcode(barcode); // Buscar diretamente no repositório
+        Item item = itemRepository.findByBarcode(barcode);
 
         if (item == null) {
             System.out.println("Item not found in the database.");
@@ -53,6 +52,9 @@ public class CartController {
         }
 
         System.out.println("Item found: " + item.getName());
+
+        cartService.addItemToCart(barcode);
+
         return "cart";
     }
 

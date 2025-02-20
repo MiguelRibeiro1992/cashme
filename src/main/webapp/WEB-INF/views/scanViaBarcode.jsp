@@ -22,7 +22,7 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://unpkg.com/html5-qrcode@latest"></script>
 
 </head>
 
@@ -74,83 +74,79 @@
 </div>
 
 <script>
-    // Função para iniciar a leitura do código de barras
+    function onScanSuccess(decodedText, decodedResult) {
+        let barcode = decodedText.trim();
+        console.log(`Código capturado: "${barcode}"`); // Log para depuração
+
+            if (barcode === "") {
+                console.warn("Código de barras vazio detectado!");
+                return;
+            }
+
+        // Exibir o código lido na página
+        document.getElementById("scanResult").innerText = "Código lido: " + barcode;
+            document.getElementById("barcodeNumber").innerText = barcode;
+
+        // Mostrar o botão de adicionar ao carrinho
+        document.getElementById("productDetails").style.display = "block";
+        document.getElementById("addToCart").style.display = "inline-block";
+
+        // Adicionar produto ao carrinho ao clicar
+        document.getElementById("addToCart").onclick = function() {
+            fetch("/addToCart?barcode=" + decodedText, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/cart';
+                } else {
+                    alert("Produto não encontrado.");
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao adicionar ao carrinho:", error);
+                alert("Erro ao adicionar ao carrinho.");
+            });
+        };
+    }
+
+    function onScanFailure(error) {
+    }
+
+    // Inicializa o scanner
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        {
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                formatsToSupport: [ Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.CODE_128 ]
+            },
+            false
+    );
+
     document.getElementById("startScan").addEventListener("click", function () {
         document.getElementById("scanSymbol").style.display = "none";
         document.getElementById("reader").style.display = "block";
 
-        const html5QrCode = new Html5Qrcode("reader");
-
-        html5QrCode.start(
-            { facingMode: "environment" },
-            {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            },
-            (decodedText) => {
-                // Mostrar o código lido na página
-                document.getElementById("scanResult").innerText = "Código lido: " + decodedText;
-                document.getElementById("barcodeNumber").innerText = decodedText;
-
-                // Mostrar o botão de adicionar ao carrinho
-                document.getElementById("productDetails").style.display = "block";
-                document.getElementById("addToCart").style.display = "inline-block";
-
-                // Ação para adicionar o produto ao carrinho
-                document.getElementById("addToCart").onclick = function() {
-                    console.log("Código de barras para adicionar ao carrinho:", decodedText); // Log para depuração
-                        fetch(`/addToCart?barcode=${decodedText}`, {
-                                           method: 'GET',
-                                           headers: {
-                                             'Content-Type': 'application/json',
-                                           },
-                                         }).then(response => {
-                                           if (response.ok) {
-                                             window.location.href = '/cart';
-                                           } else {
-                                             alert("Produto não encontrado.");
-                                           }
-                                         }).catch(error => {
-                                           console.error("Erro ao adicionar ao carrinho:", error);
-                                           alert("Erro ao adicionar ao carrinho.");
-                                         });
-                                       };
-
-
-
-                // Parar a leitura do código após o scan
-                html5QrCode.stop();
-            },
-            (errorMessage) => {
-                console.log("Erro na leitura: ", errorMessage);
-            }
-        ).catch((err) => {
-            console.log("Erro ao iniciar a câmara: ", err);
-        });
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     });
 
-    // Botão de cancelamento
-    document.getElementById("cancelButton").addEventListener("click", function() {
+    // Botão de cancelar
+    document.getElementById("cancelButton").addEventListener("click", function () {
         document.getElementById("scanSymbol").style.display = "block";
         document.getElementById("reader").style.display = "none";
 
-        if (typeof html5QrCode !== "undefined") {
-            html5QrCode.stop().then(() => {
-                console.log("Leitura cancelada.");
-            }).catch((err) => {
-                console.log("Erro ao parar a leitura: ", err);
-            });
-        }
+        html5QrcodeScanner.clear()
+            .then(() => console.log("Leitura cancelada."))
+            .catch(err => console.log("Erro ao parar a leitura:", err));
 
-        document.getElementById("scanResult").innerText = "";
+        document.getElementById("scanResult").innerText = "Nenhum produto detetado";
         document.getElementById("barcodeNumber").innerText = "";
         document.getElementById("productDetails").style.display = "none";
-
-        setTimeout(() => {
-            document.getElementById("scanResult").innerText = "Nenhum produto detetado";
-        }, 10);
     });
 </script>
+
 
 <br>
 <br>
