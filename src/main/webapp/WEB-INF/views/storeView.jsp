@@ -80,6 +80,20 @@
         <div class="col-md-9 d-flex flex-column justify-content-center">
             <div class="row">
                 <!-- Primeira Linha de Produtos -->
+
+                <c:forEach var="item" items="${items}">
+                    <div class="col-md-4 text-center">
+                        <div class="product-card p-3 border rounded">
+                            <a href="/item.jsp?id=${item.id}">
+                                <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid">
+                            </a>
+                            <p class="mt-2"><b>${item.name}</b></p>
+                            <h5 class="text-primary fw-bold">${item.price}€</h5>
+                            <button class="btn btn-dark mt-2 w-100" onclick="window.location.href='/wishlist.jsp?id=${item.id}'">Adicionar à Wishlist</button>
+                        </div>
+                    </div>
+                </c:forEach>
+
                 <div class="col-md-4 text-center">
                     <div class="product-card p-3 border rounded">
                         <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">

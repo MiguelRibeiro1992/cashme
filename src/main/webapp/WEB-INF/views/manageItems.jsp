@@ -156,8 +156,9 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Url da imagem</label>
-                <input type="text" class="form-control" name="name" required>
+                <input type="text" class="form-control" name="imageUrl" required>
                 </div>
+
                 <!-- Seleção de loja -->
                 <div class="mb-3">
                     <label for="storeId" class="form-label">Loja</label>
