@@ -30,15 +30,23 @@ public class CartController {
     @Autowired
     private ItemRepository itemRepository;
 
-    @ModelAttribute("cartItems")
-    public List<CartItem> initializeCartItems(HttpSession session) {
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
-        }
-        return cartItems;
+
+    @GetMapping("/removeFromCart")
+    public String removeFromCart(@RequestParam("barcode") String barcode) {
+        cartService.removeItemFromCart(barcode);
+        return "redirect:/cart";
     }
+
+    @GetMapping("/cart")
+    public String showCart(Model model) {
+        Cart cart = cartService.getCart();
+
+        model.addAttribute("cartItems", cart.getCartItems());
+        model.addAttribute("totalPrice", cart.getTotalPrice());
+
+        return "cart";
+    }
+
 
     @GetMapping("/addToCart")
     public String addToCart(@RequestParam("barcode") String barcode, Model model) {
@@ -58,34 +66,33 @@ public class CartController {
         return "cart";
     }
 
-    @GetMapping("/removeFromCart")
-    public String removeFromCart(@RequestParam("barcode") String barcode) {
-        cartService.removeItemFromCart(barcode);
-        return "redirect:/cart";
-    }
-
-    @GetMapping("/cart")
-    public String showCart(Model model) {
-        Cart cart = cartService.getCart();
-
-        model.addAttribute("cartItems", cart.getCartItems());
-        model.addAttribute("totalPrice", cart.getTotalPrice());
-
-        return "cart";
-    }
-
-    @GetMapping("/getProductByBarcode")
-    @ResponseBody
-    public ResponseEntity<?> getProductByBarcode(@RequestParam String barcode) {
-        System.out.println("Barcode recebido: " + barcode); // Log para ver o barcode recebido
-        Item item = itemRepository.findByBarcode(barcode);
-
-        if (item == null) {
-            System.out.println("Produto não encontrado no banco de dados.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
-        }
-
-        System.out.println("Produto encontrado: " + item.getName());
-        return ResponseEntity.ok(item);
-    }
 }
+
+
+    //Isto não deve ser preciso
+//    @ModelAttribute("cartItems")
+//    public List<CartItem> initializeCartItems(HttpSession session) {
+//        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+//        if (cartItems == null) {
+//            cartItems = new ArrayList<>();
+//            session.setAttribute("cartItems", cartItems);
+//        }
+//        return cartItems;
+//    }
+
+    //NAO ESTÁ A SER USADO
+//    @GetMapping("/getProductByBarcode")
+//    @ResponseBody
+//    public ResponseEntity<?> getProductByBarcode(@RequestParam String barcode) {
+//        System.out.println("Barcode recebido: " + barcode); // Log para ver o barcode recebido
+//        Item item = itemRepository.findByBarcode(barcode);
+//
+//        if (item == null) {
+//            System.out.println("Produto não encontrado no banco de dados.");
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+//        }
+//
+//        System.out.println("Produto encontrado: " + item.getName());
+//        return ResponseEntity.ok(item);
+//    }
+
