@@ -2,7 +2,9 @@ package pt.upskill.CashMe.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.CartServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
+import pt.upskill.CashMe.services.QRCodeServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,9 @@ public class CartController {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private QRCodeServiceImpl qrCodeService;
 
 
     @GetMapping("/removeFromCart")
@@ -65,6 +71,26 @@ public class CartController {
 
         return "cart";
     }
+
+    // Endpoint para remover item via AJAX
+    @DeleteMapping("/remove")
+    public ResponseEntity<String> removeItem(@RequestParam("barcode") String barcode) {
+        cartService.removeItemFromCart(barcode);
+        return ResponseEntity.ok("Item removido com sucesso");
+    }
+
+    // Endpoint para gerar QR Code para checkout
+    @GetMapping("/checkout/qrcode")
+    public ResponseEntity<byte[]> generateQrCode() {
+        String checkoutUrl = "https://meusite.com/checkout"; // Pode ser um ID único
+        byte[] qrCodeImage = qrCodeService.generateQRCode(checkoutUrl, 250, 250);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+        return new ResponseEntity<>(qrCodeImage, headers, HttpStatus.OK);
+    }
+
 
 }
 

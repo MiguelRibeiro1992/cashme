@@ -27,7 +27,7 @@
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
 <c:if test="${empty cartItems}">
-    <p>Seu carrinho está vazio.</p>
+    <p>O seu carrinho está vazio.</p>
 </c:if>
 <c:if test="${not empty cartItems}">
     <table class="table">
@@ -42,13 +42,13 @@
         </thead>
         <tbody>
             <c:forEach var="cartItem" items="${cartItems}">
-                <tr>
+                <tr id="row-${cartItem.item.barcode}">
                     <td>${cartItem.item.name}</td>
                     <td>${cartItem.item.price} €</td>
                     <td>${cartItem.quantity}</td>
                     <td>${cartItem.totalPrice} €</td>
                     <td>
-                        <a href="/removeFromCart?barcode=${cartItem.item.barcode}" class="btn btn-danger btn-sm">Remover</a>
+                        <button class="btn btn-danger remove-item" data-barcode="${cartItem.item.barcode}">Eliminar</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -56,8 +56,42 @@
     </table>
 </c:if>
 
-<h4 class="mt-4">Total: ${totalPrice} €</h4>
+<h4 class="mt-4">Total: <span id="totalPrice">${totalPrice}</span> €</h4>
 
+<br>
+
+<c:if test="${not empty cartItems}">
+    <a href="/checkout" class="btn btn-success">Finalizar Compra</a>
+</c:if>
+
+<script>
+    document.querySelectorAll(".remove-item").forEach(button => {
+        button.addEventListener("click", function() {
+            let barcode = this.getAttribute("data-barcode");
+            fetch("/removeFromCart?barcode=" + barcode, {
+                method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById(`row-${barcode}`).remove();
+                        updateTotalPrice();
+                    } else {
+                        alert("Erro ao remover o item.");
+                    }
+                });
+        });
+    });
+
+    function updateTotalPrice() {
+        fetch('/cart-total')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("totalPrice").innerText = data.total;
+            });
+    }
+</script>
+
+<br>
+<br>
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>
 

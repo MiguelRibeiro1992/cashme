@@ -31,7 +31,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void removeItemFromCart(String barcode) {
-        activeCart.removeItem(barcode);
+        if (activeCart != null) {
+            activeCart.removeItem(barcode);
+        }
     }
 
     @Override
