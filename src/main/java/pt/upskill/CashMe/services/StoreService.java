@@ -12,5 +12,9 @@ public interface StoreService {
 
     public Store findStoreById(Long id);
 
+    public Store findByName(String name);
+
+    Store findByImageUrl(String imageUrl);
+
     public Store  saveStore(Store store);
 }

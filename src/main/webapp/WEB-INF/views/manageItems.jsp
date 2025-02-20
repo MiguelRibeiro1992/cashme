@@ -154,6 +154,10 @@
                     <label class="form-label">Quantidade</label>
                         <input type="number" class="form-control" name="quantity" required>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Url da imagem</label>
+                <input type="text" class="form-control" name="name" required>
+                </div>
                 <!-- Seleção de loja -->
                 <div class="mb-3">
                     <label for="storeId" class="form-label">Loja</label>
@@ -165,6 +169,41 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Adicionar Produto</button>
             </form>
+                            <div class="card mt-3">
+                                <h3>Lista de Produtos</h3>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Código de barras</th>
+                                        <th scope="col">Nome do produto</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Categoria</th>
+                                        <th scope="col">Preço</th>
+                                        <th scope="col">Loja</th>
+                                        <th scope="col">Url da imagem</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="item" items="${items}">
+                                        <tr>
+                                            <td>${item.barcode}</td>
+                                            <td>${item.name}</td>
+                                            <td>${item.brand}</td>
+                                            <td>${item.description}</td>
+                                            <td>
+                                                <c:forEach var="category" items="${item.category}">
+                                                    ${category.name}<br>
+                                                </c:forEach>
+                                            </td>
+                                            <td>${item.price}</td>
+                                            <td>${item.store.name}</td>
+                                            <td>${item.imageUrl}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
             </div>
         </main>
 
