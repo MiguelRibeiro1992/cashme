@@ -30,6 +30,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         if (user != null) {
             System.out.println("User: " + user.getUsername());
             List<GrantedAuthority> roleList = new ArrayList<>();
+            roleList.add(new SimpleGrantedAuthority("ROLE_USER"));
             if(user.isAdmin()) {
                 roleList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 System.out.println("É Admin");

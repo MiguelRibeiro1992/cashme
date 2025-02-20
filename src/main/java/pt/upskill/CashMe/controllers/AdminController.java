@@ -21,6 +21,7 @@ import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -33,19 +34,19 @@ public class AdminController {
     private CategoryServiceImpl categoryService;
 
     // Página de login do admin
-    @GetMapping("/adminLogin")
+    @GetMapping("/login")
     public String adminLoginPage() {
         return "adminLogin";
     }
 
     // Dashboard do admin
-    @GetMapping("/adminDashboard")
+    @GetMapping("/dashboard")
     public String adminDashboard() {
         return "adminDashboard";
     }
 
     //Mesma pagina para adicionar e ver lista (mudar aqui se mudar as views)
-    @GetMapping("/adminDashboard/manageItems")
+    @GetMapping("/dashboard/manageItems")
     public String listAndAddProduct(Model model) {
         List<Category> categories = categoryService.getAllCategories();
         List<Store> stores = storeService.findAllStores();
@@ -57,7 +58,7 @@ public class AdminController {
     }
 
     //Adicionar o produto
-    @PostMapping("/adminDashboard/manageItems")
+    @PostMapping("/dashboard/manageItems")
     public String addProduct(@ModelAttribute("item") Item item,
                              @RequestParam("storeId") Long storeId,
                              @RequestParam("categoryId") Long categoryId,
@@ -67,14 +68,14 @@ public class AdminController {
         Store store = storeService.findStoreById(storeId);
         if (store == null) {
             System.out.println("Erro: Loja não encontrada!");
-            return "redirect:/adminDashboard/manageItems";
+            return "redirect:/admin/dashboard/manageItems";
         }
         item.setStore(store);
 
         Category category = categoryService.getCategoryById(categoryId);
         if (category == null) {
             System.out.println("Erro: Categoria não encontrada!");
-            return "redirect:/adminDashboard/manageItems";
+            return "redirect:/admin/dashboard/manageItems";
         }
 
         // Inicializa a lista de categorias do item se for null
@@ -96,17 +97,17 @@ public class AdminController {
                 item.getBrand(), item.getPrice(), item.getDiscount(), item.getQuantity(),item.getCategoryName());
 
         itemService.save(item);
-        return "redirect:/adminDashboard/manageItems";
+        return "redirect:/admin/dashboard/manageItems";
     }
 
 
-    @PostMapping("/adminDashboard/manageStores")
+    @PostMapping("/dashboard/manageStores")
     public String addStore(@ModelAttribute("store") Store store) {
         storeService.saveStore(store);
-        return "redirect:/adminDashboard/manageStores";
+        return "redirect:/admin/dashboard/manageStores";
     }
 
-    @GetMapping("/adminDashboard/manageStores")
+    @GetMapping("/dashboard/manageStores")
     public String manageStores(Model model) {
         List<Store> stores = storeService.findAllStores();
         model.addAttribute("stores", stores);
@@ -115,22 +116,22 @@ public class AdminController {
     }
 
     // Página de gestão de categorias
-    @GetMapping("/adminDashboard/categories")
+    @GetMapping("/dashboard/categories")
     public String manageCategories(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
         return "manageCategories"; // O ficheiro deve estar em WEB-INF/views/manageCategories.jsp
     }
 
-    @PostMapping("/adminDashboard/categories/save")
+    @PostMapping("/dashboard/categories/save")
     public String saveCategory(@RequestParam(required = false) Long id, @RequestParam String name) {
         categoryService.saveCategory(id, name);
-        return "redirect:/adminDashboard/categories"; // Redireciona para a lista após salvar
+        return "redirect:/admin/dashboard/categories"; // Redireciona para a lista após salvar
     }
 
-    @PostMapping("/adminDashboard/categories/{id}")
+    @PostMapping("/dashboard/categories/{id}")
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
-        return "redirect:/adminDashboard/categories";
+        return "redirect:/admin/dashboard/categories";
     }
 
 

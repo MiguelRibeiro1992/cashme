@@ -75,7 +75,7 @@
                 <h4>Admin Dashboard</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/adminDashboard">Dashboard</a>
+                        <a class="nav-link active" href="/admin/dashboard">Dashboard</a>
                     </li>
                     <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
                     <li class="nav-item">
@@ -87,7 +87,7 @@
                     </li>
                     <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/adminDashboard/categories">Categorias</a>
+                        <a class="nav-link" href="/admin/dashboard/categories">Categorias</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
@@ -109,7 +109,7 @@
                     <!-- Formulário para adicionar uma nova loja -->
                     <div class="card mt-3">
                     <h3>Adicionar Nova Loja</h3>
-                    <form action="/adminDashboard/manageStores" method="post">
+                    <form action="/admin/dashboard/manageStores" method="post">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome da Loja</label>
                             <input type="text" class="form-control" id="name" name="name" required>

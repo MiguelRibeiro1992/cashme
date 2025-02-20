@@ -75,7 +75,7 @@
                 <h4>Admin Dashboard</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/adminDashboard">Dashboard</a>
+                        <a class="nav-link active" href="/admin/dashboard">Dashboard</a>
                     </li>
                     <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
                     <li class="nav-item">
@@ -87,7 +87,7 @@
                     </li>
                     <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/adminDashboard/categories">Categorias</a>
+                        <a class="nav-link" href="/admin/dashboard/categories">Categorias</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="logout">Terminar Sessão</a>

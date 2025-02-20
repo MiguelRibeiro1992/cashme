@@ -31,13 +31,6 @@ public class CategoryController {
         return mav;
     }
 
-    @GetMapping("/mainPage")
-    public ModelAndView carregarMainPage() {
-        ModelAndView mav = new ModelAndView("mainPage");
-        mav.addObject("todasCategorias", categoryService.getAllCategories()); // Envia todas as categorias para a mainPage
-        return mav;
-    }
-
 
 
 }

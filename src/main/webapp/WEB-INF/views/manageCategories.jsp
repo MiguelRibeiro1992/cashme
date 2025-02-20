@@ -66,7 +66,7 @@
                 <h4>Admin Dashboard</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/adminDashboard">Dashboard</a>
+                        <a class="nav-link active" href="/admin/dashboard">Dashboard</a>
                     </li>
                     <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
                     <li class="nav-item">
@@ -78,7 +78,7 @@
                     </li>
                     <!-- ADICIONAR/EDITAR/EXCLUIR CATEGORIAS -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/adminDashboard/categories">Categorias</a>
+                        <a class="nav-link" href="/admin/dashboard/categories">Categorias</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
@@ -109,7 +109,7 @@
                                 <td>${category.name}</td>
                                 <td>
                                     <button class="btn btn-warning" onclick="openEditModal('${category.id}', '${category.name}')">Editar</button>
-                                    <form action="/adminDashboard/categories/${category.id}" method="POST" style="display:inline;">
+                                    <form action="/admin/dashboard/categories/${category.id}" method="POST" style="display:inline;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
@@ -133,7 +133,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="${pageContext.request.contextPath}/adminDashboard/categories/save" method="POST">
+                            <form action="${pageContext.request.contextPath}/admin/dashboard/categories/save" method="POST">
                                 <input type="hidden" id="categoryId" name="id">
                                 <label>Nome da Categoria:</label>
                                 <input type="text" id="categoryName" name="name" class="form-control" required>
