@@ -140,6 +140,7 @@
                         document.getElementById("categoryName").value = selectedOption.getAttribute("data-name");
                     }
                 </script>
+            </form>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Preço (€)</label>
@@ -317,6 +318,8 @@
                 new bootstrap.Modal(document.getElementById('editModal')).show();
             }
         </script>
+    </div>
+</div>
 
 <br>
 <br>
