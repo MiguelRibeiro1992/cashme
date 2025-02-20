@@ -20,10 +20,11 @@ public class SecurityWebConfig {
         return httpSecurity
                 .securityMatcher("/admin/**")
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/admin/login").permitAll();
                     auth.anyRequest().hasRole("ADMIN");
                 }).formLogin(adminLoginConfig -> {
                     adminLoginConfig.loginPage("/admin/login");
-                    adminLoginConfig.loginProcessingUrl("/adminLogin");
+                    adminLoginConfig.loginProcessingUrl("/admin/login");
                     adminLoginConfig.defaultSuccessUrl("/admin/dashboard", true);
                     adminLoginConfig.failureUrl("/admin/login?error=true");
                 }).csrf(csrfConfigurer -> {
@@ -45,7 +46,7 @@ public class SecurityWebConfig {
         });
 
         httpSecurity.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/storeView", "/adminLogin","/").permitAll();
+            auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/scanViaBarcode", "/scanViaNFC", "/signup", "/cart", "/storeView", "/").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             // Qualquer utilizador autenticado pode ver categorias
             auth.requestMatchers("/categories", "/categories/**", "/mainPage", "/").hasAnyRole("USER", "ADMIN");
