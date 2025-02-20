@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
