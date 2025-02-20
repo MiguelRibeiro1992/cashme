@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
@@ -39,11 +40,19 @@ public class AdminController {
         return "adminLogin";
     }
 
+    @GetMapping("/logout")
+    public RedirectView logout() {
+        return new RedirectView("/admin/login");
+    }
+
     // Dashboard do admin
     @GetMapping("/dashboard")
     public String adminDashboard() {
         return "adminDashboard";
     }
+
+
+
 
     //Mesma pagina para adicionar e ver lista (mudar aqui se mudar as views)
     @GetMapping("/dashboard/manageItems")
@@ -133,6 +142,8 @@ public class AdminController {
         categoryService.deleteCategory(id);
         return "redirect:/admin/dashboard/categories";
     }
+
+
 
 
 }

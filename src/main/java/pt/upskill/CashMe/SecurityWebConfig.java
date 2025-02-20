@@ -24,7 +24,8 @@ public class SecurityWebConfig {
                 }).formLogin(adminLoginConfig -> {
                     adminLoginConfig.loginPage("/admin/login");
                     adminLoginConfig.loginProcessingUrl("/adminLogin");
-                    adminLoginConfig.defaultSuccessUrl("/admin/Dashboard", true);
+                    adminLoginConfig.defaultSuccessUrl("/admin/dashboard", true);
+                    adminLoginConfig.failureUrl("/admin/login?error=true");
                 }).csrf(csrfConfigurer -> {
                     csrfConfigurer.disable();
                 }).authenticationProvider(userAuthenticationProvider).build();
@@ -40,7 +41,7 @@ public class SecurityWebConfig {
         httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");
             loginConfig.loginProcessingUrl("/login");
-            loginConfig.defaultSuccessUrl("/mainpage", true);
+            loginConfig.defaultSuccessUrl("/mainPage", true);
         });
 
         httpSecurity.authorizeHttpRequests(auth -> {
