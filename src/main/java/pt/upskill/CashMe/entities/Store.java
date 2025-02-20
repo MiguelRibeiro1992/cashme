@@ -15,7 +15,7 @@ public class Store {
     private String location;
     private String imageUrl;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Item> items;
 
     public Store() {}

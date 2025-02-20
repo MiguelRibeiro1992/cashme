@@ -39,7 +39,9 @@ public class PublicController {
 
     @GetMapping("/mainPage")
     public String mainPage(Model model) {
+        List<Item> items = itemService.findAll();
         model.addAttribute("stores", storeService.findAllStores());
+        model.addAttribute("items", items);
         return "mainPage";
     }
 
@@ -48,22 +50,34 @@ public class PublicController {
         return "storeView";
     }
 
-    @GetMapping("/item")
-    public String itemPage(Model model) {
-        ItemModel itemModel = itemService.getItemById(1); // Assuming you have a service to fetch the item
-        if (itemModel != null) {
-            model.addAttribute("item", itemModel);
+    @GetMapping("/item/{id}")
+    public String itemPage(@PathVariable Long id, Model model) {
+        Item item = itemService.getItemById(id);
+        if (item != null) {
+            model.addAttribute("item", item);
+
+            Store store = storeService.findStoreByItemId(id); // Obtém a loja correspondente ao item
+            model.addAttribute("store", store);
         } else {
-            model.addAttribute("error", "Item not found");
+            model.addAttribute("error", "Item não encontrado");
         }
         return "item";
     }
+
+    @GetMapping("/items")
+    public String itemsPage(Model model) {
+        List<Item> items = itemService.findAll(); // Buscar todos os itens
+        model.addAttribute("items", items);
+        return "items"; // Retornar para a página "items.jsp"
+    }
+
 
     @GetMapping("/storeView/{id}")
     public String storeView(@PathVariable Long id, Model model) {
         Store store = storeService.findStoreById(id);
         if (store != null) {
             model.addAttribute("store", store);
+            model.addAttribute("items", store.getItems());
         } else {
             model.addAttribute("error", "Store not found");
         }

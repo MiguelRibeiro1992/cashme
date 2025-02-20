@@ -2,6 +2,7 @@ package pt.upskill.CashMe.entities;
 
 import jakarta.persistence.*;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class Item {
     private double discount = 0.0;
     private int quantity = 1;
     private String categoryName;
+    private Double rating;
+    private Integer reviewsCount;
 
     public Item(){
 
@@ -141,5 +144,26 @@ public class Item {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public String getFormattedPrice() {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(price) + " €";
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Integer getReviewsCount() {
+        return reviewsCount;
+    }
+
+    public void setReviewsCount(Integer reviewsCount) {
+        this.reviewsCount = reviewsCount;
     }
 }

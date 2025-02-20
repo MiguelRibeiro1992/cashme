@@ -8,6 +8,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
+import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.AddCategoryModel;
 import pt.upskill.CashMe.repositories.CategoryRepository;
 import pt.upskill.CashMe.repositories.ItemRepository;
@@ -15,6 +16,7 @@ import pt.upskill.CashMe.repositories.StoreRepository;
 import pt.upskill.CashMe.services.CategoryServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.StoreServiceImpl;
+import pt.upskill.CashMe.services.UserServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,9 @@ public class AdminController {
 
     @Autowired
     private CategoryServiceImpl categoryService;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     // Página de login do admin
     @GetMapping("/login")
@@ -143,7 +148,18 @@ public class AdminController {
         return "redirect:/admin/dashboard/categories";
     }
 
+    @PostMapping("/dashboard/items/{id}")
+    public String deleteItem(@PathVariable Long id) {
+        User currentUser = userService.getCurrentUser();
+        System.out.println("Utilizador atual: " + currentUser.getUsername() + " | Role: " + currentUser.isAdmin());
 
+        if (!currentUser.isAdmin()) {
+            System.out.println("Acesso negado: Utilizador não é ADMIN.");
+            return "redirect:/admin/dashboard/manageItems?error=notAdmin";
+        }
 
+        itemService.deleteItem(id);
+        return "redirect:/admin/dashboard/manageItems";
+    }
 
 }

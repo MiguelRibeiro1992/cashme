@@ -216,151 +216,54 @@
     </div>
 </section>
 
-<section class="container mt-5">
-    <h2>Produtos mais vendidos</h2>
-    <div class="mb-4"></div>
+    <section class="container mt-5">
+        <h2>Produtos mais vendidos</h2>
+        <div class="mb-4"></div>
 
-    <div class="product-wrapper mt-6 mb-6 position-relative">
-        <div class="product-carousel row flex-wrap" id="productCarousel" style="overflow: hidden; white-space: nowrap;">
-            <div class="product-container d-flex flex-wrap justify-content-center gap-4">
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
+        <div class="product-wrapper mt-6 mb-6 position-relative">
+            <div class="row justify-content-center">
+                <c:forEach var="item" items="${items}">
+                    <div class="col-md-4 col-sm-6 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
+
+                        <!-- Container da imagem para posicionamento correto dos ícones -->
+                        <div class="image-container position-relative">
+                            <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid product-link">
+
+                            <!-- Ícones de Favorito e Visualizar -->
+                            <div class="icons-container position-absolute top-0 end-0 p-2">
+                                <a href="/wishlist.jsp?id=${item.id}">
+                                    <img src="/images/heart.svg" alt="Favorito" class="icon">
+                                </a>
+                                <a href="/item/${item.id}">
+                                    <img src="/images/eye.svg" alt="Visualizar" class="icon">
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Nome do Produto -->
+                        <p class="mt-4"><b>${item.name}</b></p>
+
+                        <!-- Preço formatado -->
+                        <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
+
+                        <!-- Classificação por estrelas -->
+                        <div class="rating mt-2">
+                            <c:forEach var="i" begin="1" end="5">
+                                <span class="star ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : ''}">&#9733;</span>
+                            </c:forEach>
+                            <span class="rating-value">(${item.reviewsCount != null ? item.reviewsCount : 0})</span>
+                        </div>
                     </div>
-                    <img src="/images/racaoCao.svg" alt="Ração para cão" class="img-fluid product-link">
-                    <p class="mt-4"><b>Ração para cão "Cesar"</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(50)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/canon.svg" alt="Camera CANON" class="img-fluid product-link">
-                    <p class="mt-4"><b>Camara CANON EOS DSLR</b></p>
-                    <a href="/wishlist.jsp" class="d-block text-white text-center bg-black p-1 w-100" style="font-size: 0.9rem; text-decoration: none;">Adicionar à Wishlist</a>
-                    <div class="rating mt-2">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(12)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/laptop.svg" alt="Portátil Gaming" class="img-fluid product-link">
-                    <p class="mt-4"><b>Portátil Gaming ASUS FHD</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(34)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/curologia.svg" alt="Curologia" class="img-fluid product-link">
-                    <p class="mt-4"><b>Conjunto de produtos de curologia</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(106)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <img src="/images/new.svg" alt="Novo" class="position-absolute top-0 start-0 p-2">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/carroEletrico.svg" alt="Carro elétrico" class="img-fluid product-link">
-                    <p class="mt-4"><b>Carro elétrico criança</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(25)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/chuteiras.svg" alt="Chuteiras" class="img-fluid product-link">
-                    <p class="mt-4"><b>Chuteiras Jr. Zoom</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(71)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <img src="/images/new.svg" alt="Novo" class="position-absolute top-0 start-0 p-2">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/gamingPad.svg" alt="Gaming Pad" class="img-fluid product-link">
-                    <p class="mt-4"><b>Comando GP11 Shooter USB</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(154)</span>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
-                    <img src="/images/jacket.svg" alt="Casaco" class="img-fluid product-link">
-                    <p class="mt-4"><b>Casaco de cetim verde</b></p>
-                    <div class="rating">
-                        <span class="star" data-value="5">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="rating-value">(250)</span>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-center mt-4">
-        <button class="btn btn-primary" onclick="window.location.href=''">Ver todos os produtos</button>
-    </div>
-</section>
+
+        <!-- Botão para ver todos os produtos -->
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary" onclick="window.location.href='/products'">Ver todos os produtos</button>
+        </div>
+    </section>
+
 
 
 <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">

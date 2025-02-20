@@ -221,7 +221,29 @@ body {
     opacity: 0.8;
 }
 
-.social-icon {
-    width: 30px;  /* Define um tamanho fixo para os ícones */
-    height: 30px;
+.image-container {
+    position: relative;
+    display: inline-block;
 }
+
+.icons-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaço entre os ícones */
+}
+
+.icons-container a img {
+    width: 40px; /* Ajusta o tamanho dos ícones */
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.icons-container a img:hover {
+    transform: scale(1.1);
+}
+

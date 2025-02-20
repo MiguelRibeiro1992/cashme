@@ -40,6 +40,10 @@ public class StoreServiceImpl implements StoreService {
         return storeRepository.save(store);
     }
 
+    @Override
+    public Store findStoreByItemId(Long itemId) {
+        return storeRepository.findStoreByItemId(itemId);
+    }
 
 
 }

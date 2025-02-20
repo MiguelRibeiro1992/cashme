@@ -3,7 +3,10 @@ package pt.upskill.CashMe.services;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
+import pt.upskill.CashMe.entities.Store;
+import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.ItemModel;
 import pt.upskill.CashMe.repositories.ItemRepository;
 
@@ -16,27 +19,16 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @Override
-    public ItemModel getItemById(long id) {
-        Optional<Item> itemOptional = itemRepository.findById(id);
-        if (itemOptional.isPresent()) {
-            Item item = itemOptional.get();
-            ItemModel itemModel = new ItemModel();
-            itemModel.setId(item.getId());
-            itemModel.setBarcode(item.getBarcode());
-            itemModel.setName(item.getName());
-            itemModel.setDescription(item.getDescription());
-            itemModel.setImageUrl(item.getImageUrl());
-            itemModel.setCategory(item.getCategory());
-            itemModel.setBrand(item.getBrand());
-            itemModel.setPrice(item.getPrice());
-            itemModel.setDiscount(item.getDiscount());
-            itemModel.setQuantity(item.getQuantity());
-            return itemModel;
-        } else {
-            return null; // ou lançar uma exceção
-        }
+    public Item getItemById(long id) {
+        return itemRepository.findById(id)
+                .orElse(null); // Retorna null se não encontrar (ou lançar exceção se preferir)
     }
+
+
 
     @Transactional
     @Override
@@ -48,6 +40,24 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> findAll() {
         return itemRepository.findAll();
+    }
+
+    @Override
+    public void deleteItem(Long itemId) {
+        User currentUser = userService.getCurrentUser();
+
+        // Apenas administradores podem remover categorias
+        if (!currentUser.isAdmin()) {
+            throw new SecurityException("Apenas administradores podem remover items.");
+        }
+
+        // Verifica se o item existe
+        Optional<Item> itemOpt = itemRepository.findById(itemId);
+        if (itemOpt.isEmpty()) {
+            throw new IllegalArgumentException("Item não encontrado.");
+        }
+
+        itemRepository.deleteById(itemId);
     }
 
 

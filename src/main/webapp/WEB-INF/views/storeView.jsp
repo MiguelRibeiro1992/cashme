@@ -42,7 +42,7 @@
 
 <!-- Produtos e Filtros -->
 <section class="container mt-4">
-    <div class="row">
+    <div class="row align-items-start">
         <!-- Barra de Filtros -->
         <div class="col-md-3">
             <div class="filters p-3 border rounded" style="height: 100%;">
@@ -77,79 +77,37 @@
         </div>
 
         <!-- Produtos -->
-        <div class="col-md-9 d-flex flex-column justify-content-center">
-            <div class="row">
-                <!-- Primeira Linha de Produtos -->
+        <div class="col-md-9">
+            <h2 class="text-center mb-4">Itens disponíveis em ${store.name}</h2>
 
-                <c:forEach var="item" items="${items}">
-                    <div class="col-md-4 text-center">
-                        <div class="product-card p-3 border rounded">
-                            <a href="/item.jsp?id=${item.id}">
-                                <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid">
-                            </a>
-                            <p class="mt-2"><b>${item.name}</b></p>
-                            <h5 class="text-primary fw-bold">${item.price}€</h5>
-                            <button class="btn btn-dark mt-2 w-100" onclick="window.location.href='/wishlist.jsp?id=${item.id}'">Adicionar à Wishlist</button>
-                        </div>
-                    </div>
-                </c:forEach>
-
-                <div class="col-md-4 text-center">
-                    <div class="product-card p-3 border rounded">
-                        <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">
-                        <p class="mt-2"><b>Produto 1</b></p>
-                        <h5 class="text-primary fw-bold">99,99€</h5>
-                        <button class="btn btn-dark mt-2 w-100">Adicionar à Wishlist</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4 text-center">
-                    <div class="product-card p-3 border rounded">
-                        <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">
-                        <p class="mt-2"><b>Produto 2</b></p>
-                        <h5 class="text-primary fw-bold">49,99€</h5>
-                        <button class="btn btn-dark mt-2 w-100">Adicionar à Wishlist</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4 text-center">
-                    <div class="product-card p-3 border rounded">
-                        <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">
-                        <p class="mt-2"><b>Produto 3</b></p>
-                        <h5 class="text-primary fw-bold">79,99€</h5>
-                        <button class="btn btn-dark mt-2 w-100">Adicionar à Wishlist</button>
-                    </div>
-                </div>
-
-                <!-- Segunda Linha de Produtos -->
-                <div class="col-md-4 text-center mt-4">
-                    <div class="product-card p-3 border rounded">
-                        <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">
-                        <p class="mt-2"><b>Produto 4</b></p>
-                        <h5 class="text-primary fw-bold">119,99€</h5>
-                        <button class="btn btn-dark mt-2 w-100">Adicionar à Wishlist</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4 text-center mt-4">
-                    <div class="product-card p-3 border rounded">
-                        <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">
-                        <p class="mt-2"><b>Produto 5</b></p>
-                        <h5 class="text-primary fw-bold">29,99€</h5>
-                        <button class="btn btn-dark mt-2 w-100">Adicionar à Wishlist</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4 text-center mt-4">
-                    <div class="product-card p-3 border rounded">
-                        <img src="/images/product-placeholder.svg" alt="Produto" class="img-fluid">
-                        <p class="mt-2"><b>Produto 6</b></p>
-                        <h5 class="text-primary fw-bold">59,99€</h5>
-                        <button class="btn btn-dark mt-2 w-100">Adicionar à Wishlist</button>
-                    </div>
-                </div>
+            <div class="row d-flex justify-content-center">
+                <c:choose>
+                    <c:when test="${not empty items}">
+                        <c:forEach var="item" items="${items}">
+                            <div class="col-md-4 text-center">
+                                <div class="product-card p-3 border rounded mb-6">
+                                    <a href="/item/${item.id}">
+                                        <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid">
+                                    </a>
+                                    <p class="mt-2"><b>${item.name}</b></p>
+                                    <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
+                                    <button class="btn btn-dark mt-2 w-100" onclick="window.location.href='/wishlist.jsp?id=${item.id}'">
+                                        Adicionar à Wishlist
+                                    </button>
+                                    <button class="btn btn-primary mt-2 w-100" onclick="window.location.href='/scanViaBarcode?id=${item.id}'">
+                                        Scan do Produto
+                                    </button>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="text-center">Nenhum item disponível para esta loja.</p>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
+
     </div>
 </section>
 

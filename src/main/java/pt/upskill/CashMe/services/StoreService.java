@@ -17,4 +17,6 @@ public interface StoreService {
     Store findByImageUrl(String imageUrl);
 
     public Store  saveStore(Store store);
+
+    Store findStoreByItemId(Long itemId);
 }

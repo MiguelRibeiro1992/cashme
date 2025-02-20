@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import pt.upskill.CashMe.models.SignUpModel;
 
 @Entity
-@Table(name = "user") // Mapeia explicitamente para a tabela "user"
+@Table(name = "users") // Mapeia explicitamente para a tabela "user"
 public class User {
 
     @Id
@@ -14,7 +14,9 @@ public class User {
     private boolean admin;
 
     private String name;
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
 
     // Construtor vazio necessário para JPA
@@ -58,6 +60,7 @@ public class User {
         this.password = password;
     }
 
+    @Column(nullable = false)
     public boolean isAdmin() {
         return admin;
     }

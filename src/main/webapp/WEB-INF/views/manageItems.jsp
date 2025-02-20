@@ -121,12 +121,7 @@
                     <label class="form-label">Descrição</label>
                     <textarea class="form-control" name="description" required></textarea>
                 </div>
-                <!--
-                <div class="mb-3">
-                     <label class="form-label">Imagem</label>
-                     <img class="form-control" name="imageURL" required></img>
-                </div>
-                -->
+
                 <!-- Seleção de categoria -->
                 <div class="mb-3">
                     <label for="categoryId" class="form-label">Categoria</label>
@@ -197,9 +192,25 @@
                                                     ${category.name}<br>
                                                 </c:forEach>
                                             </td>
-                                            <td>${item.price}</td>
+                                            <td>${item.formattedPrice}</td>
                                             <td>${item.store.name}</td>
                                             <td>${item.imageUrl}</td>
+                                            <td>
+                                                <!-- Botão de Editar -->
+                                                <button class="btn btn-warning btn-sm" onclick="openEditModal('${item.id}', '${item.barcode}', '${item.name}', '${item.price}', '${item.brand}', '${item.description}', '${item.imageUrl}', '${item.store.id}', '${item.category[0].id}', '${item.category[0].name}')">
+                                                    Editar
+                                                </button>
+
+                                                <!-- Botão de Eliminar -->
+                                                <!-- Formulário para eliminar -->
+                                                <form action="/admin/dashboard/items/${item.id}" method="POST" style="display:inline;">
+                                                    <input type="hidden" name="_method" value="DELETE"> <!-- Simula um DELETE no Spring -->
+                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> <!-- Token CSRF -->
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja eliminar este item?');">
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -208,6 +219,104 @@
             </div>
         </main>
 
+        <!-- Modal de Edição -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Produto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Formulário de edição -->
+                    <form action="" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" id="editItemId" name="id">
+                            <input type="hidden" id="editStoreId" name="storeId">
+
+                            <div class="mb-3">
+                                <label class="form-label">Código de barras</label>
+                                <input type="text" class="form-control" id="editBarcode" name="barcode" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nome do Produto</label>
+                                <input type="text" class="form-control" id="editName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Preço (€)</label>
+                                <input type="number" class="form-control" id="editPrice" name="price" step="0.01" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Marca</label>
+                                <input type="text" class="form-control" id="editBrand" name="brand">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descrição</label>
+                                <textarea class="form-control" id="editDescription" name="description"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Imagem URL</label>
+                                <input type="text" class="form-control" id="editImageUrl" name="imageUrl">
+                            </div>
+
+                            <!-- Seleção de categoria -->
+                            <div class="mb-3">
+                                <label for="editCategoryId" class="form-label">Categoria</label>
+                                <select class="form-select" id="editCategoryId" name="categoryId" required onchange="updateEditCategoryName()">
+                                    <c:forEach var="category" items="${categories}">
+                                        <option value="${category.id}">${category.name}</option>
+                                    </c:forEach>
+                                </select>
+                                <input type="hidden" id="editCategoryName" name="categoryName">
+                            </div>
+
+                            <script>
+                                function updateEditCategoryName() {
+                                    const select = document.getElementById("editCategoryId");
+                                    const selectedOption = select.options[select.selectedIndex];
+                                    document.getElementById("editCategoryName").value = selectedOption.getAttribute("data-name");
+                                }
+                            </script>
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <!-- O botão submete o formulário e faz refresh automático -->
+                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function openEditModal(id, barcode, name, price, brand, description, imageUrl, storeId, categoryId, categoryName) {
+                document.getElementById('editItemId').value = id;
+                document.getElementById('editBarcode').value = barcode;
+                document.getElementById('editName').value = name;
+                document.getElementById('editPrice').value = price;
+                document.getElementById('editBrand').value = brand;
+                document.getElementById('editDescription').value = description;
+                document.getElementById('editImageUrl').value = imageUrl;
+                if (storeId && storeId !== "undefined") {
+                    document.getElementById('editStoreId').value = storeId;
+                } else {
+                    console.warn("storeId está indefinido!");
+                }
+                let categorySelect = document.getElementById('editCategoryId');
+                for (let option of categorySelect.options) {
+                    if (option.value == categoryId) {
+                        option.selected = true;
+                        break;
+                    }
+                }
+
+                // Definir o nome da categoria no input hidden
+                document.getElementById('editCategoryName').value = categoryName;
+                new bootstrap.Modal(document.getElementById('editModal')).show();
+            }
+        </script>
 
 <br>
 <br>
