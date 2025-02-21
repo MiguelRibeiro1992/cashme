@@ -50,6 +50,7 @@ public class SecurityWebConfig {
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             // Qualquer utilizador autenticado pode ver :
             auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage","/checkout", "/scanViaBarcode", "/scanViaNFC", "/storeView", "/storeView/**", "/aboutUs", "/contacts", "/messageSubmit", "/storesMap", "/").hasAnyRole("USER", "ADMIN");
+            auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage","/checkout", "/scanViaBarcode", "/scanViaNFC", "/storeView", "/storeView/**","/wishlist/**", "/").hasAnyRole("USER", "ADMIN");
             auth.requestMatchers("/**").denyAll();
         });
 
