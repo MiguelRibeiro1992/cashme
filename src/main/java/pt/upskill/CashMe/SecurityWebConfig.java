@@ -49,8 +49,7 @@ public class SecurityWebConfig {
             auth.requestMatchers("/login", "/favicon.ico", "/styles/**", "/scripts/**", "/images/**", "/home", "/signup", "/cart", "/").permitAll();
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
             // Qualquer utilizador autenticado pode ver :
-            auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage","/checkout", "/scanViaBarcode", "/scanViaNFC", "/storeView", "/storeView/**", "/aboutUs", "/contacts", "/messageSubmit", "/storesMap", "/").hasAnyRole("USER", "ADMIN");
-            auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage","/checkout", "/scanViaBarcode", "/scanViaNFC", "/storeView", "/storeView/**","/wishlist/**", "/").hasAnyRole("USER", "ADMIN");
+            auth.requestMatchers("/categories", "/categories/**", "/addToCart", "/mainPage","/checkout", "/scanViaBarcode", "/scanViaNFC", "/storeView", "/storeView/**","/wishlist/**", "/aboutUs", "/contacts", "/messageSubmit", "/storesMap","/account", "/").hasAnyRole("USER", "ADMIN");
             auth.requestMatchers("/**").denyAll();
         });
 

@@ -88,6 +88,8 @@ public class PublicController {
     public String contacts() {
         return "contacts";
     }
+
+
     @GetMapping("/wishlist/{userId}")
     public String getWishlist(@PathVariable Long userId, Model model) {
         WishlistModel wishlist = wishlistService.getWishlistByUserId(userId);
