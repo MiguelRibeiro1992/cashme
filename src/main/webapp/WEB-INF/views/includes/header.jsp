@@ -24,10 +24,10 @@
         <!-- Menu de Navegação -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Sobre Nós</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Lojas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/mainPage">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contacts">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="/aboutUs">Sobre Nós</a></li>
+                <li class="nav-item"><a class="nav-link" href="/storesMap">Lojas</a></li>
             </ul>
         </div>
 
@@ -44,7 +44,7 @@
             </form>
 
             <!-- Ícone Wishlist -->
-            <a href="#" class="nav-icon me-3 ms-3">
+            <a href="/wishlist" class="nav-icon me-3 ms-3">
                 <img src="/images/wishlist.svg" alt="Wishlist" height="24">
             </a>
 
