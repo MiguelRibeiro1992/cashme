@@ -79,4 +79,9 @@ public class PublicController {
         return "storesMap";
     }
 
+    @GetMapping("/account")
+    public String account() {
+        return "account";
+    }
+
 }
