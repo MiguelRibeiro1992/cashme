@@ -59,9 +59,24 @@ public class PublicController {
         return "storeView";
     }
 
+    @GetMapping("/aboutUs")
+    public String aboutUs() {
+        return "aboutUs";
+    }
 
+    @GetMapping("/contacts")
+    public String contacts() {
+        return "contacts";
+    }
 
+    @GetMapping("/messageSubmit")
+    public String messageSubmit() {
+        return "messageSubmit";
+    }
 
-
+    @GetMapping("/storesMap")
+    public String storesMap() {
+        return "storesMap";
+    }
 
 }

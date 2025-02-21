@@ -220,3 +220,8 @@ body {
 .app-link:hover {
     opacity: 0.8;
 }
+
+.social-icon {
+    width: 30px;  /* Define um tamanho fixo para os ícones */
+    height: 30px;
+}
