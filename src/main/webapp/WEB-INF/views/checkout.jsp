@@ -57,9 +57,19 @@
     </c:if>
 
     <h4 class="mt-4">Total a pagar: ${totalPrice} €</h4>
-
-
 </div>
+
+
+<!-- QR Code para pagamento -->
+    <div class="text-center mt-4">
+        <h5>Apresente este QR Code para pagamento</h5>
+        <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code" style="width: 150px; height: 150px" />
+        <!-- <img id="qrcode" alt="QR Code" /> -->
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/cart" class="btn btn-secondary">Voltar ao Carrinho</a>
+    </div>
 
 <script>
      cript>
@@ -79,15 +89,6 @@
              });
 </script>
 
-<!-- QR Code para pagamento -->
-    <div class="text-center mt-4">
-        <h5>Apresente este QR Code para pagamento</h5>
-        <img id="qrcode" alt="QR Code" />
-    </div>
-
-    <div class="text-center mt-4">
-        <a href="/cart" class="btn btn-secondary">Voltar ao Carrinho</a>
-    </div>
 
 <br>
 <br>
