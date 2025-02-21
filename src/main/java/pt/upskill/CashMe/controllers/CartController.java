@@ -1,9 +1,6 @@
 package pt.upskill.CashMe.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +9,7 @@ import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.CartServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
-import pt.upskill.CashMe.services.QRCodeServiceImpl;
+
 
 //Assim o carrinho está a dar
 @Controller
@@ -26,26 +23,6 @@ public class CartController {
 
     @Autowired
     private ItemRepository itemRepository;
-
-    @Autowired
-    private QRCodeServiceImpl qrCodeService;
-
-    @GetMapping("/removeFromCart")
-    public String removeFromCart(@RequestParam("barcode") String barcode) {
-        cartService.removeItemFromCart(barcode);
-        return "redirect:/cart";
-    }
-
-    @GetMapping("/cart")
-    public String showCart(Model model) {
-        Cart cart = cartService.getCart();
-
-        model.addAttribute("cartItems", cart.getCartItems());
-        model.addAttribute("totalPrice", cart.getTotalPrice());
-
-        return "cart";
-    }
-
 
     @GetMapping("/addToCart")
     public String addToCart(@RequestParam("barcode") String barcode, Model model) {
@@ -62,33 +39,37 @@ public class CartController {
 
         cartService.addItemToCart(barcode);
 
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/cart")
+    public String showCart(Model model) {
+        Cart cart = cartService.getCart();
+
+        model.addAttribute("cartItems", cart.getItems());
+        model.addAttribute("totalPrice", cart.getTotalPrice());
+
         return "cart";
     }
 
-    // Para remover?? Não está a funcionar
-    @DeleteMapping("/remove")
-    public ResponseEntity<String> removeItem(@RequestParam("barcode") String barcode) {
-        cartService.removeItemFromCart(barcode);
-        return ResponseEntity.ok("Item removido com sucesso");
+    @GetMapping("/removeFromCart")
+    public String removeFromCart(@RequestParam("barcode") String barcode) {
+        try {
+            cartService.removeItemFromCart(barcode);
+            System.out.println("Item removido com sucesso.");
+            return "redirect:/cart";
+        } catch (Exception e) {
+            System.err.println("Erro ao remover item: " + e.getMessage());
+            return "redirect:/cart";
+        }
     }
 
     @GetMapping("/checkout")
     public String checkout(Model model) {
         Cart cart = cartService.getCart();
-        model.addAttribute("cartItems", cart.getCartItems());
+        model.addAttribute("cartItems", cart.getItems());
         model.addAttribute("totalPrice", cart.getTotalPrice());
         return "checkout";
     }
 
-    // Endpoint para gerar QR Code para checkout
-    @GetMapping("/checkout/qrcode")
-    public ResponseEntity<byte[]> generateQrCode() {
-        String checkoutUrl = "http://localhost:8080/checkout";
-        byte[] qrCodeImage = qrCodeService.generateQRCode(checkoutUrl, 250, 250);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(org.springframework.http.MediaType.IMAGE_PNG);
-
-        return new ResponseEntity<>(qrCodeImage, headers, HttpStatus.OK);
-    }
 }

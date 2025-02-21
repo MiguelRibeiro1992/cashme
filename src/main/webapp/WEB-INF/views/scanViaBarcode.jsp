@@ -92,7 +92,7 @@
 
         // Adicionar produto ao carrinho ao clicar
         document.getElementById("addToCart").onclick = function() {
-            fetch("/addToCart?barcode=" + decodedText, {
+            fetch("/addToCart?barcode=" + barcode, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             })

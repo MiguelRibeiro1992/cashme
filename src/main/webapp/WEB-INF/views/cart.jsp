@@ -27,10 +27,7 @@
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
 <!-- Cart Container -->
-<!-- Colocar mais para a esquerda -->
-
 <div class="container mt-5">
-
 <h2 class="mb-4">Carrinho</h2>
 
 <c:if test="${empty cartItems}">
@@ -48,16 +45,19 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="cartItem" items="${cartItems}">
-                <tr id="row-${cartItem.item.barcode}">
-                    <td>${cartItem.item.name}</td>
-                    <td>${cartItem.item.price} €</td>
-                    <td>${cartItem.quantity}</td>
-                    <td>${cartItem.totalPrice} €</td>
-                    <td>
-                        <button class="btn btn-danger remove-item" data-barcode="${cartItem.item.barcode}">Eliminar</button>
-                    </td>
-                </tr>
+            <c:forEach var="entry" items="${cartItems}">
+                  <tr id="row-${entry.key.barcode}">
+                     <td>${entry.key.name}</td>
+                     <td>${entry.key.price} €</td>
+                     <td>${entry.value}</td>
+                     <td>${entry.key.price * entry.value} €</td>
+                     <td>
+                     <form action="/removeFromCart" method="GET">
+                         <input type="hidden" name="barcode" value="${entry.key.barcode}">
+                         <button type="submit" class="btn btn-danger">Eliminar</button>
+                     </form>
+                  </td>
+               </tr>
             </c:forEach>
         </tbody>
     </table>
@@ -73,32 +73,6 @@
         <a href="/checkout" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Finalizar Compra</a>
     </div>
 </c:if>
-
-<script>
-    document.querySelectorAll(".remove-item").forEach(button => {
-        button.addEventListener("click", function() {
-            let barcode = this.getAttribute("data-barcode");
-            fetch("/removeFromCart?barcode=" + barcode, {
-                method: 'GET' })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById(`row-${barcode}`).remove();
-                        updateTotalPrice();
-                    } else {
-                        alert("Erro ao remover o item.");
-                    }
-                });
-        });
-    });
-
-    function updateTotalPrice() {
-        fetch('/cart-total')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("totalPrice").innerText = data.total;
-            });
-    }
-</script>
 
 <br>
 <br>

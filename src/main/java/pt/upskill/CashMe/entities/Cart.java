@@ -1,12 +1,12 @@
 package pt.upskill.CashMe.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @Entity
 public class Cart {
@@ -14,29 +14,53 @@ public class Cart {
     @Id
     @GeneratedValue
     private Long id;
+    private boolean active;
 
-    @OneToMany
-    private List<CartItem> cartItems = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "cart_item_quantities", joinColumns = @JoinColumn(name = "cart_id"))
+    @MapKeyJoinColumn(name = "item_id")
+    @Column(name = "quantity")
+    private Map<Item, Integer> items = new HashMap<>();
+
+    public Cart() {
+        this.active = true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Map<Item, Integer> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<Item, Integer> items) {
+        this.items = items;
+    }
 
     public void addItem(Item item) {
-        for (CartItem cartItem : cartItems) {
-            if (cartItem.getItem().getBarcode().equals(item.getBarcode())) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-                return;
-            }
-        }
-        cartItems.add(new CartItem(item, 1));
+        items.put(item, items.getOrDefault(item, 0) + 1);
     }
 
     public void removeItem(String barcode) {
-        cartItems.removeIf(cartItem -> cartItem.getItem().getBarcode().equals(barcode));
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
+        items.entrySet().removeIf(entry -> entry.getKey().getBarcode().equals(barcode));
     }
 
     public double getTotalPrice() {
-        return cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
+        return items.entrySet().stream()
+                .mapToDouble(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
     }
 }

@@ -44,14 +44,14 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="cartItem" items="${cartItems}">
-                    <tr>
-                        <td>${cartItem.item.name}</td>
-                        <td>${cartItem.item.price} €</td>
-                        <td>${cartItem.quantity}</td>
-                        <td>${cartItem.totalPrice} €</td>
+                <c:forEach var="entry" items="${cartItems}">
+                    <tr id="row-${entry.key.barcode}">
+                        <td>${entry.key.name}</td>
+                        <td>${entry.key.price} €</td>
+                        <td>${entry.value}</td>
+                        <td>${entry.key.price * entry.value} €</td>
                     </tr>
-                </c:forEach>
+                </c:forEach>5
             </tbody>
         </table>
     </c:if>
