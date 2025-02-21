@@ -3,11 +3,14 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
+
 <%
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     boolean isAuthenticated = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
 %>
 
+<%@ include file="top-header.jsp" %>
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
