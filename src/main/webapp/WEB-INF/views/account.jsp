@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -21,48 +22,51 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
+<!-- Breadcrumb -->
+<section class="container mt-4">
+    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Minha Conta</b></p>
+</section>
+
+<!-- Seção Principal -->
 <section class="container mt-4">
     <div class="row">
-        <!-- Menu Lateral -->
+        <!-- Sidebar de navegação -->
         <div class="col-md-3">
-            <h5 class="fw-bold">Gestão de Conta</h5>
-            <ul class="list-unstyled">
-                <li><a href="#" class="fw-bold text-primary">O meu perfil</a></li>
-                <li><a href="#">Opções de Pagamento</a></li>
-            </ul>
-
-            <h5 class="fw-bold mt-3">Encomendas</h5>
-            <ul class="list-unstyled">
-                <li><a href="#">Histórico</a></li>
-                <li><a href="#">Estatísticas de Gastos</a></li>
-                <li><a href="#">Tracking de Preços</a></li>
-            </ul>
-
-            <h5 class="fw-bold mt-3">Wishlist</h5>
-            <h5 class="fw-bold mt-3">Notificações</h5>
-            <h5 class="fw-bold mt-3">Pontos</h5>
-
-            <h5 class="fw-bold mt-3">Definições</h5>
-            <ul class="list-unstyled">
-                <li><a href="#">Segurança</a></li>
-            </ul>
+            <div class="p-4 border rounded shadow-sm">
+                <h5 class="fw-bold">Gestão de Conta</h5>
+                <ul class="list-unstyled mt-3">
+                    <li><a href="#" class="text-decoration-none text-primary">O meu perfil</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
+                </ul>
+                <h5 class="fw-bold mt-4">Encomendas</h5>
+                <ul class="list-unstyled mt-3">
+                    <li><a href="#" class="text-decoration-none text-muted">Histórico</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Estatísticas de Gastos</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Tracking de Preços</a></li>
+                </ul>
+                <h5 class="fw-bold mt-4">Outros</h5>
+                <ul class="list-unstyled mt-3">
+                    <li><a href="#" class="text-decoration-none text-muted">Wishlist</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Notificações</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Pontos</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Definições</a></li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Área de Edição de Perfil -->
-        <div class="col-md-9">
-            <h5 class="text-end">Bem-vindo! <span class="text-primary">José Paloco</span></h5>
-
-            <div class="p-4 border rounded shadow-sm mt-3">
-                <h4 class="fw-bold">Edita o teu perfil</h4>
-                <form action="#" method="POST">
+        <!-- Formulário de edição de perfil -->
+        <div class="col-md-9 d-flex align-items-center">
+            <div class="p-4 border rounded shadow-sm w-100">
+                <h4 class="fw-bold text-primary">Edita o teu perfil</h4>
+                <form>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Primeiro Nome</label>
-                            <input type="text" class="form-control" value="José">
+                            <input type="text" class="form-control" value="José" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Último Nome</label>
-                            <input type="text" class="form-control" value="Paloco">
+                            <input type="text" class="form-control" value="Paloco" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Email</label>
@@ -70,24 +74,23 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Morada</label>
-                            <input type="text" class="form-control" value="15 Yemen Road, Yemen">
+                            <input type="text" class="form-control" value="15 Yemen Road, Yemen" disabled>
                         </div>
-
-                        <!-- Alteração de Password -->
-                        <h5 class="fw-bold mt-3">Alterar Password</h5>
+                        <h5 class="fw-bold mt-4">Alterar Password</h5>
                         <div class="col-md-12">
-                            <input type="password" class="form-control" placeholder="Password Atual">
+                            <label class="form-label fw-bold">Password Atual</label>
+                            <input type="password" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" placeholder="Nova Password">
+                            <label class="form-label fw-bold">Nova Password</label>
+                            <input type="password" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" placeholder="Confirmar Nova Password">
+                            <label class="form-label fw-bold">Confirmar Nova Password</label>
+                            <input type="password" class="form-control">
                         </div>
-
-                        <!-- Botões -->
-                        <div class="col-md-12 d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                        <div class="col-12 d-flex justify-content-between mt-3">
+                            <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Guardar Alterações</button>
                         </div>
                     </div>
@@ -97,10 +100,14 @@
     </div>
 </section>
 
-<!-- Footer -->
-<%@ include file="includes/footer.jsp"%>
+<%@ include file="includes/footer.jsp" %> <!-- Footer -->
 
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/scripts/scripts.js" defer></script>
 
 </body>
 </html>
+
+
+
