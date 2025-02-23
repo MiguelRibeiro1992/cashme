@@ -52,15 +52,24 @@ public class CartServiceImpl implements CartService {
         Item item = itemRepository.findByBarcode(barcode);
         if (item != null) {
             Cart activeCart = cartRepository.findActiveCart();
+
             if (activeCart != null) {
                 Map<Item, Integer> items = activeCart.getItems();
                 if (items.containsKey(item)) {
                     int quantityInCart = items.get(item);
 
-                    item.setQuantity(item.getQuantity() + quantityInCart);
+                    // Decrementa 1 na quantidade do item no carrinho. Se for 1, elimina
+                    if (quantityInCart < 1) {
+                        items.put(item, quantityInCart - 1);
+                    } else {
+                        items.remove(item);
+                    }
+
+                    //Devolve o item ao stock
+                    item.setQuantity(item.getQuantity() + 1);
                     itemRepository.save(item);
 
-                    items.remove(item);
+                    //Atualiza o carrinho
                     cartRepository.save(activeCart);
                 }
             }

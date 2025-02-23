@@ -63,9 +63,9 @@ public class CartController {
     public String removeFromCart(@RequestParam("barcode") String barcode) {
         try {
             cartService.removeItemFromCart(barcode);
-            System.out.println("Item removed successfully.");
+            System.out.println("Item removido com sucesso.");
         } catch (Exception e) {
-            System.err.println("Error removing item: " + e.getMessage());
+            System.err.println("Erro ao remover item: " + e.getMessage());
         }
         return "redirect:/cart";
     }
@@ -74,13 +74,13 @@ public class CartController {
     public String checkout(Model model) {
         Cart cart = cartService.getCart();
 
-        //if (cart != null) {
+        if (cart != null) {
             model.addAttribute("cartItems", cart.getItems());
             model.addAttribute("totalPrice", cart.getTotalPrice());
-//        } else {
-//            model.addAttribute("cartItems", Map.of());
-//            model.addAttribute("totalPrice", 0.0);
-//        }
+        } else {
+            model.addAttribute("cartItems", Map.of());
+            model.addAttribute("totalPrice", 0.0);
+        }
 
         return "checkout";
     }

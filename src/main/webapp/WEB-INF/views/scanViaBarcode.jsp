@@ -75,7 +75,6 @@
 <script>
     function onScanSuccess(decodedText, decodedResult) {
         let barcode = decodedText.trim();
-        console.log(`Código capturado: "${barcode}"`); // Log para depuração
 
             if (barcode === "") {
                 console.warn("Código de barras vazio detectado!");

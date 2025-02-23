@@ -72,7 +72,6 @@
     </div>
 
 <script>
-     cript>
              document.addEventListener("DOMContentLoaded", function() {
                  fetch('/checkout/qrcode')
                      .then(response => {

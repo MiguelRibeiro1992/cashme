@@ -2,9 +2,7 @@ package pt.upskill.CashMe.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -18,7 +16,7 @@ public class Cart {
 
     @ElementCollection
     @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
-    @MapKeyJoinColumn(name = "items_id")
+    @MapKeyJoinColumn(name = "item_id")
     @Column(name = "quantity")
     private Map<Item, Integer> items = new HashMap<>();
 

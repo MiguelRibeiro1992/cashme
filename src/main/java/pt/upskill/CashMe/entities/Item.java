@@ -18,6 +18,8 @@ public class Item {
     private String description;
     private String imageUrl;
 
+    //Não falta o isFavorito aqui?
+
     @ManyToMany
     private List<Category> category = new ArrayList<>();
 

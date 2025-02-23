@@ -1,13 +1,9 @@
 package pt.upskill.CashMe.services;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
-import pt.upskill.CashMe.entities.Store;
 import pt.upskill.CashMe.entities.User;
-import pt.upskill.CashMe.models.ItemModel;
 import pt.upskill.CashMe.repositories.ItemRepository;
 
 import java.util.List;
@@ -27,19 +23,6 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id)
                 .orElse(null); // Retorna null se não encontrar (ou lançar exceção se preferir)
     }
-
-//    public void addItem(ItemModel itemModel) {
-//        Item item = new Item();
-//        item.setBarcode(itemModel.getBarcode());
-//        item.setName(itemModel.getName());
-//        item.setDescription(itemModel.getDescription());
-//        item.setImageUrl(itemModel.getImageUrl());
-//        item.setBrand(itemModel.getBrand());
-//        item.setPrice(itemModel.getPrice());
-//        item.setDiscount(itemModel.getDiscount());
-//        item.setQuantity(itemModel.getQuantity());
-//        itemRepository.save(item);
-//    }
 
     @Override
     //@Transactional
