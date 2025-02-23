@@ -17,8 +17,8 @@ public class Cart {
     private boolean active;
 
     @ElementCollection
-    @CollectionTable(name = "cart_item_quantities", joinColumns = @JoinColumn(name = "cart_id"))
-    @MapKeyJoinColumn(name = "item_id")
+    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
+    @MapKeyJoinColumn(name = "items_id")
     @Column(name = "quantity")
     private Map<Item, Integer> items = new HashMap<>();
 
@@ -50,8 +50,8 @@ public class Cart {
         this.items = items;
     }
 
-    public void addItem(Item item) {
-        items.put(item, items.getOrDefault(item, 0) + 1);
+    public void addItem(Item item, int quantity) {
+        items.merge(item, quantity, Integer::sum);
     }
 
     public void removeItem(String barcode) {

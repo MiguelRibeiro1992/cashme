@@ -51,7 +51,7 @@
                         <td>${entry.value}</td>
                         <td>${entry.key.price * entry.value} €</td>
                     </tr>
-                </c:forEach>5
+                </c:forEach>
             </tbody>
         </table>
     </c:if>

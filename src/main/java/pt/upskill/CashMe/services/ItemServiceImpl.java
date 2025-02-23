@@ -28,13 +28,29 @@ public class ItemServiceImpl implements ItemService {
                 .orElse(null); // Retorna null se não encontrar (ou lançar exceção se preferir)
     }
 
+//    public void addItem(ItemModel itemModel) {
+//        Item item = new Item();
+//        item.setBarcode(itemModel.getBarcode());
+//        item.setName(itemModel.getName());
+//        item.setDescription(itemModel.getDescription());
+//        item.setImageUrl(itemModel.getImageUrl());
+//        item.setBrand(itemModel.getBrand());
+//        item.setPrice(itemModel.getPrice());
+//        item.setDiscount(itemModel.getDiscount());
+//        item.setQuantity(itemModel.getQuantity());
+//        itemRepository.save(item);
+//    }
 
-
-    @Transactional
     @Override
+    //@Transactional
     public void save(Item item) {
-        System.out.println("Item guardado: " + item.getName());
-        itemRepository.save(item);
+        Item itemToSave = itemRepository.findByBarcode(item.getBarcode());
+        if (itemToSave == null) {
+            itemRepository.save(item);
+        } else {
+            itemToSave.setQuantity(itemToSave.getQuantity() + item.getQuantity());
+            itemRepository.save(itemToSave);
+        }
     }
 
     @Override

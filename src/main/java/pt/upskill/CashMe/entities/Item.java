@@ -18,10 +18,7 @@ public class Item {
     private String description;
     private String imageUrl;
 
-    //ALTERADO
     @ManyToMany
-    @JoinTable(name = "item_category",  joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> category = new ArrayList<>();
 
     private String brand;
@@ -31,7 +28,7 @@ public class Item {
 
     private double price;
     private double discount = 0.0;
-    private int quantity = 1;
+    private int quantity;
     private String categoryName;
     private Double rating;
     private Integer reviewsCount;

@@ -10,6 +10,8 @@ import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.CartServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
 
+import java.util.Map;
+
 
 //Assim o carrinho está a dar
 @Controller
@@ -32,11 +34,11 @@ public class CartController {
 
         if (item == null) {
             System.out.println("Item not found in the database.");
-            model.addAttribute("error", "Produto não encontrado");
+            model.addAttribute("error", "Product not found");
+            return "redirect:/cart";
         }
 
         System.out.println("Item found: " + item.getName());
-
         cartService.addItemToCart(barcode);
 
         return "redirect:/cart";
@@ -46,8 +48,13 @@ public class CartController {
     public String showCart(Model model) {
         Cart cart = cartService.getCart();
 
-        model.addAttribute("cartItems", cart.getItems());
-        model.addAttribute("totalPrice", cart.getTotalPrice());
+        if (cart != null) {
+            model.addAttribute("cartItems", cart.getItems());
+            model.addAttribute("totalPrice", cart.getTotalPrice());
+        } else {
+            model.addAttribute("cartItems", Map.of());
+            model.addAttribute("totalPrice", 0.0);
+        }
 
         return "cart";
     }
@@ -56,19 +63,25 @@ public class CartController {
     public String removeFromCart(@RequestParam("barcode") String barcode) {
         try {
             cartService.removeItemFromCart(barcode);
-            System.out.println("Item removido com sucesso.");
-            return "redirect:/cart";
+            System.out.println("Item removed successfully.");
         } catch (Exception e) {
-            System.err.println("Erro ao remover item: " + e.getMessage());
-            return "redirect:/cart";
+            System.err.println("Error removing item: " + e.getMessage());
         }
+        return "redirect:/cart";
     }
 
     @GetMapping("/checkout")
     public String checkout(Model model) {
         Cart cart = cartService.getCart();
-        model.addAttribute("cartItems", cart.getItems());
-        model.addAttribute("totalPrice", cart.getTotalPrice());
+
+        //if (cart != null) {
+            model.addAttribute("cartItems", cart.getItems());
+            model.addAttribute("totalPrice", cart.getTotalPrice());
+//        } else {
+//            model.addAttribute("cartItems", Map.of());
+//            model.addAttribute("totalPrice", 0.0);
+//        }
+
         return "checkout";
     }
 

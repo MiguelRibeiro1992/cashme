@@ -15,7 +15,7 @@ public class ItemModel {
     private String brand;
     private double price;
     private double discount = 0.0;
-    private int quantity = 1;
+    private int quantity;
 
     public ItemModel(){
 

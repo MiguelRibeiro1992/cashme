@@ -67,7 +67,7 @@ public class AdminController {
         model.addAttribute("categories", categories);
         model.addAttribute("stores", stores);
         model.addAttribute("items", itemService.findAll());
-        model.addAttribute("item", new Item("", "", 0.0));
+        model.addAttribute("item", new Item());
         return "manageItems";
     }
 
@@ -76,7 +76,8 @@ public class AdminController {
     public String addProduct(@ModelAttribute("item") Item item,
                              @RequestParam("storeId") Long storeId,
                              @RequestParam("categoryId") Long categoryId,
-                             @RequestParam("categoryName") String categoryName) {
+                             @RequestParam("categoryName") String categoryName,
+                             @RequestParam("quantity") int quantity) {
         System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
 
         Store store = storeService.findStoreById(storeId);
@@ -106,6 +107,7 @@ public class AdminController {
         }
 
         item.setCategoryName(categoryName);
+        item.setQuantity(quantity);
         System.out.printf("Item: %s, %s, %s, %s, %s, %s, %s, %s\n",
                 item.getName(), item.getBarcode(), item.getDescription(), item.getImageUrl(),
                 item.getBrand(), item.getPrice(), item.getDiscount(), item.getQuantity(),item.getCategoryName());

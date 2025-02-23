@@ -8,6 +8,7 @@ import pt.upskill.CashMe.repositories.CartRepository;
 import pt.upskill.CashMe.repositories.ItemRepository;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -28,13 +29,21 @@ public class CartServiceImpl implements CartService {
     public void addItemToCart(String barcode) {
         Item item = itemRepository.findByBarcode(barcode);
         if (item != null) {
+            if (item.getQuantity() < 1) {
+                throw new IllegalArgumentException("Requested quantity exceeds available stock.");
+            }
+
             Cart activeCart = cartRepository.findActiveCart();
             if (activeCart == null) {
                 activeCart = new Cart();
                 cartRepository.save(activeCart);
             }
-            activeCart.addItem(item);
+
+            activeCart.addItem(item, 1);
             cartRepository.save(activeCart);
+
+            item.setQuantity(item.getQuantity() - 1);
+            itemRepository.save(item);
         }
     }
 
@@ -44,8 +53,16 @@ public class CartServiceImpl implements CartService {
         if (item != null) {
             Cart activeCart = cartRepository.findActiveCart();
             if (activeCart != null) {
-                activeCart.removeItem(barcode);
-                cartRepository.save(activeCart);
+                Map<Item, Integer> items = activeCart.getItems();
+                if (items.containsKey(item)) {
+                    int quantityInCart = items.get(item);
+
+                    item.setQuantity(item.getQuantity() + quantityInCart);
+                    itemRepository.save(item);
+
+                    items.remove(item);
+                    cartRepository.save(activeCart);
+                }
             }
         }
     }

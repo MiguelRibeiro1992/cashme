@@ -140,7 +140,7 @@
                         document.getElementById("categoryName").value = selectedOption.getAttribute("data-name");
                     }
                 </script>
-            </form>
+
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Preço (€)</label>
@@ -148,7 +148,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Quantidade</label>
-                        <input type="number" class="form-control" name="quantity" required>
+                    <input type="number" class="form-control" name="quantity" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Url da imagem</label>
