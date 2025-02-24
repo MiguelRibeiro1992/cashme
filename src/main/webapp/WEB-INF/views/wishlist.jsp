@@ -33,8 +33,8 @@
 <section class="container mt-4">
     <div class="row">
         <c:choose>
-            <c:when test="${not empty wishlist and not empty wishlist.favoritos}">
-                <c:forEach var="item" items="${wishlist.favoritos}">
+            <c:when test="${not empty wishlist and not empty wishlist.items}">
+                <c:forEach var="item" items="${wishlist.items}">
                     <div class="col-md-4 text-center">
                         <div class="product-card p-3 border rounded">
                             <a href="/item/${item.id}">
@@ -44,9 +44,9 @@
                             <h5 class="text-primary fw-bold">${item.price}€</h5>
 
                             <!-- Botão para remover dos favoritos -->
-                            <button class="btn btn-danger mt-2 w-100" onclick="toggleWishlist(${item.id}, this)">
-                                Remover da Wishlist
-                            </button>
+                            <form action="/wishlist/toggle/${item.id}" method="post">
+                                <button class="btn btn-danger mt-2 w-100">Remover da Wishlist</button>
+                            </form>
                         </div>
                     </div>
                 </c:forEach>

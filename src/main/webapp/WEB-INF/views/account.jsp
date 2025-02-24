@@ -24,18 +24,18 @@
 
 <!-- Breadcrumb -->
 <section class="container mt-4">
-    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Minha Conta</b></p>
+    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>A minha conta</b></p>
 </section>
 
 <!-- Seção Principal -->
 <section class="container mt-4">
-    <div class="row">
+    <div class="row aling-items center mb-6">
         <!-- Sidebar de navegação -->
         <div class="col-md-3">
             <div class="p-4 border rounded shadow-sm">
                 <h5 class="fw-bold">Gestão de Conta</h5>
                 <ul class="list-unstyled mt-3">
-                    <li><a href="#" class="text-decoration-none text-primary">O meu perfil</a></li>
+                    <li><a href="#" class="text-decoration-none text-orange">O meu perfil</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
@@ -56,38 +56,38 @@
 
         <!-- Formulário de edição de perfil -->
         <div class="col-md-9 d-flex align-items-center">
-            <div class="p-4 border rounded shadow-sm w-100">
-                <h4 class="fw-bold text-primary">Edita o teu perfil</h4>
+            <div class="p-4 border rounded shadow-sm w-100 align-self-center">
+                <h4 class="fw-bold text-orange">Edita o teu perfil</h4>
                 <form>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Primeiro Nome</label>
-                            <input type="text" class="form-control" value="José" disabled>
+                            <input type="text" class="form-control" name="firstName" placeholder="José">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Último Nome</label>
-                            <input type="text" class="form-control" value="Paloco" disabled>
+                            <input type="text" class="form-control" name="lastName" placeholder="Paloco">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control" value="josepaloco@gmail.com" disabled>
+                            <input type="email" class="form-control" name="email" placeholder="josepaloco@gmail.com">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Morada</label>
-                            <input type="text" class="form-control" value="15 Yemen Road, Yemen" disabled>
+                            <input type="text" class="form-control" name="address" placeholder="15 Yemen Road, Yemen">
                         </div>
                         <h5 class="fw-bold mt-4">Alterar Password</h5>
                         <div class="col-md-12">
                             <label class="form-label fw-bold">Password Atual</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control" name="currentPassword" placeholder="********">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Nova Password</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control" name="newPassword" placeholder="Nova Password">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Confirmar Nova Password</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmar Nova Password">
                         </div>
                         <div class="col-12 d-flex justify-content-between mt-3">
                             <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
@@ -97,6 +97,7 @@
                 </form>
             </div>
         </div>
+
     </div>
 </section>
 
@@ -108,6 +109,8 @@
 
 </body>
 </html>
+
+
 
 
 

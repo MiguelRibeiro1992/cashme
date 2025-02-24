@@ -2,9 +2,11 @@ package pt.upskill.CashMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.entities.Wishlist;
 import pt.upskill.CashMe.models.WishlistModel;
+import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.repositories.UserRepository;
 import pt.upskill.CashMe.repositories.WishlistRepository;
 
@@ -18,35 +20,31 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
+    private ItemServiceImpl itemServiceImpl;
 
-    // Converte a entidade Wishlist para o modelo WishlistModel
-    private WishlistModel toModel(Wishlist wishlist) {
-        return new WishlistModel(
-                wishlist.getId(),
-                wishlist.getFavoritos(),
-                wishlist.getUser().getId()
-        );
-    }
 
     // Busca a wishlist de um utilizador
     @Override
-    public WishlistModel getWishlistByUserId(Long userId) {
-        Optional<Wishlist> wishlistOpt = wishlistRepository.findByUserId(userId);
-        return wishlistOpt.map(this::toModel).orElse(null);
+    public Wishlist getWishlistByUser(User user) {
+        Optional<Wishlist> wishlistOpt = wishlistRepository.findByUser(user);
+        if(wishlistOpt.isEmpty()) {
+            Wishlist wishlist = new Wishlist(user);
+            return wishlistRepository.save(wishlist);
+        }
+        return wishlistOpt.get();
     }
 
     // Adiciona ou remove um item dos favoritos
     @Override
-    public WishlistModel toggleFavorito(Long userId, int itemId) {
-        Wishlist wishlist = wishlistRepository.findByUserId(userId)
-                .orElseGet(() -> {
-                    User user = userRepository.findById(userId).orElseThrow(() ->
-                            new RuntimeException("Utilizador não encontrado"));
-                    return new Wishlist(user);
-                });
-
-        wishlist.toggleFavorito(itemId);
-        wishlistRepository.save(wishlist);
-        return toModel(wishlist);
+    public Wishlist toggleFavorito(User user, Item item) {
+        Wishlist wishlist = wishlistRepository.findByUser(user).orElse(new Wishlist(user));
+        wishlist.toggleFavorito(item);
+        return wishlistRepository.save(wishlist);
     }
+
+
+
 }

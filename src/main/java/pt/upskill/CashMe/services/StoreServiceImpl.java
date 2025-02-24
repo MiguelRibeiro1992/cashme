@@ -2,6 +2,7 @@ package pt.upskill.CashMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
 import pt.upskill.CashMe.repositories.StoreRepository;
 
@@ -41,8 +42,8 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public Store findStoreByItemId(Long itemId) {
-        return storeRepository.findStoreByItemId(itemId);
+    public List<Store> findStoresByItem(Item item) {
+        return storeRepository.findStoresByItemsContains(item);
     }
 
 

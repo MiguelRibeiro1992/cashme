@@ -226,35 +226,36 @@
             <div class="row justify-content-center">
                 <c:forEach var="item" items="${items}">
                     <div class="col-md-4 col-sm-6 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
+                        <a href="/item/${item.id}" class="text-decoration-none text-dark">
+                            <!-- Container da imagem para posicionamento correto dos ícones -->
+                            <div class="image-container position-relative">
+                                <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid product-link">
 
-                        <!-- Container da imagem para posicionamento correto dos ícones -->
-                        <div class="image-container position-relative">
-                            <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid product-link">
-
-                            <!-- Ícones de Favorito e Visualizar -->
-                            <div class="icons-container position-absolute top-0 end-0 p-2">
-                                <a href="/wishlist.jsp?id=${item.id}">
-                                    <img src="/images/heart.svg" alt="Favorito" class="icon">
-                                </a>
-                                <a href="/item/${item.id}">
-                                    <img src="/images/eye.svg" alt="Visualizar" class="icon">
-                                </a>
+                                <!-- Ícones de Favorito e Visualizar -->
+                                <div class="icons-container position-absolute top-0 end-0 p-2">
+                                    <a href="/wishlist.jsp?id=${item.id}" onclick="event.stopPropagation();">
+                                        <img src="/images/heart.svg" alt="Favorito" class="icon">
+                                    </a>
+                                    <a href="/item/${item.id}" onclick="event.stopPropagation();">
+                                        <img src="/images/eye.svg" alt="Visualizar" class="icon">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Nome do Produto -->
-                        <p class="mt-4"><b>${item.name}</b></p>
+                            <!-- Nome do Produto -->
+                            <p class="mt-4"><b>${item.name}</b></p>
 
-                        <!-- Preço formatado -->
-                        <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
+                            <!-- Preço formatado -->
+                            <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
 
-                        <!-- Classificação por estrelas -->
-                        <div class="rating mt-2">
-                            <c:forEach var="i" begin="1" end="5">
-                                <span class="star ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : ''}">&#9733;</span>
-                            </c:forEach>
-                            <span class="rating-value">(${item.reviewsCount != null ? item.reviewsCount : 0})</span>
-                        </div>
+                            <!-- Classificação por estrelas -->
+                            <div class="rating mt-2">
+                                <c:forEach var="i" begin="1" end="5">
+                                    <span class="star ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : ''}">&#9733;</span>
+                                </c:forEach>
+                                <span class="rating-value">(${item.reviewsCount != null ? item.reviewsCount : 0})</span>
+                            </div>
+                        </a>
                     </div>
                 </c:forEach>
             </div>

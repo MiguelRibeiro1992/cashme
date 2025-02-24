@@ -1,7 +1,10 @@
 package pt.upskill.CashMe.entities;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,8 +15,8 @@ public class Wishlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ElementCollection
-    private Set<Integer> favoritos = new HashSet<>();
+    @ManyToMany
+    private List<Item> items = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -25,21 +28,18 @@ public class Wishlist {
         this.user = user;
     }
 
-    public void toggleFavorito(int itemId) {
-        if (favoritos.contains(itemId)) {
-            favoritos.remove(itemId);
+    public void toggleFavorito(Item item) {
+        if (items.contains(item)) {
+            items.remove(item);
         } else {
-            favoritos.add(itemId);
+            items.add(item);
         }
     }
 
-    public boolean isFavorito(int itemId) {
-        return favoritos.contains(itemId);
+    public boolean isFavorito(Item item) {
+        return items.contains(item);
     }
 
-    public Set<Integer> getFavoritos() {
-        return favoritos;
-    }
 
     public Long getId() {
         return id;
@@ -49,8 +49,12 @@ public class Wishlist {
         this.id = id;
     }
 
-    public void setFavoritos(Set<Integer> favoritos) {
-        this.favoritos = favoritos;
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public User getUser() {
@@ -60,4 +64,6 @@ public class Wishlist {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

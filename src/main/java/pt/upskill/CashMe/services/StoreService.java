@@ -1,5 +1,6 @@
 package pt.upskill.CashMe.services;
 
+import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface StoreService {
 
     public Store  saveStore(Store store);
 
-    Store findStoreByItemId(Long itemId);
+    List<Store> findStoresByItem(Item item);
 }

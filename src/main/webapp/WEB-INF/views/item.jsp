@@ -32,18 +32,18 @@
         </div>
 
         <!-- Informações do Produto -->
-        <div class="col-md-7">
+        <div class="col-md-7 d-flex flex-column justify-content-center">
             <h2 class="fw-bold">${item.name}</h2>
 
             <!-- Avaliação Clicável -->
             <div class="d-flex align-items-center">
                 <div class="rating text-warning">
                     <c:forEach var="i" begin="1" end="5">
-                        <span class="star clickable ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : 'text-secondary'}"
-                              data-value="${i}"
-                              onclick="rateItem(${item.id}, ${i})">
-                            &#9733;
-                        </span>
+                <span class="star clickable ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : 'text-secondary'}"
+                      data-value="${i}"
+                      onclick="rateItem(${item.id}, ${i})">
+                    &#9733;
+                </span>
                     </c:forEach>
                 </div>
                 <span class="ms-2 text-muted">(${item.reviewsCount != null ? item.reviewsCount : 0} Reviews)</span>
@@ -60,15 +60,17 @@
                 <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(-1)">-</button>
                 <span class="mx-3 fs-5" id="quantity">1</span>
                 <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(1)">+</button>
-                <button class="btn btn-primary ms-3">Adicionar à Wishlist</button>
+                <form action="/wishlist/toggle/${item.id}" method="post">
+                    <button class="btn btn-primary ms-3">Adicionar à Wishlist</button>
+                </form>
             </div>
 
             <!-- Botões Extras -->
             <div>
-                <button class="btn btn-primary mt-3 w-100">Ler Código de Barras</button>
+                <button class="btn btn-primary mt-3 w-100" onclick="window.location.href='/scanViaBarcode'">Ler Código de Barras</button>
             </div>
 
-            <button class="btn btn-primary mt-3 w-100">Ler NFC</button>
+            <button class="btn btn-primary mt-3 w-100" onclick="">Ler NFC</button>
         </div>
     </div>
 </section>
@@ -80,20 +82,22 @@
         <h4 class="ms-3">Disponível em:</h4>
     </div>
 
-    <div class="row mt-4">
-        <c:if test="${store != null}">
+    <div class="row mt-4 mb-6">
+        <c:if test="${!stores.isEmpty()}">
+            <c:forEach var="store" items="${stores}">
             <div class="col-md-3 text-center">
-                <img src="/images/store-placeholder.svg" alt="Loja" class="img-fluid">
+                <img src="/images/${store.imageUrl == null ? 'store-placeholder.svg' : store.imageUrl}" alt="Loja" class="img-fluid">
                 <p class="mt-2">${store.name}</p>
                 <div class="rating">
                     <c:forEach var="i" begin="1" end="5">
-                        <span class="star ${i <= store.rating ? 'text-warning' : 'text-secondary'}">&#9733;</span>
+                        <span class="star text-warning">&#9733;</span>
                     </c:forEach>
-                    <span>(${store.reviews})</span>
+                    <span>(${store.location})</span>
                 </div>
             </div>
+            </c:forEach>
         </c:if>
-        <c:if test="${store == null}">
+        <c:if test="${stores.isEmpty()}">
             <p class="text-muted">Este produto não está disponível em nenhuma loja.</p>
         </c:if>
     </div>
@@ -103,6 +107,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/scripts/scripts.js" defer></script>
+<script>
+    function updateQuantity(amount) {
+        const quantityElement = document.getElementById('quantity');
+        let quantity = parseInt(quantityElement.textContent);
+        quantity = Math.max(1, quantity + amount);
+        quantityElement.textContent = quantity;
+    }
+
+</script>
+
+<script>
+    function toggleWishlist(itemId) {
+        fetch('/user/current', {
+            method: 'GET'
+        }).then(response => response.json())
+            .then(user => {
+                const userId = user.name;
+                fetch(`/wishlist/toggle/${userId}/${itemId}`, {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = `/wishlist/${userId}`;
+                    } else {
+                        alert('Error adding to wishlist');
+                    }
+                });
+            }).catch(error => {
+            console.error('Error fetching current user:', error);
+            alert('Error fetching current user');
+        });
+    }
+</script>
 
 </body>
 </html>
