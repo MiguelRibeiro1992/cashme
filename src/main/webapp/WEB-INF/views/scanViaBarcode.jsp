@@ -28,47 +28,53 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
+
 <!-- Scan Container -->
 <div class="container mt-5">
+
+    <!-- Área da câmara -->
     <div class="row align-items-center">
-        <!-- Área da câmara -->
         <div class="col-md-6 text-center" style="position: relative; width: 100%; max-width: 400px; height: 300px;">
             <img id="scanSymbol" src="/images/scanSymbol.svg" alt="Código de Barras" class="img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             <div id="reader" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none;">
-                <!-- div para carregar a camera -->
-            </div>
-        </div>
-
-        <!-- Texto e botões -->
-        <div class="col-md-6 d-flex flex-column justify-content-center">
-            <h4 class="mb-3">Leitura de código de barras</h4>
-            <div class="col-md-6 d-flex flex-column align-items-center">
-                 <p class="bg-orange rounded me-2" style="width: 10px; height: 20px;"></p>
-                 <p class="mb-0">Ler um código:</p>
-                 <button id="startScan" class="btn btn-primary mt-3">Ligar a câmara</button>
-                 <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
-            </div>
-
-            <div id="productDetails" class="mt-4 text-center" style="display: none;">
-                <h5>Produto Lido</h5>
-                <p id="barcodeNumber"></p>
-            </div>
         </div>
     </div>
 
-    <!-- NFC Button and Actions -->
-    <div class="row mt-5 align-items-center">
-        <div class="col-md-6 text-start">
-            <a href="/scan/viaNFC">
-                <img src="/images/button_changeToScanViaNFC.svg" alt="Mudar para Scan Via NFC" class="img-fluid">
-            </a>
+    <!-- Texto e botões -->
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center text-center mt-5 ms-5">
+        <div class="d-flex align-items-center mb-3">
+            <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid me-2">
+            <h4 class="mb-0">Leitura de código de barras</h4>
         </div>
-
-        <div class="col-md-6 text-end">
-            <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-            <button id="addToCart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
+        <div class="d-flex flex-column align-items-center text-center w-100" style="height: 250px;">
+            <p class="text-muted">Aponte a câmara para o código</p>
+            <button id="startScan" class="btn btn-primary mt-3">Ligar a câmara</button>
+            <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
         </div>
     </div>
+
+    <!-- Produto Lido -->
+    <div id="productDetails" class="mt-4 text-center" style="display: none;">
+        <h5>Produto Lido</h5>
+        <p id="barcodeNumber"></p>
+    </div>
+
+</div>
+
+<br>
+<!-- NFC Button and Actions -->
+<div class="row mt-5 align-items-center">
+   <div class="col-md-6 text-start">
+      <a href="/scan/viaNFC">
+           <img src="/images/button_changeToScanViaNFC.svg" alt="Mudar para Scan Via NFC" class="img-fluid">
+      </a>
+   </div>
+
+   <div class="col-md-6 text-end">
+      <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
+      <button id="addToCart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
+   </div>
+</div>
 
 </div>
 
