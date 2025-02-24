@@ -46,6 +46,11 @@ public class PublicController {
         return "mainPage";
     }
 
+    @GetMapping("/underConstruction")
+    public String underConstruction() {
+        return "underConstruction";
+    }
+
     @GetMapping("/storeView")
     public String storeView() {
         return "storeView";

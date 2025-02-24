@@ -30,9 +30,19 @@
 <div class="container mt-5">
     <h2 class="mb-4">🚧 Em construção 🚧</h2>
     <p>Esta página encontra-se em construção. Por favor, volte mais tarde. 😊</p>
-    <p>Se tiver alguma questão, por favor, contacte-nos através do email: <b>cashme@gmail.com</b></p>
+    <p>Se tiver alguma questão, por favor, contacte-nos através do email: <b>support@cashme.com</b></p>
     <p><b>Atenciosamente, <i>a equipa CashMe</i>.</b></p>
 </div>
+
+<br>
+<br>
+
+<!-- colocar o botao alinhado à direita -->
+<div class="container text-center">
+    <a href="/mainPage" class="btn btn-primary btn-login">Voltar à página inicial</a>
+</div>
+
+<br>
 <br>
 
 <!-- Footer -->

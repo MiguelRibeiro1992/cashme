@@ -28,39 +28,41 @@
                 <div class="d-flex flex-column ms-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Moda feminina</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <!-- redirecionar para underConstruction -->
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <!-- <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a> -->
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Moda masculina</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Escritório</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Estilo de vida</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Livraria</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Desporto</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Brinquedos</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Supermercado</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-3"><b>Saúde e Beleza</b></p>
-                        <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
+                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
                     </div>
                 </div>
             </div>

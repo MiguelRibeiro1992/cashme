@@ -66,7 +66,7 @@
 
         <div class="col-md-6 text-end">
             <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-            <a id="addToCart" href="/cart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
+            <a id="addToCart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
         </div>
     </div>
 
@@ -164,12 +164,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.ok) {
                         window.location.href = '/cart';
                     } else {
-                        alert("Produto não encontrado.");
+                        console.error("Produto não encontrado.");
                     }
                 })
                 .catch(error => {
                     console.error("Erro ao adicionar ao carrinho:", error);
-                    alert("Erro ao adicionar ao carrinho.");
                 });
             };
         }, 2000); // Simula um atraso de 2 segundos para parecer real
