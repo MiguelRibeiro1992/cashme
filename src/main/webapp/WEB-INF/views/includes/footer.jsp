@@ -16,18 +16,18 @@
             </div>
             <div class="col">
                 <h5>Conta</h5>
-                <a href="#">A minha conta</a><br>
-                <a href="#">Login / Registar</a><br>
+                <a href="/account">A minha conta</a><br>
+                <a href="/login">Login / Registar</a><br>
                 <a href="#">Histórico</a><br>
-                <a href="#">Wishlist</a><br>
+                <a href="/wishlist">Wishlist</a><br>
                 <a href="#">Definições</a>
             </div>
             <div class="col">
                 <h5>Links Úteis</h5>
-                <a href="#">Política de Privacidade</a><br>
-                <a href="#">Termos de Utilização</a><br>
-                <a href="#">FAQ</a><br>
-                <a href="#">Contacto</a>
+                <a href="/privacy-policy">Política de Privacidade</a><br>
+                <a href="/terms">Termos de Utilização</a><br>
+                <a href="/faq">FAQ</a><br>
+                <a href="/contacts">Contacto</a>
             </div>
             <div class="col-md-3 download-app text-center">
                 <h5>Download App</h5>

@@ -247,6 +247,36 @@ body {
     transform: scale(1.1);
 }
 
+/* Define a cor dos links sublinhados APENAS no body */
+body a {
+    color: #E87B38; /* Laranja */
+    text-decoration: underline;
+}
+
+body a:hover {
+    color: #d1641d; /* Laranja mais escuro ao passar o rato */
+}
+
+/* Mantém os links do header sem alterações */
+.navbar-nav .nav-link {
+    color: #333 !important; /* Mantém os links do header cinza escuro */
+    text-decoration: none !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #E87B38 !important; /* Mantém o efeito hover laranja no header */
+}
+
+a.text-primary {
+    color: var(--laranja1) !important;
+    text-decoration: underline !important;
+}
+
+a.text-primary:hover {
+    color: #d1641d !important; /* Tom mais escuro ao passar o rato */
+}
+
+
 .social-icon {
     width: 30px;  /* Define um tamanho fixo para os ícones */
     height: 30px;

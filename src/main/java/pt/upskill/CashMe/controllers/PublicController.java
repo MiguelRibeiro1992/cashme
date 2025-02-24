@@ -1,5 +1,6 @@
 package pt.upskill.CashMe.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -138,5 +139,27 @@ public class PublicController {
     public String account() {
         return "account";
     }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() { return "privacyPolicy";}
+
+    @GetMapping("/terms")
+    public String showTerms() {
+        return "terms";
+    }
+    @GetMapping("/faq")
+    public String showFAQ() {
+            return "faq";
+        }
+
+    @GetMapping("/redirectToMainPage")
+    public String redirectToMainPage(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/mainPage"; // Vai para a página principal se estiver logado
+        } else {
+            return "redirect:/login"; // Redireciona para login se não estiver autenticado
+        }
+    }
+
 
 }
