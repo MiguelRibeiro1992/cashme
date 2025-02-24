@@ -30,53 +30,54 @@
 
 
 <!-- Scan Container -->
-<div class="container mt-5">
+<div class="container login-container d-flex flex-column align-items-center py-5" style="max-width: 70%;">
 
-    <!-- Área da câmara -->
-    <div class="row align-items-center">
-        <div class="col-md-6 text-center" style="position: relative; width: 100%; max-width: 400px; height: 300px;">
-            <img id="scanSymbol" src="/images/scanSymbol.svg" alt="Código de Barras" class="img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            <div id="reader" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none;">
+    <div class="row w-100 d-flex justify-content-center align-items-center" style="min-height: 350px;">
+        <!-- Área da câmara -->
+        <div class="col-md-6 d-flex justify-content-center">
+            <div class="position-relative" style="width: 100%; max-width: 450px; height: 300px;">
+                <img id="scanSymbol" src="/images/scanSymbol.svg" alt="Código de Barras" class="img-fluid position-absolute top-0 start-0 w-100 h-100">
+                <div id="reader" class="position-absolute top-0 start-0 w-100 h-100" style="display: none;"></div>
+            </div>
         </div>
-    </div>
 
-    <!-- Texto e botões -->
-    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center text-center mt-5 ms-5">
-        <div class="d-flex align-items-center mb-3">
-            <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid me-2">
-            <h4 class="mb-0">Leitura de código de barras</h4>
-        </div>
-        <div class="d-flex flex-column align-items-center text-center w-100" style="height: 250px;">
-            <p class="text-muted">Aponte a câmara para o código</p>
-            <button id="startScan" class="btn btn-primary mt-3">Ligar a câmara</button>
-            <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
+        <!-- Texto e botões -->
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 300px;">
+            <div class="d-flex align-items-center mb-3">
+                <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid me-2">
+                <h4 class="mb-0">Leitura de código de barras</h4>
+            </div>
+            <div class="d-flex flex-column align-items-center text-center w-100">
+                <p class="text-muted">Aponte a câmara para o código</p>
+                <button id="startScan" class="btn btn-primary mt-3">Ligar a câmara</button>
+                <p class="text-muted mt-2" id="scanResult">Nenhum produto detetado</p>
+            </div>
         </div>
     </div>
 
     <!-- Produto Lido -->
     <div id="productDetails" class="mt-4 text-center" style="display: none;">
         <h5>Produto Lido</h5>
-        <p id="barcodeNumber"></p>
+        <!-- <p id="barcodeNumber"></p> funcionalidade desativada -->
+    </div>
+
+    <!-- NFC Button and Actions -->
+    <div class="row mt-5 w-100 d-flex justify-content-between align-items-center">
+        <!-- meter o botao ligeiramente mais para o centro -->
+        <div class="col-md-6 text-start d-flex justify-content-center">
+            <a href="/scan/viaNFC">
+                <img src="/images/button_changeToScanViaNFC.svg" alt="Mudar para Scan Via NFC" class="img-fluid">
+            </a>
+        </div>
+
+        <div class="col-md-6 text-end d-flex justify-content-center">
+            <button id="cancelButton" class="btn btn-outline-dark me-2 px-4">Anular</button>
+            <button id="addToCart" class="btn btn-primary px-4">Adicionar Carrinho</button>
+        </div>
     </div>
 
 </div>
 
-<br>
-<!-- NFC Button and Actions -->
-<div class="row mt-5 align-items-center">
-   <div class="col-md-6 text-start">
-      <a href="/scan/viaNFC">
-           <img src="/images/button_changeToScanViaNFC.svg" alt="Mudar para Scan Via NFC" class="img-fluid">
-      </a>
-   </div>
-
-   <div class="col-md-6 text-end">
-      <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-      <button id="addToCart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
-   </div>
-</div>
-
-</div>
 
 <script>
     function onScanSuccess(decodedText, decodedResult) {
@@ -87,9 +88,9 @@
                 return;
             }
 
-        // Exibir o código lido na página
+        // Exibir o código lido na página (por baixo do botão da câmara)
         document.getElementById("scanResult").innerText = "Código lido: " + barcode;
-            document.getElementById("barcodeNumber").innerText = barcode;
+            //document.getElementById("barcodeNumber").innerText = barcode; //Está comentado para não repetir o código de barras
 
         // Mostrar o botão de adicionar ao carrinho
         document.getElementById("productDetails").style.display = "block";
@@ -106,13 +107,11 @@
                 if (response.ok) {
                     window.location.href = "/cart";
                 } else {
-                    //alert("Produto não encontrado.");
                     console.error("Produto não encontrado.");
                 }
             })
             .catch(error => {
                 console.error("Erro ao adicionar ao carrinho:", error);
-                //alert("Erro ao adicionar ao carrinho.");
             });
         };
     }
