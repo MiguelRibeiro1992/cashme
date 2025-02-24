@@ -52,7 +52,7 @@
                      <td>${entry.value}</td>
                      <td>${entry.key.price * entry.value} €</td>
                      <td>
-                     <form action="/removeFromCart" method="GET">
+                     <form action="/cart/removeFromCart" method="GET">
                          <input type="hidden" name="barcode" value="${entry.key.barcode}">
                          <button type="submit" class="btn btn-danger">Eliminar</button>
                      </form>
@@ -69,8 +69,8 @@
 
 <c:if test="${not empty cartItems}">
     <div class="d-flex justify-content-end">
-        <a href="/scanViaBarcode" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar ao Scan</a>
-        <a href="/checkout" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Finalizar Compra</a>
+        <a href="/scan/viaBarcode" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar ao Scan</a>
+        <a href="/cart/checkout" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Finalizar Compra</a>
     </div>
 </c:if>
 

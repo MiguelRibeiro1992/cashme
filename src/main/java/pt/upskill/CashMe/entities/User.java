@@ -19,6 +19,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne
+    private Store currentStore;
+
     // Construtor vazio necessário para JPA
     public User() {}
 
@@ -69,4 +72,11 @@ public class User {
         this.admin = admin;
     }
 
+    public Store getCurrentStore() {
+        return currentStore;
+    }
+
+    public void setCurrentStore(Store currentStore) {
+        this.currentStore = currentStore;
+    }
 }

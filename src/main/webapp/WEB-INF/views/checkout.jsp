@@ -73,7 +73,7 @@
 
 <script>
              document.addEventListener("DOMContentLoaded", function() {
-                 fetch('/checkout/qrcode')
+                 fetch('/cart/checkout/qrcode')
                      .then(response => {
                          if (!response.ok) {
                              throw new Error('Network response was not ok');

@@ -94,7 +94,7 @@
                                     <button class="btn btn-dark mt-2 w-100" onclick="window.location.href='/wishlist.jsp?id=${item.id}'">
                                         Adicionar à Wishlist
                                     </button>
-                                    <button class="btn btn-primary mt-2 w-100" onclick="window.location.href='/scanViaBarcode?id=${item.id}'">
+                                    <button class="btn btn-primary mt-2 w-100" onclick="window.location.href='/scan/viaBarcode?id=${item.id}'">
                                         Scan do Produto
                                     </button>
                                 </div>

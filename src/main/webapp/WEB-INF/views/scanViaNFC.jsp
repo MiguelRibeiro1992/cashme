@@ -59,7 +59,7 @@
     <!-- NFC Button and Actions -->
     <div class="row mt-5 align-items-center">
         <div class="col-md-6 text-start">
-            <a href="/scanViaBarcode">
+            <a href="/scan/viaBarcode">
                 <img src="/images/button_changeToScanViaBarcode.svg" alt="Mudar para Scan Via Barcode" class="img-fluid">
             </a>
         </div>
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Adicionar evento ao botão "Adicionar ao Carrinho"
             addToCartButton.onclick = function() {
                 console.log("Adicionar ao Carrinho clicked");
-                fetch("/addToCart?barcode=" + decodedText, {
+                fetch("/cart/addToCart?barcode=" + decodedText, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 })

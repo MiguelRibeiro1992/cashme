@@ -59,14 +59,14 @@
     <!-- NFC Button and Actions -->
     <div class="row mt-5 align-items-center">
         <div class="col-md-6 text-start">
-            <a href="/scanViaNFC">
+            <a href="/scan/viaNFC">
                 <img src="/images/button_changeToScanViaNFC.svg" alt="Mudar para Scan Via NFC" class="img-fluid">
             </a>
         </div>
 
         <div class="col-md-6 text-end">
             <button id="cancelButton" class="btn btn-outline-dark me-2">Anular</button>
-            <a id="addToCart" href="/cart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
+            <button id="addToCart" class="btn btn-primary btn-login">Adicionar Carrinho</a>
         </div>
     </div>
 
@@ -91,20 +91,22 @@
 
         // Adicionar produto ao carrinho ao clicar
         document.getElementById("addToCart").onclick = function() {
-            fetch("/addToCart?barcode=" + barcode, {
+            fetch("/cart/addToCart?barcode=" + barcode, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(response => {
+                console.log("response", response);
                 if (response.ok) {
-                    window.location.href = '/cart';
+                    window.location.href = "/cart";
                 } else {
-                    alert("Produto não encontrado.");
+                    //alert("Produto não encontrado.");
+                    console.error("Produto não encontrado.");
                 }
             })
             .catch(error => {
                 console.error("Erro ao adicionar ao carrinho:", error);
-                alert("Erro ao adicionar ao carrinho.");
+                //alert("Erro ao adicionar ao carrinho.");
             });
         };
     }

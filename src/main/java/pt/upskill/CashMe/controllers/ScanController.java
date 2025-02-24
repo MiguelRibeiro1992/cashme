@@ -3,6 +3,7 @@ package pt.upskill.CashMe.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pt.upskill.CashMe.services.BarcodeScanServiceImpl;
@@ -11,6 +12,7 @@ import pt.upskill.CashMe.services.NFCScanServiceImpl;
 
 
 @Controller
+@RequestMapping("/scan")
 public class ScanController {
 
     @Autowired
@@ -23,7 +25,7 @@ public class ScanController {
     private CartServiceImpl cartService;
 
     //View para Código de Barras
-    @GetMapping("/scanViaBarcode")
+    @GetMapping("/viaBarcode")
     public String showBarcodeScanner() {
         return "scanViaBarcode";
     }
@@ -46,7 +48,7 @@ public class ScanController {
 
 
     //View para NFC
-    @GetMapping("/scanViaNFC")
+    @GetMapping("/viaNFC")
     public String showNFCScanner() {
         return "scanViaNFC";
     }

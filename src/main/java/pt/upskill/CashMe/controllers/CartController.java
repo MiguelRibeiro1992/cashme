@@ -15,6 +15,7 @@ import java.util.Map;
 
 //Assim o carrinho está a dar
 @Controller
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
@@ -27,6 +28,7 @@ public class CartController {
     private ItemRepository itemRepository;
 
     @GetMapping("/addToCart")
+    @ResponseBody
     public String addToCart(@RequestParam("barcode") String barcode, Model model) {
         System.out.println("Barcode received (with trim): '" + barcode.trim() + "'");
 
@@ -35,16 +37,16 @@ public class CartController {
         if (item == null) {
             System.out.println("Item not found in the database.");
             model.addAttribute("error", "Product not found");
-            return "redirect:/cart";
+            throw new IllegalArgumentException("Product not found");
         }
 
         System.out.println("Item found: " + item.getName());
         cartService.addItemToCart(barcode);
 
-        return "redirect:/cart";
+        return "ok";
     }
 
-    @GetMapping("/cart")
+    @GetMapping
     public String showCart(Model model) {
         Cart cart = cartService.getCart();
 
