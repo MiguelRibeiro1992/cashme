@@ -24,12 +24,12 @@ public class CategoryController {
      * Obtém a lista de todas as categorias e envia-as para a vista.
      * Agora usa `getAllCategories()` pois as categorias são globais.
      */
-    @GetMapping
-    public ModelAndView categoryList() {
-        ModelAndView mav = new ModelAndView("categories/categories");
-        mav.addObject("categories", categoryService.getActiveCategories()); // Apenas categorias ativas
-        return mav;
-    }
+//    @GetMapping
+//    public ModelAndView categoryList() {
+//        ModelAndView mav = new ModelAndView("categories/categories");
+//        mav.addObject("categories", categoryService.getActiveCategories()); // Apenas categorias ativas
+//        return mav;
+//    }
 
 
 
