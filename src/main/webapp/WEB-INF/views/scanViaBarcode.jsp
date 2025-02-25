@@ -36,13 +36,15 @@
         <!-- Área da câmara -->
         <div class="col-md-6 d-flex justify-content-center">
             <div class="position-relative" style="width: 100%; max-width: 450px; height: 300px;">
-                <img id="scanSymbol" src="/images/scanSymbol.svg" alt="Código de Barras" class="img-fluid position-absolute top-0 start-0 w-100 h-100">
+                <img id="scanSymbol" src="/images/scanSymbol.svg" alt="Código de Barras"
+                     class="img-fluid position-absolute top-0 start-0 w-100 h-100">
                 <div id="reader" class="position-absolute top-0 start-0 w-100 h-100" style="display: none;"></div>
             </div>
         </div>
 
         <!-- Texto e botões -->
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 300px;">
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center"
+             style="min-height: 300px;">
             <div class="d-flex align-items-center mb-3">
                 <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid me-2">
                 <h4 class="mb-0">Leitura de código de barras</h4>
@@ -78,11 +80,11 @@
     let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader",
         {
-                fps: 10,
-                qrbox: { width: 250, height: 250 },
-                formatsToSupport: [ Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.CODE_128 ]
-            },
-            false
+            fps: 10,
+            qrbox: {width: 250, height: 250},
+            formatsToSupport: [Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.CODE_128]
+        },
+        false
     );
 
     document.getElementById("startScan").addEventListener("click", function () {
@@ -122,31 +124,31 @@
     });
 
     function onScanSuccess(decodedText, decodedResult) {
-            let barcode = decodedText.trim();
+        let barcode = decodedText.trim();
 
-            if (barcode === "") {
-                console.warn("Código de barras vazio detectado!");
-                return;
-            }
+        if (barcode === "") {
+            console.warn("Código de barras vazio detectado!");
+            return;
+        }
 
-            // Exibir o código lido na página (por baixo do botão da câmara)
-            document.getElementById("scanResult").innerText = "Código lido: " + barcode;
+        // Exibir o código lido na página (por baixo do botão da câmara)
+        document.getElementById("scanResult").innerText = "Código lido: " + barcode;
 
-            let startScanButton = document.getElementById("startScan");
-            startScanButton.innerText = "Produto detetado!";
-            startScanButton.classList.remove("btn-warning");
-            startScanButton.classList.add("btn-success");
-            startScanButton.disabled = false;
+        let startScanButton = document.getElementById("startScan");
+        startScanButton.innerText = "Produto detetado!";
+        startScanButton.classList.remove("btn-warning");
+        startScanButton.classList.add("btn-success");
+        startScanButton.disabled = false;
 
-            // Mostrar o botão de adicionar ao carrinho
-            document.getElementById("addToCart").style.display = "inline-block";
+        // Mostrar o botão de adicionar ao carrinho
+        document.getElementById("addToCart").style.display = "inline-block";
 
-            // Adicionar produto ao carrinho ao clicar
-            document.getElementById("addToCart").onclick = function() {
-                fetch("/cart/addToCart?barcode=" + barcode, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                })
+        // Adicionar produto ao carrinho ao clicar
+        document.getElementById("addToCart").onclick = function () {
+            fetch("/cart/addToCart?barcode=" + barcode, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
                 .then(response => {
                     console.log("response", response);
                     if (response.ok) {
@@ -158,16 +160,16 @@
                 .catch(error => {
                     console.error("Erro ao adicionar ao carrinho:", error);
                 });
-            };
-        }
+        };
+    }
 
-        function onScanFailure(error) {
-        }
+    function onScanFailure(error) {
+    }
 
 </script>
 
 <!-- Footer -->
-<%@ include file="includes/footer.jsp"%>
+<%@ include file="includes/footer.jsp" %>
 
 </body>
 </html>

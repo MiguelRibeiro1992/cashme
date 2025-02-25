@@ -33,13 +33,15 @@
         <!-- Área do sensor NFC -->
         <div class="col-md-6 d-flex justify-content-center">
             <div class="position-relative" style="width: 100%; max-width: 450px; height: 300px;">
-                <img id="nfcSymbol" src="/images/nfcSymbol.svg" alt="Leitor NFC" class="img-fluid position-absolute top-0 start-0 w-100 h-100">
+                <img id="nfcSymbol" src="/images/nfcSymbol.svg" alt="Leitor NFC"
+                     class="img-fluid position-absolute top-0 start-0 w-100 h-100">
                 <div id="reader" class="position-absolute top-0 start-0 w-100 h-100" style="display: none;"></div>
             </div>
         </div>
 
         <!-- Texto e botões -->
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 300px;">
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center"
+             style="min-height: 300px;">
             <div class="d-flex align-items-center mb-3">
                 <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid me-2">
                 <h4 class="mb-0">Leitura de NFC</h4>
@@ -56,7 +58,8 @@
     <div class="row mt-5 w-100 d-flex justify-content-between align-items-center">
         <div class="col-md-6 text-start d-flex justify-content-center">
             <a href="/scan/viaBarcode">
-                <img src="/images/button_changeToScanViaBarcode.svg" alt="Mudar para Scan Via Barcode" class="img-fluid">
+                <img src="/images/button_changeToScanViaBarcode.svg" alt="Mudar para Scan Via Barcode"
+                     class="img-fluid">
             </a>
         </div>
 
@@ -88,10 +91,10 @@
             startScanButton.disabled = false;
 
             document.getElementById("addToCart").style.display = "inline-block";
-            document.getElementById("addToCart").onclick = function() {
+            document.getElementById("addToCart").onclick = function () {
                 fetch("/cart/addToCart?barcode=" + fakeCode, {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: {'Content-Type': 'application/json'}
                 })
                     .then(response => {
                         if (response.ok) {
@@ -124,7 +127,7 @@
 </script>
 
 <!-- Footer -->
-<%@ include file="includes/footer.jsp"%>
+<%@ include file="includes/footer.jsp" %>
 
 </body>
 </html>

@@ -48,35 +48,6 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeItemFromCart(String barcode) {
-        Item item = itemRepository.findByBarcode(barcode);
-        if (item != null) {
-            Cart activeCart = cartRepository.findActiveCart();
-
-            if (activeCart != null) {
-                Map<Item, Integer> items = activeCart.getItems();
-                if (items.containsKey(item)) {
-                    int quantityInCart = items.get(item);
-
-                    // Decrementa 1 na quantidade do item no carrinho. Se for 1, elimina
-                    if (quantityInCart < 1) {
-                        items.put(item, quantityInCart - 1);
-                    } else {
-                        items.remove(item);
-                    }
-
-                    //Devolve o item ao stock
-                    item.setQuantity(item.getQuantity() + 1);
-                    itemRepository.save(item);
-
-                    //Atualiza o carrinho
-                    cartRepository.save(activeCart);
-                }
-            }
-        }
-    }
-
-    @Override
     public List<Item> getCartItems() {
         Cart activeCart = cartRepository.findActiveCart();
         return activeCart != null ? List.copyOf(activeCart.getItems().keySet()) : List.of();
@@ -91,5 +62,65 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getCart() {
         return cartRepository.findActiveCart();
+    }
+
+    @Override
+    public void decreaseItemQuantity(String barcode) {
+        Item item = itemRepository.findByBarcode(barcode);
+        if (item != null) {
+            Cart activeCart = cartRepository.findActiveCart();
+
+            if (activeCart != null) {
+                Map<Item, Integer> items = activeCart.getItems();
+                if (items.containsKey(item)) {
+                    int quantityInCart = items.get(item);
+
+                    if (quantityInCart > 1) {
+                        items.put(item, quantityInCart - 1);
+                    } else {
+                        items.remove(item);
+                    }
+
+                    // Devolve UM item ao stock
+                    item.setQuantity(item.getQuantity() + 1);
+                    itemRepository.save(item);
+
+                    // Atualiza o carrinho
+                    cartRepository.save(activeCart);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void removeItemFromCart(String barcode) {
+        Item item = itemRepository.findByBarcode(barcode);
+        if (item != null) {
+            Cart activeCart = cartRepository.findActiveCart();
+
+            if (activeCart != null) {
+                Map<Item, Integer> items = activeCart.getItems();
+                if (items.containsKey(item)) {
+                    int quantityInCart = items.get(item);
+                    items.remove(item);
+
+                    //Devolve os items ao stock
+                    item.setQuantity(item.getQuantity() + quantityInCart);
+                    itemRepository.save(item);
+
+                    //Atualiza o carrinho
+                    cartRepository.save(activeCart);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void clearCart() {
+        Cart activeCart = cartRepository.findActiveCart();
+        if (activeCart != null) {
+            activeCart.getItems().clear();
+            cartRepository.save(activeCart);
+        }
     }
 }

@@ -22,12 +22,37 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 
+    <!-- Style adicionado para os botões editar/eliminar ficarem todos do mesmo tamanho -->
+    <style>
+        .btn-custom-size {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Tamanho da imagem dentro do botão */
+        .btn-custom-size img {
+            width: 22px;
+            height: 22px;
+        }
+    </style>
+
 </head>
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
 <!-- Cart Container -->
 <div class="container mt-5">
+
+    <c:if test="${not empty error}">
+        <div class="alert alert-warning" role="alert">
+                ${error}
+        </div>
+    </c:if>
+
     <h2 class="mb-4">Carrinho</h2>
 
     <c:if test="${empty cartItems}">
@@ -35,14 +60,15 @@
     </c:if>
 
     <c:if test="${not empty cartItems}">
-        <table class="table">
+        <table class="table" style="text-align: center;">
             <thead>
             <tr>
                 <th>Produto</th>
                 <th>Preço</th>
                 <th>Quantidade</th>
                 <th>Total</th>
-                <th>Ação</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
             </thead>
             <tbody>
@@ -53,9 +79,23 @@
                     <td>${entry.value}</td>
                     <td>${entry.key.price * entry.value} €</td>
                     <td>
-                        <form action="/cart/removeFromCart" method="GET">
+                        <!-- Botões para aumentar ou diminuir quantidade -->
+                        <form action="/cart/decreaseQuantity" method="GET" style="display:inline-block;">
                             <input type="hidden" name="barcode" value="${entry.key.barcode}">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-secondary btn-custom-size">-</button>
+                        </form>
+                        <form action="/cart/increaseQuantity" method="GET" style="display:inline-block;">
+                            <input type="hidden" name="barcode" value="${entry.key.barcode}">
+                            <button type="submit" class="btn btn-login btn-custom-size">+</button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- Botão para remover todos os itens -->
+                        <form action="/cart/removeFromCart" method="GET" style="display:inline-block;">
+                            <input type="hidden" name="barcode" value="${entry.key.barcode}">
+                            <button type="submit" class="btn btn-sm btn-danger btn-custom-size">
+                                <img src="/images/delete.svg" alt="Eliminar">
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -70,15 +110,16 @@
 
     <c:if test="${empty cartItems}">
         <div class="d-flex justify-content-end">
-            <a href="/mainPage" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar à página principal</a>
+            <a href="/mainPage" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar à página
+                principal</a>
             <a href="/scan/viaBarcode" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Voltar ao Scan</a>
         </div>
     </c:if>
 
     <c:if test="${not empty cartItems}">
         <div class="d-flex justify-content-end">
-            <a href="/cart/checkout" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Finalizar Compra</a>
-            <a href="/scan/viaBarcode" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Voltar ao Scan</a>
+            <a href="/scan/viaBarcode" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar ao Scan</a>
+            <a href="/cart/checkout" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Finalizar Compra</a>
         </div>
     </c:if>
 

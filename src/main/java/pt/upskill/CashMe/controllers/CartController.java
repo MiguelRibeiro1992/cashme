@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pt.upskill.CashMe.entities.Cart;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.ItemRepository;
@@ -12,8 +13,6 @@ import pt.upskill.CashMe.services.ItemServiceImpl;
 
 import java.util.Map;
 
-
-//Assim o carrinho está a dar
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -22,10 +21,22 @@ public class CartController {
     private CartServiceImpl cartService;
 
     @Autowired
-    private ItemServiceImpl itemService;
-
-    @Autowired
     private ItemRepository itemRepository;
+
+    @GetMapping
+    public String showCart(Model model) {
+        Cart cart = cartService.getCart();
+
+        if (cart != null) {
+            model.addAttribute("cartItems", cart.getItems());
+            model.addAttribute("totalPrice", cart.getTotalPrice());
+        } else {
+            model.addAttribute("cartItems", Map.of());
+            model.addAttribute("totalPrice", 0.0);
+        }
+
+        return "cart";
+    }
 
     @GetMapping("/addToCart")
     @ResponseBody
@@ -46,21 +57,27 @@ public class CartController {
         return "ok";
     }
 
-    @GetMapping
-    public String showCart(Model model) {
-        Cart cart = cartService.getCart();
+    //Aumenta OU diminui um a um os items do carrinho com base no código de barras
+    @GetMapping("/increaseQuantity")
+    public String increaseQuantity(@RequestParam("barcode") String barcode, RedirectAttributes redirectAttributes) {
+        Item item = itemRepository.findByBarcode(barcode);
 
-        if (cart != null) {
-            model.addAttribute("cartItems", cart.getItems());
-            model.addAttribute("totalPrice", cart.getTotalPrice());
+        if (item == null || item.getQuantity() <= 0) {
+            redirectAttributes.addFlashAttribute("error", "Stock insuficiente para adicionar mais deste item.");
         } else {
-            model.addAttribute("cartItems", Map.of());
-            model.addAttribute("totalPrice", 0.0);
+            cartService.addItemToCart(barcode);
         }
-
-        return "cart";
+        return "redirect:/cart";
     }
 
+    @GetMapping("/decreaseQuantity")
+    public String decreaseQuantity(@RequestParam("barcode") String barcode) {
+        cartService.decreaseItemQuantity(barcode);
+        return "redirect:/cart";
+    }
+
+
+    //Remove todos os items do carrinho com base no código de barras
     @GetMapping("/removeFromCart")
     public String removeFromCart(@RequestParam("barcode") String barcode) {
         try {
@@ -72,6 +89,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    //Vai para a página de pagamento
     @GetMapping("/checkout")
     public String checkout(Model model) {
         Cart cart = cartService.getCart();
@@ -85,6 +103,13 @@ public class CartController {
         }
 
         return "checkout";
+    }
+
+    //Para limpar o carrinho quando a compra é finalizada
+    @GetMapping("/clear")
+    public String clearCart() {
+        cartService.clearCart();
+        return "redirect:/mainPage";
     }
 
 }
