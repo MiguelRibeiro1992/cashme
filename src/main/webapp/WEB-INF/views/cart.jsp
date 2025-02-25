@@ -28,14 +28,15 @@
 
 <!-- Cart Container -->
 <div class="container mt-5">
-<h2 class="mb-4">Carrinho</h2>
+    <h2 class="mb-4">Carrinho</h2>
 
-<c:if test="${empty cartItems}">
-    <p>O seu carrinho está vazio.</p>
-</c:if>
-<c:if test="${not empty cartItems}">
-    <table class="table">
-        <thead>
+    <c:if test="${empty cartItems}">
+        <p>O seu carrinho está vazio.</p>
+    </c:if>
+
+    <c:if test="${not empty cartItems}">
+        <table class="table">
+            <thead>
             <tr>
                 <th>Produto</th>
                 <th>Preço</th>
@@ -43,43 +44,49 @@
                 <th>Total</th>
                 <th>Ação</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <c:forEach var="entry" items="${cartItems}">
-                  <tr id="row-${entry.key.barcode}">
-                     <td>${entry.key.name}</td>
-                     <td>${entry.key.price} €</td>
-                     <td>${entry.value}</td>
-                     <td>${entry.key.price * entry.value} €</td>
-                     <td>
-                     <form action="/cart/removeFromCart" method="GET">
-                         <input type="hidden" name="barcode" value="${entry.key.barcode}">
-                         <button type="submit" class="btn btn-danger">Eliminar</button>
-                     </form>
-                  </td>
-               </tr>
+                <tr id="row-${entry.key.barcode}">
+                    <td>${entry.key.name}</td>
+                    <td>${entry.key.price} €</td>
+                    <td>${entry.value}</td>
+                    <td>${entry.key.price * entry.value} €</td>
+                    <td>
+                        <form action="/cart/removeFromCart" method="GET">
+                            <input type="hidden" name="barcode" value="${entry.key.barcode}">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
             </c:forEach>
-        </tbody>
-    </table>
-</c:if>
+            </tbody>
+        </table>
+    </c:if>
 
-<h4 class="mt-4">Total: <span id="totalPrice">${totalPrice}</span> €</h4>
+    <h4 class="mt-4">Total: <span id="totalPrice">${totalPrice}</span> €</h4>
 
-<br>
+    <br>
 
-<c:if test="${not empty cartItems}">
-    <div class="d-flex justify-content-end">
-        <a href="/scan/viaBarcode" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar ao Scan</a>
-        <a href="/cart/checkout" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Finalizar Compra</a>
-    </div>
-</c:if>
+    <c:if test="${empty cartItems}">
+        <div class="d-flex justify-content-end">
+            <a href="/mainPage" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar à página principal</a>
+            <a href="/scan/viaBarcode" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Voltar ao Scan</a>
+        </div>
+    </c:if>
 
-<br>
-<br>
+    <c:if test="${not empty cartItems}">
+        <div class="d-flex justify-content-end">
+            <a href="/cart/checkout" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Finalizar Compra</a>
+            <a href="/scan/viaBarcode" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Voltar ao Scan</a>
+        </div>
+    </c:if>
+
+    <br>
 </div>
 
 <!-- Footer -->
-<%@ include file="includes/footer.jsp"%>
+<%@ include file="includes/footer.jsp" %>
 
 </body>
 </html>

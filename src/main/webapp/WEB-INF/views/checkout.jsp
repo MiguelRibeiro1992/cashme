@@ -60,11 +60,10 @@
 </div>
 
 
-<!-- QR Code para pagamento -->
+<!-- QR Code para pagamento (funcionalidade em falta, só está imagem de QRCode para exemplificar)-->
     <div class="text-center mt-4">
         <h5>Apresente este QR Code para pagamento</h5>
         <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code" style="width: 150px; height: 150px" />
-        <!-- <img id="qrcode" alt="QR Code" /> -->
     </div>
 
     <div class="text-center mt-4">
@@ -89,7 +88,6 @@
 </script>
 
 
-<br>
 <br>
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>

@@ -113,7 +113,7 @@
 
         document.getElementById("scanResult").innerText = "Nenhum produto detetado";
 
-        document.getElementById("addToCart").style.display = "none";
+        document.getElementById("addToCart").style.display = "inline-block";
 
         startScanButton.innerText = "Ligar a câmara";
         startScanButton.classList.remove("btn-warning", "btn-success");
