@@ -10,7 +10,6 @@ public interface StoreService {
 
     public List<Store> findAllStores();
 
-
     public Store findStoreById(Long id);
 
     public Store findByName(String name);

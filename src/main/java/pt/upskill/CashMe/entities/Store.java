@@ -2,6 +2,7 @@ package pt.upskill.CashMe.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,11 @@ public class Store {
 
     private String name;
     private String location;
+    private double latitude;
+    private double longitude;
     private String imageUrl;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Item> items;
@@ -47,5 +52,44 @@ public class Store {
     public List<Item> getItems() { return items; }
     public void setItems(List<Item> items) { this.items = items; }
 
+    public double getLatitude() {
+        return latitude;
+    }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public LocalTime getOpeningTime() {
+        return openingTime;
+    }
+
+    public void setOpeningTime(LocalTime openingTime) {
+        this.openingTime = openingTime;
+    }
+
+    public LocalTime getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(LocalTime closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public String getStatus(){
+        LocalTime now = LocalTime.now();
+        if (now.isAfter(openingTime) && now.isBefore(closingTime)){
+            return "Aberto";
+        } else {
+            return "Fechado";
+        }
+    }
 }

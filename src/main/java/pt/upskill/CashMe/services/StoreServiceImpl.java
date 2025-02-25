@@ -7,6 +7,7 @@ import pt.upskill.CashMe.entities.Store;
 import pt.upskill.CashMe.repositories.StoreRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -19,6 +20,7 @@ public class StoreServiceImpl implements StoreService {
     public List<Store> findAllStores() {
         return storeRepository.findAll();
     }
+
 
     @Override
     public Store findStoreById(Long id) {

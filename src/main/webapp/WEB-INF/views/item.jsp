@@ -67,7 +67,7 @@
 
             <!-- Botões Extras -->
             <div>
-                <button class="btn btn-primary mt-3 w-100" onclick="window.location.href='/scanViaBarcode'">Ler Código de Barras</button>
+                <button class="btn btn-primary mt-3 w-100" onclick="window.location.href='/scan/viaBarcode'">Ler Código de Barras</button>
             </div>
 
             <button class="btn btn-primary mt-3 w-100" onclick="">Ler NFC</button>
