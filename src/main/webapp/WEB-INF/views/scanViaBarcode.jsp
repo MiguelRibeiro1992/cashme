@@ -55,12 +55,6 @@
         </div>
     </div>
 
-    <!-- Produto Lido -->
-    <div id="productDetails" class="mt-4 text-center" style="display: none;">
-        <h5>Produto Lido</h5>
-        <!-- <p id="barcodeNumber"></p> funcionalidade desativada -->
-    </div>
-
     <!-- NFC Button and Actions -->
     <div class="row mt-5 w-100 d-flex justify-content-between align-items-center">
         <!-- meter o botao ligeiramente mais para o centro -->
@@ -80,45 +74,6 @@
 
 
 <script>
-    function onScanSuccess(decodedText, decodedResult) {
-        let barcode = decodedText.trim();
-
-            if (barcode === "") {
-                console.warn("Código de barras vazio detectado!");
-                return;
-            }
-
-        // Exibir o código lido na página (por baixo do botão da câmara)
-        document.getElementById("scanResult").innerText = "Código lido: " + barcode;
-            //document.getElementById("barcodeNumber").innerText = barcode; //Está comentado para não repetir o código de barras
-
-        // Mostrar o botão de adicionar ao carrinho
-        document.getElementById("productDetails").style.display = "block";
-        document.getElementById("addToCart").style.display = "inline-block";
-
-        // Adicionar produto ao carrinho ao clicar
-        document.getElementById("addToCart").onclick = function() {
-            fetch("/cart/addToCart?barcode=" + barcode, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => {
-                console.log("response", response);
-                if (response.ok) {
-                    window.location.href = "/cart";
-                } else {
-                    console.error("Produto não encontrado.");
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao adicionar ao carrinho:", error);
-            });
-        };
-    }
-
-    function onScanFailure(error) {
-    }
-
     // Inicializa o scanner
     let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader",
@@ -131,6 +86,14 @@
     );
 
     document.getElementById("startScan").addEventListener("click", function () {
+        //Lógica para ter o botão dinânico
+        let startScanButton = document.getElementById("startScan");
+        startScanButton.innerText = "A ler...";
+        startScanButton.classList.remove("btn-primary", "btn-success");
+        startScanButton.classList.add("btn-warning");
+        startScanButton.disabled = true;
+
+
         document.getElementById("scanSymbol").style.display = "none";
         document.getElementById("reader").style.display = "block";
 
@@ -139,6 +102,8 @@
 
     // Botão de cancelar
     document.getElementById("cancelButton").addEventListener("click", function () {
+        let startScanButton = document.getElementById("startScan");
+
         document.getElementById("scanSymbol").style.display = "block";
         document.getElementById("reader").style.display = "none";
 
@@ -147,14 +112,59 @@
             .catch(err => console.log("Erro ao parar a leitura:", err));
 
         document.getElementById("scanResult").innerText = "Nenhum produto detetado";
-        document.getElementById("barcodeNumber").innerText = "";
-        document.getElementById("productDetails").style.display = "none";
+
+        document.getElementById("addToCart").style.display = "none";
+
+        startScanButton.innerText = "Ligar a câmara";
+        startScanButton.classList.remove("btn-warning", "btn-success");
+        startScanButton.classList.add("btn-primary");
+        startScanButton.disabled = false;
     });
+
+    function onScanSuccess(decodedText, decodedResult) {
+            let barcode = decodedText.trim();
+
+            if (barcode === "") {
+                console.warn("Código de barras vazio detectado!");
+                return;
+            }
+
+            // Exibir o código lido na página (por baixo do botão da câmara)
+            document.getElementById("scanResult").innerText = "Código lido: " + barcode;
+
+            let startScanButton = document.getElementById("startScan");
+            startScanButton.innerText = "Produto detetado!";
+            startScanButton.classList.remove("btn-warning");
+            startScanButton.classList.add("btn-success");
+            startScanButton.disabled = false;
+
+            // Mostrar o botão de adicionar ao carrinho
+            document.getElementById("addToCart").style.display = "inline-block";
+
+            // Adicionar produto ao carrinho ao clicar
+            document.getElementById("addToCart").onclick = function() {
+                fetch("/cart/addToCart?barcode=" + barcode, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => {
+                    console.log("response", response);
+                    if (response.ok) {
+                        window.location.href = "/cart";
+                    } else {
+                        console.error("Produto não encontrado.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao adicionar ao carrinho:", error);
+                });
+            };
+        }
+
+        function onScanFailure(error) {
+        }
+
 </script>
-
-
-<br>
-<br>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp"%>
