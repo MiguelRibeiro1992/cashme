@@ -59,37 +59,31 @@
     }
 
     function fetchStoresWithStatus() {
-        fetch('/api/status')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Acesso negado à API');
-                }
-                return response.json();
-            })
+        fetch('/api/status')  // ✅ Usa o endpoint correto para obter status dinâmico
+            .then(response => response.json())
             .then(stores => {
                 const storeList = document.getElementById("storeList");
-                storeList.innerHTML = "";
+                storeList.innerHTML = ""; // Limpa a lista anterior
 
                 stores.forEach(store => {
                     addStoreMarker(store);
 
+                    // ✅ Formata os horários corretamente (removendo segundos)
+                    const openingTime = store.openingTime ? store.openingTime.substring(0, 5) : "-";
+                    const closingTime = store.closingTime ? store.closingTime.substring(0, 5) : "-";
+                    const statusClass = store.status != null && store.status == 'Aberto' ? 'text-success' : 'text-danger';
+
+                    // ✅ Certifica-se de que apenas os atributos existentes são usados
                     const storeItem = document.createElement("div");
-                    storeItem.classList.add("list-group-item", "border-0", "store-item");
-                    storeItem.setAttribute("data-name", store.name.toLowerCase());
-                    storeItem.setAttribute("data-location", store.location.toLowerCase());
-
-                    // Formata a hora antes de exibir
-                    const formattedOpening = store.openingTime ? formatTime(store.openingTime) : "N/A";
-                    const formattedClosing = store.closingTime ? formatTime(store.closingTime) : "N/A";
-
+                    storeItem.classList.add("list-group-item", "border-0");
                     storeItem.innerHTML = `
                         <div class="d-flex align-items-center">
-                            <img src="/images/${store.imageUrl}" alt="${store.name}" class="me-2" style="width: 50px; height: 50px; border-radius: 5px;">
+                            <img src="/images/${store.imageUrl}" alt="${store.name}" class="me-2" style="width: 50px; height: 50px;">
                             <div>
                                 <h5 class="fw-bold">${store.name}</h5>
                                 <p class="mb-1">${store.location}</p>
-                                <p class="${store.status == 'Aberto' ? 'text-success' : 'text-danger'} fw-bold">${store.status}</p>
-                                <p class="text-muted">Horário: ${formattedOpening} - ${formattedClosing}</p>
+                                <p class="${statusClass} fw-bold">${store.status != null ? store.status : 'Indisponível'}</p>
+                                <p class="text-muted">Horário: ${openingTime} - ${closingTime}</p>
                             </div>
                         </div>
                     `;
@@ -104,7 +98,9 @@
             });
     }
 
+
     function addStoreMarker(store) {
+        // ✅ Garante que só adiciona marcadores se houver coordenadas válidas
         if (store.latitude !== 0.0 && store.longitude !== 0.0) {
             const marker = new google.maps.Marker({
                 position: { lat: store.latitude, lng: store.longitude },
@@ -112,21 +108,9 @@
                 title: store.name,
             });
 
-            const formattedOpening = store.openingTime ? formatTime(store.openingTime) : "N/A";
-            const formattedClosing = store.closingTime ? formatTime(store.closingTime) : "N/A";
-
+            // Adiciona InfoWindow
             const infoWindow = new google.maps.InfoWindow({
-                content: `
-                    <div class="d-flex align-items-center">
-                        <img src="/images/${store.imageUrl}" alt="${store.name}" style="width: 50px; height: 50px; margin-right: 10px;">
-                        <div>
-                            <h6>${store.name}</h6>
-                            <p>${store.location}</p>
-                            <p><strong>${store.status}</strong></p>
-                            <p class="text-muted">Horário: ${formattedOpening} - ${formattedClosing}</p>
-                        </div>
-                    </div>
-                `
+                content: `<h6>${store.name}</h6><p>${store.location}</p><p><strong>${store.status}</strong></p>`,
             });
 
             marker.addListener("mouseover", () => {

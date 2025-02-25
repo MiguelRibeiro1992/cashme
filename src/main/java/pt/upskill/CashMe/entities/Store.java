@@ -86,7 +86,7 @@ public class Store {
     }
 
     public String getStatus(){
-        LocalTime now = LocalTime.now();
+        LocalTime now = LocalTime.now().withNano(0);
 
         if (openingTime == null || closingTime == null) {
             return "Horário Indisponível";  // Se não houver horário definido
