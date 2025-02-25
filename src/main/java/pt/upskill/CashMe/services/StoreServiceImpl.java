@@ -48,5 +48,16 @@ public class StoreServiceImpl implements StoreService {
         return storeRepository.findStoresByItemsContains(item);
     }
 
+    @Override
+    public List<Store> getStoresWithStatus() {
+        List<Store> stores = storeRepository.findAll();
+        return stores.stream()
+                .map(store -> {
+                    store.getStatus(); // Atualiza status automaticamente
+                    return store;
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }

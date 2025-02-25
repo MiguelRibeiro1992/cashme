@@ -11,15 +11,21 @@ import pt.upskill.CashMe.services.StoreService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stores")
+@RequestMapping("/api")
 public class StoreController {
 
     @Autowired
     private StoreService storeService;
 
-    @GetMapping
+    @GetMapping("/stores")
     public ResponseEntity<List<Store>> findAllStores() {
         List<Store> stores = storeService.findAllStores();
+        return ResponseEntity.ok(stores);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<List<Store>> getStoresWithStatus() {
+        List<Store> stores = storeService.getStoresWithStatus();
         return ResponseEntity.ok(stores);
     }
 

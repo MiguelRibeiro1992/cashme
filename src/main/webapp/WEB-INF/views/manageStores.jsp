@@ -122,18 +122,6 @@
                             <label for="location" class="form-label">Url da imagem</label>
                             <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Latitude</label>
-                            <input type="text" class="form-control" id="latitude" name="latitude" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Longitude</label>
-                            <input type="text" class="form-control" id="longitude" name="longitude" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Estado</label>
-                            <input type="text" class="form-control" id="status" name="status" required>
-                        </div>
                         <button type="submit" class="btn btn-primary mt-3">Adicionar Loja</button>
                     </form>
 
@@ -148,7 +136,8 @@
                                 <th scope="col">ImageUrl</th>
                                 <th scope="col">Latitude</th>
                                 <th scope="col">Longitude</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Abertura</th>
+                                <th scope="col">Fecho</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,7 +149,8 @@
                                     <td>${store.imageUrl}</td>
                                     <td>${store.latitude}</td>
                                     <td>${store.longitude}</td>
-                                    <td>${store.status}</td>
+                                    <td>${store.openingTime}</td>
+                                    <td>${store.closingTime}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -168,7 +158,8 @@
                 </div>
                     </div>
         </main>
-
+    </div>
+</div>
 
 <br>
 <br>

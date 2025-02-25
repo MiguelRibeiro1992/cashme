@@ -1,5 +1,6 @@
 package pt.upskill.CashMe.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.text.DecimalFormat;
@@ -25,6 +26,7 @@ public class Item {
 
     private String brand;
 
+    @JsonIgnore
     @ManyToOne
     private Store store;
 

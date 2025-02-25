@@ -19,4 +19,6 @@ public interface StoreService {
     public Store  saveStore(Store store);
 
     List<Store> findStoresByItem(Item item);
+
+    List<Store> getStoresWithStatus();
 }

@@ -1,5 +1,6 @@
 package pt.upskill.CashMe.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
@@ -20,6 +21,7 @@ public class Store {
     private LocalTime openingTime;
     private LocalTime closingTime;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Item> items;
 
@@ -37,7 +39,6 @@ public class Store {
         this.name = name;
         this.location = location;
         this.imageUrl = imageUrl;
-
     }
 
     public Long getId() { return id; }
@@ -86,10 +87,11 @@ public class Store {
 
     public String getStatus(){
         LocalTime now = LocalTime.now();
-        if (now.isAfter(openingTime) && now.isBefore(closingTime)){
-            return "Aberto";
-        } else {
-            return "Fechado";
+
+        if (openingTime == null || closingTime == null) {
+            return "Horário Indisponível";  // Se não houver horário definido
         }
+
+        return (now.isAfter(openingTime) && now.isBefore(closingTime)) ? "Aberto" : "Fechado";
     }
 }
