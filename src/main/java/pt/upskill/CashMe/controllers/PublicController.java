@@ -161,5 +161,12 @@ public class PublicController {
         }
     }
 
+    @GetMapping("/stores")
+    public String showAllStores(Model model) {
+        List<Store> stores = storeService.findAllStores(); // Buscar todas as lojas
+        model.addAttribute("stores", stores);
+        return "allStoresView"; // Nome da página JSP
+    }
+
 
 }
