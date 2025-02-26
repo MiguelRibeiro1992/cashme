@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.User;
+import pt.upskill.CashMe.models.EditItemModel;
 import pt.upskill.CashMe.repositories.ItemRepository;
 
 import java.util.List;
@@ -26,14 +27,19 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     //@Transactional
-    public void save(Item item) {
-        Item itemToSave = itemRepository.findByBarcode(item.getBarcode());
-        if (itemToSave == null) {
-            itemRepository.save(item);
-        } else {
-            itemToSave.setQuantity(itemToSave.getQuantity() + item.getQuantity());
-            itemRepository.save(itemToSave);
-        }
+    public void editItem(EditItemModel editItem) {
+        Long itemId = editItem.getId() == null ? -1 : editItem.getId();
+        Item item = itemRepository.findById(itemId).orElse(new Item());
+        item.setQuantity(editItem.getQuantity());
+        item.setPrice(editItem.getPrice());
+        item.setBarcode(editItem.getBarcode());
+        item.setName(editItem.getName());
+        item.setDescription(editItem.getDescription());
+        item.setImageUrl(editItem.getImageUrl());
+        item.setBrand(editItem.getBrand());
+        item.setCategories(editItem.getCategories());
+        item.setStore(editItem.getStore());
+        itemRepository.save(item);
     }
 
     @Override
@@ -64,7 +70,7 @@ public class ItemServiceImpl implements ItemService {
         Optional<Item> itemOpt = itemRepository.findById(itemId);
         if (itemOpt.isPresent()) {
             Item item = itemOpt.get();
-            return item.getCategory().stream()
+            return item.getCategories().stream()
                     .anyMatch(cat -> cat.getId().equals(categoryId));
         }
         return false;

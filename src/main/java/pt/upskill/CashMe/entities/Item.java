@@ -22,7 +22,7 @@ public class Item {
     //Não falta o isFavorito aqui?
 
     @ManyToMany
-    private List<Category> category = new ArrayList<>();
+    private List<Category> categories = new ArrayList<>();
 
     private String brand;
 
@@ -33,7 +33,6 @@ public class Item {
     private double price;
     private double discount = 0.0;
     private int quantity;
-    private String categoryName;
     private Double rating;
     private Integer reviewsCount;
 
@@ -45,14 +44,6 @@ public class Item {
         this.barcode = barcode;
         this.name = name;
         this.price = price;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public String getBarcode() {
@@ -115,12 +106,12 @@ public class Item {
         this.id = id;
     }
 
-    public List<Category> getCategory() {
-        return category;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(List<Category> category) {
-        this.category = category;
+    public void setCategories(List<Category> category) {
+        this.categories = category;
     }
 
     public String getBrand() {
@@ -166,5 +157,13 @@ public class Item {
 
     public void setReviewsCount(Integer reviewsCount) {
         this.reviewsCount = reviewsCount;
+    }
+
+    public String getCategoriesIds() {
+        return categories.stream()
+                .map(Category::getId)
+                .map(String::valueOf)
+                .reduce((a, b) -> a + "," + b)
+                .orElse("");
     }
 }

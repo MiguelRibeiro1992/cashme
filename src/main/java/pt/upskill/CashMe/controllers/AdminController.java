@@ -10,6 +10,7 @@ import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.AddCategoryModel;
+import pt.upskill.CashMe.models.EditItemModel;
 import pt.upskill.CashMe.repositories.CategoryRepository;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.repositories.StoreRepository;
@@ -73,46 +74,17 @@ public class AdminController {
 
     //Adicionar o produto
     @PostMapping("/dashboard/manageItems")
-    public String addProduct(@ModelAttribute("item") Item item,
-                             @RequestParam("storeId") Long storeId,
-                             @RequestParam("categoryId") Long categoryId,
-                             @RequestParam("categoryName") String categoryName,
-                             @RequestParam("quantity") int quantity) {
-        System.out.println("Produto recebido: " + item.getName() + ", " + item.getPrice());
+    public String addProduct(EditItemModel editItem) {
+        System.out.println("Produto recebido: " + editItem.getName() + ", " + editItem.getPrice());
 
-        Store store = storeService.findStoreById(storeId);
-        if (store == null) {
+        if (editItem.getStore() == null || editItem.getStore().getId() == null) {
             System.out.println("Erro: Loja não encontrada!");
             return "redirect:/admin/dashboard/manageItems";
         }
-        item.setStore(store);
 
-        Category category = categoryService.getCategoryById(categoryId);
-        if (category == null) {
-            System.out.println("Erro: Categoria não encontrada!");
-            return "redirect:/admin/dashboard/manageItems";
-        }
+        //TODO iterar por cada categoria e verificar se existe
 
-        // Inicializa a lista de categorias do item se for null
-        if (item.getCategory() == null) {
-            item.setCategory(new ArrayList<>());
-        }
-
-        // 🔍 Verificar na base de dados se a relação já existe antes de adicionar
-        if (!itemService.itemHasCategory(item.getId(), category.getId())) {
-            item.getCategory().add(category);
-            System.out.println("Categoria adicionada ao item.");
-        } else {
-            System.out.println("Categoria já estava associada ao item.");
-        }
-
-        item.setCategoryName(categoryName);
-        item.setQuantity(quantity);
-        System.out.printf("Item: %s, %s, %s, %s, %s, %s, %s, %s\n",
-                item.getName(), item.getBarcode(), item.getDescription(), item.getImageUrl(),
-                item.getBrand(), item.getPrice(), item.getDiscount(), item.getQuantity(),item.getCategoryName());
-
-        itemService.save(item);
+        itemService.editItem(editItem);
         return "redirect:/admin/dashboard/manageItems";
     }
 

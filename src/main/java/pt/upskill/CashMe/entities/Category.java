@@ -18,7 +18,7 @@ public class Category {
     @Column(nullable = false)
     private boolean isActive; // Indica se a categoria está ativa na mainPage
 
-    @ManyToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "categories", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Item> items = new ArrayList<>();
 
 
