@@ -233,9 +233,9 @@
 
                                 <!-- Ícones de Favorito e Visualizar -->
                                 <div class="icons-container position-absolute top-0 end-0 p-2">
-                                    <a href="/wishlist.jsp?id=${item.id}" onclick="event.stopPropagation();">
+                                    <button onclick="toggleWishlist(${item.id}, event)" type="button" class="border-0 bg-transparent p-0">
                                         <img src="/images/heart.svg" alt="Favorito" class="icon">
-                                    </a>
+                                    </button>
                                     <a href="/item/${item.id}" onclick="event.stopPropagation();">
                                         <img src="/images/eye.svg" alt="Visualizar" class="icon">
                                     </a>
@@ -346,6 +346,22 @@
         <img src="/images/upArrow.svg" alt="Seta cima" class="img-fluid">
     </button>
 </section>
+
+    <script>
+        function toggleWishlist(itemId, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            fetch("/wishlist/toggle/" + itemId, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    location.reload(); //TODO mudar isto para atualizar apenas o ícone
+                } else {
+                    alert('Erro ao adicionar à wishlist');
+                }
+            });
+        }
+    </script>
 
 
 <%@ include file="includes/footer.jsp"%> <!-- Footer -->

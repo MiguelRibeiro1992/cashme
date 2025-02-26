@@ -21,7 +21,7 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
-<section class="container mt-4">
+<section class="container mt-4 mb-6">
     <h2 class="fw-bold">Encontre uma loja</h2>
     <div class="row mt-3">
         <!-- Barra de pesquisa e lista de lojas -->
@@ -78,12 +78,12 @@
                     storeItem.classList.add("list-group-item", "border-0");
                     storeItem.innerHTML = `
                         <div class="d-flex align-items-center">
-                            <img src="/images/${store.imageUrl}" alt="${store.name}" class="me-2" style="width: 50px; height: 50px;">
+                            <img src="/images/` + store.imageUrl + `" alt="` + store.name + `" class="me-2" style="width: 50px; height: 50px;">
                             <div>
-                                <h5 class="fw-bold">${store.name}</h5>
-                                <p class="mb-1">${store.location}</p>
-                                <p class="${statusClass} fw-bold">${store.status != null ? store.status : 'Indisponível'}</p>
-                                <p class="text-muted">Horário: ${openingTime} - ${closingTime}</p>
+                                <h5 class="fw-bold">` + store.name + `</h5>
+                                <p class="mb-1">` + store.location + ` </p>
+                                <p class="${statusClass} fw-bold">` + (store.status != null ? store.status : 'Indisponível') + `</p>
+                                <p class="text-muted">Horário: ` + openingTime + ` - ` + closingTime + ` </p>
                             </div>
                         </div>
                     `;
@@ -110,7 +110,7 @@
 
             // Adiciona InfoWindow
             const infoWindow = new google.maps.InfoWindow({
-                content: `<h6>${store.name}</h6><p>${store.location}</p><p><strong>${store.status}</strong></p>`,
+                content: `<h6>\${store.name}</h6><p>\${store.location}</p><p><strong>\${store.status}</strong></p>`,
             });
 
             marker.addListener("mouseover", () => {

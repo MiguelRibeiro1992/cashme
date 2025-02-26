@@ -60,9 +60,7 @@
                 <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(-1)">-</button>
                 <span class="mx-3 fs-5" id="quantity">1</span>
                 <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(1)">+</button>
-                <form action="/wishlist/toggle/${item.id}" method="post">
-                    <button class="btn btn-primary ms-3">Adicionar à Wishlist</button>
-                </form>
+                <button class="btn btn-primary ms-3" onclick="toggleWishlist(${item.getId()})">Adicionar à Wishlist</button>
             </div>
 
             <!-- Botões Extras -->
@@ -119,23 +117,14 @@
 
 <script>
     function toggleWishlist(itemId) {
-        fetch('/user/current', {
-            method: 'GET'
-        }).then(response => response.json())
-            .then(user => {
-                const userId = user.name;
-                fetch(`/wishlist/toggle/${userId}/${itemId}`, {
-                    method: 'POST'
-                }).then(response => {
-                    if (response.ok) {
-                        window.location.href = `/wishlist/${userId}`;
-                    } else {
-                        alert('Error adding to wishlist');
-                    }
-                });
-            }).catch(error => {
-            console.error('Error fetching current user:', error);
-            alert('Error fetching current user');
+        fetch("/wishlist/toggle/" + itemId, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Error adding to wishlist');
+            }
         });
     }
 </script>
