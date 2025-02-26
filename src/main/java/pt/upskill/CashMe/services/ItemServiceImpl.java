@@ -7,8 +7,7 @@ import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.EditItemModel;
 import pt.upskill.CashMe.repositories.ItemRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -65,6 +64,10 @@ public class ItemServiceImpl implements ItemService {
         itemRepository.deleteById(itemId);
     }
 
+    @Override
+    public List<Item> searchItems(String query) {
+        return itemRepository.findByNameContainingIgnoreCase(query);
+    }
 
     public boolean itemHasCategory(Long itemId, Long categoryId) {
         Optional<Item> itemOpt = itemRepository.findById(itemId);

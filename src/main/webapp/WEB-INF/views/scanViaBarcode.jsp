@@ -57,9 +57,27 @@
         </div>
     </div>
 
+    <!-- Inserir o código manual -->
+    <div class="row w-100 d-flex mt-3">
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <p class="text-muted" id="manualEntryWarning" style="cursor: pointer; opacity: 0.6;">
+                Ou insira o código manualmente
+            </p>
+            <div id="manualEntry" style="display: none;">
+                <input type="text" id="manualBarcode" class="form-control" placeholder="Digite o código de barras">
+                <div class="d-flex justify-content-center mt-2 w-100">
+                    <button id="manualCancel" class="btn btn-secondary me-2">Cancelar</button>
+                    <button id="manualSubmit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- para dividir em 2 colunas - espaço vazio -->
+        </div>
+    </div>
+
     <!-- NFC Button and Actions -->
     <div class="row mt-5 w-100 d-flex justify-content-between align-items-center">
-        <!-- meter o botao ligeiramente mais para o centro -->
         <div class="col-md-6 text-start d-flex justify-content-center">
             <a href="/scan/viaNFC">
                 <img src="/images/button_changeToScanViaNFC.svg" alt="Mudar para Scan Via NFC" class="img-fluid">
@@ -165,6 +183,59 @@
 
     function onScanFailure(error) {
     }
+
+    // Exibe o campo de entrada para código manual
+    document.getElementById("manualEntryWarning").addEventListener("click", function() {
+        document.getElementById("manualEntryWarning").style.display = "none"; // Esconde o aviso
+        document.getElementById("manualEntry").style.display = "block"; // Exibe o campo de entrada
+    });
+
+    // Função para cancelar a entrada manual e esconder o formulário
+    document.getElementById("manualCancel").addEventListener("click", function () {
+        document.getElementById("manualEntry").style.display = "none";
+        document.getElementById("manualEntryWarning").style.display = "block";
+    });
+
+    // Quando o código manual for inserido e confirmado
+    document.getElementById("manualSubmit").addEventListener("click", function() {
+        let barcode = document.getElementById("manualBarcode").value.trim();
+
+        if (barcode === "") {
+            return;
+        }
+
+        // Exibir o código lido manualmente na página
+        document.getElementById("scanResult").innerText = "Código lido manualmente: " + barcode;
+
+        // Atualiza o botão de scan
+        let startScanButton = document.getElementById("startScan");
+        startScanButton.innerText = "Produto detetado!";
+        startScanButton.classList.remove("btn-warning");
+        startScanButton.classList.add("btn-success");
+        startScanButton.disabled = false;
+
+        // Mostrar o botão de adicionar ao carrinho
+        document.getElementById("addToCart").style.display = "inline-block";
+
+        // Adicionar o produto ao carrinho ao clicar
+        document.getElementById("addToCart").onclick = function () {
+            fetch("/cart/addToCart?barcode=" + barcode, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(response => {
+                    console.log("response", response);
+                    if (response.ok) {
+                        window.location.href = "/cart";
+                    } else {
+                        console.error("Produto não encontrado.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao adicionar ao carrinho:", error);
+                });
+        };
+    });
 
 </script>
 

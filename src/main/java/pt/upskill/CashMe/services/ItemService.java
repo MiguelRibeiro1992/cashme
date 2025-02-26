@@ -14,5 +14,7 @@ public interface ItemService {
 
     public List<Item> findAll();
 
-    void deleteItem(Long itemId);
+    public void deleteItem(Long itemId);
+
+    public List<Item> searchItems(String query);
 }
