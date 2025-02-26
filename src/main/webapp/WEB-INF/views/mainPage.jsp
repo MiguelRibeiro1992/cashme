@@ -363,6 +363,7 @@
         }
     </script>
 
+</section>
 
 <%@ include file="includes/footer.jsp"%> <!-- Footer -->
 
