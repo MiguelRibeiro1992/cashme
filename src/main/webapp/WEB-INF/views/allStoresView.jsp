@@ -41,7 +41,7 @@
                             </a>
                             <h4 class="mt-2 fw-bold">${store.name}</h4>
                             <p>Descubra os produtos disponíveis nesta loja.</p> <!-- Alterado para não dar erro -->
-                            <a href="/store/${store.id}" class="btn btn-primary w-100">Ver Loja</a>
+                            <a href="/storeView/${store.id}" class="btn btn-primary w-100">Ver Loja</a>
                         </div>
                     </div>
                 </c:forEach>
