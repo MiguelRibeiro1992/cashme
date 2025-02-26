@@ -6,7 +6,7 @@
             <span class="text-white me-2">
                 Faça já download da app <b>CashMe</b>
             </span>
-            <a href="#" class="download-link">Descarregue Agora!</a>
+            <a href="/availableSoon" class="download-link">Descarregue Agora!</a>
         </div>
         <div class="language-selector">
             <span>Português</span>

@@ -168,5 +168,10 @@ public class PublicController {
         return "allStoresView"; // Nome da página JSP
     }
 
+    @GetMapping("/availableSoon")
+    public String availableSoon() {
+        return "availableSoon";
+    }
+
 
 }

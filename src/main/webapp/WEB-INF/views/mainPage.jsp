@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-8 d-flex flex-column align-items-end">
                 <img src="/images/saldosZara.svg" alt="Saldos Zara" class="img-fluid" style="max-width: 200%; height: auto; margin-right: 70px;">
-                <a href="#" class="text-dark fw-bold mt-3 d-flex align-items-center">
+                <a href="/availableSoon" class="text-dark fw-bold mt-3 d-flex align-items-center">
                     Descarregar <img src="/images/rightArrow.svg" alt="Seta Direita" class="ms-2" style="margin-right: 50px">
                 </a>
             </div>
