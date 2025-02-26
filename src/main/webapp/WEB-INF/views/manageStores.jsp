@@ -106,24 +106,34 @@
                         <div class="alert alert-success">${message}</div>
                     </c:if>
 
-                    <!-- Formulário para adicionar uma nova loja -->
-                    <div class="card mt-3">
-                    <h3>Adicionar Nova Loja</h3>
-                    <form action="/admin/dashboard/manageStores" method="post">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nome da Loja</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Localização</label>
-                            <input type="text" class="form-control" id="location" name="location" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Url da imagem</label>
-                            <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Adicionar Loja</button>
-                    </form>
+                 <!-- Botão para abrir o formulário -->
+                 <div class="mt-3">
+                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addStoreForm" aria-expanded="false" aria-controls="addStoreForm">
+                         + Adicionar Nova Loja
+                     </button>
+                 </div>
+
+                 <!-- Formulário colapsável -->
+                 <div class="collapse mt-3" id="addStoreForm">
+                     <div class="card card-body">
+                         <h3>Adicionar Nova Loja</h3>
+                         <form action="/admin/dashboard/manageStores" method="post">
+                             <div class="mb-3">
+                                 <label for="name" class="form-label">Nome da Loja</label>
+                                 <input type="text" class="form-control" id="name" name="name" required>
+                             </div>
+                             <div class="mb-3">
+                                 <label for="location" class="form-label">Localização</label>
+                                 <input type="text" class="form-control" id="location" name="location" required>
+                             </div>
+                             <div class="mb-3">
+                                 <label for="imageUrl" class="form-label">URL da Imagem</label>
+                                 <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
+                             </div>
+                             <button type="submit" class="btn btn-success">Adicionar Loja</button>
+                         </form>
+                     </div>
+                 </div>
 
                         <div class="card mt-3">
                     <h3> Lista de Lojas</h3>
