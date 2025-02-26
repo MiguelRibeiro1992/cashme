@@ -40,7 +40,7 @@
                                 <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid" style="max-height: 150px;">
                             </a>
                             <h4 class="mt-2 fw-bold">${store.name}</h4>
-                            <p>${store.description}</p>
+                            <p>Descubra os produtos disponíveis nesta loja.</p> <!-- Alterado para não dar erro -->
                             <a href="/store/${store.id}" class="btn btn-primary w-100">Ver Loja</a>
                         </div>
                     </div>
