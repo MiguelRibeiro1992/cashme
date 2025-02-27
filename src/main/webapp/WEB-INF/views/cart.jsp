@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -77,7 +78,9 @@
                     <td>${entry.key.name}</td>
                     <td>${entry.key.price} €</td>
                     <td>${entry.value}</td>
-                    <td>${entry.key.price * entry.value} €</td>
+                    <td>
+                        <fmt:formatNumber value="${entry.key.price * entry.value}" type="number" pattern="0.00"/> €
+                    </td>
                     <td>
                         <!-- Botões para aumentar ou diminuir quantidade -->
                         <form action="/cart/decreaseQuantity" method="GET" style="display:inline-block;">
@@ -104,8 +107,7 @@
         </table>
     </c:if>
 
-    <h4 class="mt-4">Total: <span id="totalPrice">${totalPrice}</span> €</h4>
-
+    <h4 class="mt-4">Total: <span id="totalPrice"><fmt:formatNumber value="${totalPrice}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span> €</h4>
     <br>
 
     <c:if test="${empty cartItems}">
@@ -125,6 +127,11 @@
 
     <br>
 </div>
+
+<%--<script>--%>
+<%--    let totalPrice = parseFloat("${totalPrice}");--%>
+<%--    document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);--%>
+<%--</script>--%>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp" %>
