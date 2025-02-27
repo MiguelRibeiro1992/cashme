@@ -66,7 +66,7 @@
             <h4 class="fw-bold mt-3">Gonçalo Lopes</h4>
             <p>Dev</p>
             <div class="d-flex justify-content-center gap-3">
-                <a href="#"><img src="/images/x.svg" alt="X" class="social-icon"></a>
+                <a href="#"><img src="/images/x.svg" alt="X" class="social-icon" style="width: 25px; height: 25px" ></a>
                 <a href="#"><img src="/images/instagramcolor.svg" alt="Instagram" class="social-icon" style="width: 25px; height: 25px"></a>
                 <a href="https://www.linkedin.com/in/goncalolopesmk/"><img src="/images/linkedincolor.svg" alt="LinkedIn" class="social-icon" style="width: 25px; height: 25px"></a>
             </div>
@@ -76,7 +76,7 @@
             <h4 class="fw-bold mt-3">Diana Clemente</h4>
             <p>Dev</p>
             <div class="d-flex justify-content-center gap-3">
-                <a href="#"><img src="/images/x.svg" alt="X" class="social-icon"></a>
+                <a href="#"><img src="/images/x.svg" alt="X" class="social-icon" style="width: 25px; height: 25px" ></a>
                 <a href="#"><img src="/images/instagramcolor.svg" alt="Instagram" class="social-icon" style="width: 25px; height: 25px"></a>
                 <a href="https://www.linkedin.com/in/diana-clemente-120abb103/"><img src="/images/linkedincolor.svg" alt="LinkedIn" class="social-icon" style="width: 25px; height: 25px"></a>
             </div>
@@ -86,7 +86,7 @@
             <h4 class="fw-bold mt-3">Miguel Ribeiro</h4>
             <p>Dev</p>
             <div class="d-flex justify-content-center gap-3">
-                <a href="https://x.com/MiguelRibeiroPT"><img src="/images/x.svg" alt="X" class="social-icon"></a>
+                <a href="https://x.com/MiguelRibeiroPT"><img src="/images/x.svg" alt="X" class="social-icon" style="width: 25px; height: 25px" ></a>
                 <a href="#"><img src="/images/instagramcolor.svg" alt="Instagram" class="social-icon" style="width: 25px; height: 25px"></a>
                 <a href="https://www.linkedin.com/in/pedro-miguel-rodrigues-ribeiro-737000206/"><img src="/images/linkedincolor.svg" alt="LinkedIn" class="social-icon" style="width: 25px; height: 25px"></a>
             </div>
