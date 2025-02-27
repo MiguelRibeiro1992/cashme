@@ -17,6 +17,23 @@
     <link rel="stylesheet" href="/styles/custom.css">
     <link rel="stylesheet" href="/styles/footer.css">
     <link rel="stylesheet" href="/styles/header.css">
+
+    <!-- Para o icone da wishlist -->
+    <style>
+        .image-container {
+            position: relative;
+        }
+        .icons-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -28,6 +45,16 @@
         <div class="col-md-5">
             <div class="image-container">
                 <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid w-100 border rounded">
+                <!-- Botão Wishlist -->
+                <div class="icons-container p-2">
+                    <button onclick="toggleWishlist(${item.id}, event)" type="button" class="border-0 bg-transparent p-0">
+                        <img id="wishlist-icon-${item.id}"
+                             src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
+                             alt="Favorito"
+                             class="icon"
+                             data-in-wishlist="${item.inWishlist ? 'true' : 'false'}">
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -102,16 +129,28 @@
 
 
 <script>
-    function toggleWishlist(itemId) {
+    function toggleWishlist(itemId, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        let heartIcon = document.getElementById("wishlist-icon-" + itemId);
+        let isCurrentlyInWishlist = heartIcon.dataset.inWishlist === "true";
+
         fetch("/wishlist/toggle/" + itemId, {
-            method: 'POST'
-        }).then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert('Error adding to wishlist');
-            }
-        });
+            method: "POST"
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Atualiza o ícone sem recarregar a página
+                    heartIcon.src = isCurrentlyInWishlist ? "/images/heart.svg" : "/images/heartfill.svg";
+                    heartIcon.dataset.inWishlist = isCurrentlyInWishlist ? "false" : "true";
+                } else {
+                    //alert("Erro ao atualizar a wishlist");
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao atualizar a wishlist:", error);
+            });
     }
 </script>
 
@@ -157,8 +196,6 @@
     });
 
 </script>
-
-
 
 </body>
 </html>

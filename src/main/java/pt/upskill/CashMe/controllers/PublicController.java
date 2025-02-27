@@ -1,9 +1,7 @@
 package pt.upskill.CashMe.controllers;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +11,8 @@ import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.entities.Wishlist;
-import pt.upskill.CashMe.models.ItemModel;
-import pt.upskill.CashMe.models.WishlistModel;
 import pt.upskill.CashMe.repositories.UserRepository;
-import pt.upskill.CashMe.services.ItemService;
-import pt.upskill.CashMe.services.StoreService;
-import pt.upskill.CashMe.services.UserService;
-import pt.upskill.CashMe.services.WishlistService;
+import pt.upskill.CashMe.services.*;
 
 import java.util.List;
 
@@ -27,19 +20,19 @@ import java.util.List;
 public class PublicController {
 
     @Autowired
-    private ItemService itemService;
+    private ItemServiceImpl itemService;
 
     @Autowired
-    private StoreService storeService;
+    private StoreServiceImpl storeService;
 
     @Autowired
-    private WishlistService wishlistService;
+    private WishlistServiceImpl wishlistService;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @GetMapping("/")
     public String homePage() {
@@ -75,8 +68,11 @@ public class PublicController {
     }
 
     @GetMapping("/item/{id}")
-    public String itemPage(@PathVariable("id") Item item, Model model) {
+    public String itemPage(@PathVariable("id") Long id, Model model) {
+        Item item = itemService.getItemById(id);
         if (item != null) {
+            boolean inWishlist = wishlistService.isInWishlist(id);
+            item.setInWishlist(inWishlist);
             model.addAttribute("item", item);
 
             List<Store> stores = storeService.findStoresByItem(item); // Obtém a loja correspondente ao item

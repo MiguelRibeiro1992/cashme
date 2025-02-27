@@ -19,6 +19,9 @@ public class WishlistServiceImpl implements WishlistService {
     private WishlistRepository wishlistRepository;
 
     @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private ItemRepository itemRepository;
@@ -45,6 +48,11 @@ public class WishlistServiceImpl implements WishlistService {
         return wishlistRepository.save(wishlist);
     }
 
-
+    @Override
+    public boolean isInWishlist(Long id) {
+        User currentUser = userService.getCurrentUser();
+        Wishlist wishlist = getWishlistByUser(currentUser);
+        return wishlist.getItems().stream().anyMatch(item -> item.getId() == id);
+    }
 
 }
