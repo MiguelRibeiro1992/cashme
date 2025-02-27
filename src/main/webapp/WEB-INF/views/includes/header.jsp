@@ -41,11 +41,10 @@
             <!-- Barra de Pesquisa -->
             <form class="search-bar d-flex align-items-center" action="/search" method="GET">
                 <input type="text" class="form-control search-input" name="query" placeholder="Pesquisar produtos..." required>
-                <button type="submit" class="search-btn btn btn-link p-0 ms-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg>
-                </button>
+                <a href="/scan/viaBarcode" class="search-btn btn btn-link p-0 ms-2 d-flex flex-column align-items-center" style="text-decoration: none;">
+                    <img src="/images/scanIcon.svg" alt="Scan" height="20">
+                    <span style="font-size: 10px; text-decoration: underline; text-decoration-color: orange; text-underline-offset: 2px; color: black; ">Scan</span>
+                </a>
             </form>
 
             <!-- Ícone Wishlist -->
