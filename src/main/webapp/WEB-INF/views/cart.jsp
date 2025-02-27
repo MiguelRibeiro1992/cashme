@@ -5,7 +5,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Carrinho | CashMe</title>
+    <title>CashMe - Carrinho</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -127,11 +127,6 @@
 
     <br>
 </div>
-
-<%--<script>--%>
-<%--    let totalPrice = parseFloat("${totalPrice}");--%>
-<%--    document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);--%>
-<%--</script>--%>
 
 <!-- Footer -->
 <%@ include file="includes/footer.jsp" %>

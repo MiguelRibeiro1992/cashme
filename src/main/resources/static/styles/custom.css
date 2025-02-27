@@ -282,3 +282,14 @@ a.text-primary:hover {
     height: 30px;
 }
 
+/* Para ter checkboxes com tickets laranja */
+.form-check-input:checked {
+    background-color: var(--laranja1) !important;
+    border-color: var(--laranja1) !important;
+}
+/* Para remover o efeito azul padrão ao focar */
+.form-check-input:focus {
+    box-shadow: none !important;
+    border-color: var(--laranja1) !important;
+}
+

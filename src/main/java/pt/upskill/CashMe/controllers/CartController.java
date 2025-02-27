@@ -9,7 +9,6 @@ import pt.upskill.CashMe.entities.Cart;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.CartServiceImpl;
-import pt.upskill.CashMe.services.ItemServiceImpl;
 
 import java.util.Map;
 
@@ -63,7 +62,7 @@ public class CartController {
         Item item = itemRepository.findByBarcode(barcode);
 
         if (item == null || item.getQuantity() <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Stock insuficiente para adicionar mais deste item.");
+            redirectAttributes.addFlashAttribute("error", "Stock insuficiente para adicionar mais deste produto.");
         } else {
             cartService.addItemToCart(barcode);
         }

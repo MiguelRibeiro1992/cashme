@@ -142,6 +142,21 @@ public class PublicController {
         return "account";
     }
 
+    @GetMapping("/settings")
+    public String settings() {
+        return "settings";
+    }
+
+    @GetMapping("/paymentMethods")
+    public String paymentMethods(){
+        return "paymentMethods";
+    }
+
+    @GetMapping("/history")
+    public String history(){
+        return "history";
+    }
+
     @GetMapping("/privacy-policy")
     public String privacyPolicy() { return "privacyPolicy";}
 

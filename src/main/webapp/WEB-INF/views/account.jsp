@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CashMe - Minha Conta</title>
+    <title>CashMe - A Minha Conta</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,12 +35,12 @@
             <div class="p-4 border rounded shadow-sm">
                 <h5 class="fw-bold">Gestão de Conta</h5>
                 <ul class="list-unstyled mt-3">
-                    <li><a href="#" class="text-decoration-none text-orange">O meu perfil</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
+                    <li><a href="/account" class="text-decoration-none text-orange">O meu perfil</a></li>
+                    <li><a href="/paymentMethods" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
-                    <li><a href="#" class="text-decoration-none text-muted">Histórico</a></li>
+                    <li><a href="/history" class="text-decoration-none text-muted">Histórico</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">Estatísticas de Gastos</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">Tracking de Preços</a></li>
                 </ul>
@@ -49,7 +49,7 @@
                     <li><a href="#" class="text-decoration-none text-muted">Wishlist</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">Notificações</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">Pontos</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Definições</a></li>
+                    <li><a href="/settings" class="text-decoration-none text-muted">Definições</a></li>
                 </ul>
             </div>
         </div>
