@@ -263,7 +263,7 @@
 
         <!-- Botão para ver todos os produtos -->
         <div class="d-flex justify-content-center mt-4">
-            <button class="btn btn-primary" onclick="window.location.href='/products'">Ver todos os produtos</button>
+            <button class="btn btn-primary" onclick="window.location.href='/items'">Ver todos os produtos</button>
         </div>
     </section>
 

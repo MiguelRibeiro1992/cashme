@@ -78,8 +78,10 @@ public class PublicController {
     public String itemsPage(Model model) {
         List<Item> items = itemService.findAll(); // Buscar todos os itens
         model.addAttribute("items", items);
-        return "items"; // Retornar para a página "items.jsp"
+        return "allItemView"; // Retornar para a página "items.jsp"
     }
+
+
 
 
     @GetMapping("/storeView/{id}")
