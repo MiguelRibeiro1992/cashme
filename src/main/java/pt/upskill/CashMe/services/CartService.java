@@ -14,4 +14,5 @@ public interface CartService {
     public void decreaseItemQuantity(String barcode);
     public void removeItemFromCart(String barcode);
     public void clearCart();
+    public void addItemToCartById(Long itemId, int quantity);
 }

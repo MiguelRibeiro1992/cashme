@@ -56,6 +56,21 @@ public class CartController {
         return "ok";
     }
 
+    @GetMapping("/addItemToCart")
+    @ResponseBody
+    public String addItemToCart(@RequestParam("itemId") Long itemId, @RequestParam("quantity") int quantity) {
+        if (itemId == null || quantity < 1) {
+            return "error: Parâmetros inválidos.";
+        }
+        try {
+            cartService.addItemToCartById(itemId, quantity);
+            return "ok";
+        } catch (IllegalArgumentException e) {
+            return "error: " + e.getMessage();
+        }
+    }
+
+
     //Aumenta OU diminui um a um os items do carrinho com base no código de barras
     @GetMapping("/increaseQuantity")
     public String increaseQuantity(@RequestParam("barcode") String barcode, RedirectAttributes redirectAttributes) {

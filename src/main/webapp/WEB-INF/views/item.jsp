@@ -60,15 +60,9 @@
                 <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(-1)">-</button>
                 <span class="mx-3 fs-5" id="quantity">1</span>
                 <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(1)">+</button>
-                <button class="btn btn-primary ms-3" onclick="toggleWishlist(${item.getId()})">Adicionar à Wishlist</button>
+                <button id="addToCart" class="btn btn-primary px-4 ms-3" data-item-id="${item.id}">Adicionar ao carrinho</button>
             </div>
 
-            <!-- Botões Extras -->
-            <div>
-                <button class="btn btn-primary mt-3 w-100" onclick="window.location.href='/scan/viaBarcode'">Ler Código de Barras</button>
-            </div>
-
-            <button class="btn btn-primary mt-3 w-100" onclick="">Ler NFC</button>
         </div>
     </div>
 </section>
@@ -105,15 +99,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/scripts/scripts.js" defer></script>
-<script>
-    function updateQuantity(amount) {
-        const quantityElement = document.getElementById('quantity');
-        let quantity = parseInt(quantityElement.textContent);
-        quantity = Math.max(1, quantity + amount);
-        quantityElement.textContent = quantity;
-    }
 
-</script>
 
 <script>
     function toggleWishlist(itemId) {
@@ -128,6 +114,51 @@
         });
     }
 </script>
+
+<script>
+    function updateQuantity(amount) {
+        const quantityElement = document.getElementById('quantity');
+        let quantity = parseInt(quantityElement.textContent);
+        quantity = Math.max(1, quantity + amount);
+        quantityElement.textContent = quantity;
+    }
+
+    document.getElementById("addToCart").addEventListener("click", function () {
+        let button = document.getElementById("addToCart");
+        let itemId = button.getAttribute("data-item-id"); // Obtém o itemId do botão
+        let quantity = parseInt(document.getElementById('quantity').textContent);
+
+        if (!itemId || isNaN(quantity) || quantity < 1) {
+            console.error("Erro: Item ID inválido ou quantidade incorreta.");
+            alert("Erro ao adicionar ao carrinho.");
+            return;
+        }
+
+        // Converte itemId para número para evitar problemas de conversão no backend
+        let url = new URL(window.location.origin + "/cart/addItemToCart");
+        url.searchParams.append("itemId", itemId);
+        url.searchParams.append("quantity", quantity);
+
+        fetch(url.toString(), {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data.includes("ok")) {
+                    window.location.href = "/cart"; // Redireciona para o carrinho
+                } else {
+                    alert(data.replace("error: ", "")); // Exibe mensagem de erro do backend
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao adicionar ao carrinho:", error);
+            });
+    });
+
+</script>
+
+
 
 </body>
 </html>

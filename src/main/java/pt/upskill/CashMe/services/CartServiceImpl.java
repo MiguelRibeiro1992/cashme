@@ -101,6 +101,35 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void addItemToCartById(Long itemId, int quantity) {
+
+        Item item = itemRepository.findById(itemId).orElse(null);
+
+        if (item == null) {
+            throw new IllegalArgumentException("Produto não encontrado.");
+        }
+
+        Cart activeCart = cartRepository.findActiveCart();
+        if (activeCart == null) {
+            activeCart = new Cart();
+            cartRepository.save(activeCart);
+        }
+
+        Map<Item, Integer> items = activeCart.getItems();
+
+        // Se o item já está no carrinho, substituímos a quantidade pela nova selecionada
+        if (items.containsKey(item)) {
+            int currentQuantity = items.get(item); // 🔹 Obtém a quantidade atual no carrinho
+            items.put(item, currentQuantity + quantity); // 🔹 Incrementa corretamente
+        } else {
+            items.put(item, quantity);
+        }
+
+        cartRepository.save(activeCart);
+    }
+
+
+    @Override
     public void removeItemFromCart(String barcode) {
         Item item = itemRepository.findByBarcode(barcode);
         if (item != null) {
@@ -131,4 +160,7 @@ public class CartServiceImpl implements CartService {
             cartRepository.save(activeCart);
         }
     }
+
+
+
 }

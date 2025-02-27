@@ -2,6 +2,8 @@ package pt.upskill.CashMe.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import pt.upskill.CashMe.services.WishlistService;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class Item {
     private int quantity;
     private Double rating;
     private Integer reviewsCount;
+
 
     public Item(){
 
@@ -166,4 +169,16 @@ public class Item {
                 .reduce((a, b) -> a + "," + b)
                 .orElse("");
     }
+
+    @Transient // Não salva este campo na BD
+    private boolean inWishlist;
+
+    public boolean isInWishlist() {
+        return inWishlist;
+    }
+
+    public void setInWishlist(boolean inWishlist) {
+        this.inWishlist = inWishlist;
+    }
+
 }

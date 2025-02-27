@@ -234,12 +234,14 @@
                                 <!-- Ícones de Favorito e Visualizar -->
                                 <div class="icons-container position-absolute top-0 end-0 p-2">
                                     <button onclick="toggleWishlist(${item.id}, event)" type="button" class="border-0 bg-transparent p-0">
-                                        <img src="/images/heart.svg" alt="Favorito" class="icon">
+                                        <img id="wishlist-icon-${item.id}"
+                                             src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
+                                             alt="Favorito"
+                                             class="icon">
                                     </button>
-                                    <a href="/item/${item.id}" onclick="event.stopPropagation();">
-                                        <img src="/images/eye.svg" alt="Visualizar" class="icon">
-                                    </a>
                                 </div>
+
+
                             </div>
 
                             <!-- Nome do Produto -->
@@ -351,16 +353,26 @@
         function toggleWishlist(itemId, event) {
             event.preventDefault();
             event.stopPropagation();
+
+            let heartIcon = document.getElementById(`wishlist-icon-${itemId}`);
+            let isCurrentlyInWishlist = heartIcon.src.includes("heartfill.svg");
+
             fetch("/wishlist/toggle/" + itemId, {
-                method: 'POST'
-            }).then(response => {
-                if (response.ok) {
-                    location.reload(); //TODO mudar isto para atualizar apenas o ícone
-                } else {
-                    alert('Erro ao adicionar à wishlist');
-                }
-            });
+                method: "POST"
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Atualiza o ícone sem recarregar a página
+                        heartIcon.src = isCurrentlyInWishlist ? "/images/heart.svg" : "/images/heartfill.svg";
+                    } else {
+                        alert("Erro ao atualizar a wishlist");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao atualizar a wishlist:", error);
+                });
         }
+
     </script>
 
 </section>

@@ -3,6 +3,7 @@ package pt.upskill.CashMe.controllers;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
+import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.entities.Wishlist;
 import pt.upskill.CashMe.models.ItemModel;
 import pt.upskill.CashMe.models.WishlistModel;
@@ -35,6 +37,7 @@ public class PublicController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private UserService userService;
 
@@ -46,10 +49,20 @@ public class PublicController {
     @GetMapping("/mainPage")
     public String mainPage(Model model) {
         List<Item> items = itemService.findAll();
+        User currentUser = userService.getCurrentUser();
+        Wishlist userWishlist = wishlistService.getWishlistByUser(currentUser);
+
+        // Verifica se cada item está na wishlist
+        for (Item item : items) {
+            boolean isInWishlist = userWishlist.getItems().contains(item);
+            item.setInWishlist(isInWishlist); // 🔥 Definimos corretamente antes de enviar para a view
+        }
+
         model.addAttribute("stores", storeService.findAllStores());
         model.addAttribute("items", items);
         return "mainPage";
     }
+
 
     @GetMapping("/underConstruction")
     public String underConstruction() {
