@@ -50,13 +50,21 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Item> getCartItems() {
         Cart activeCart = cartRepository.findActiveCart();
-        return activeCart != null ? List.copyOf(activeCart.getItems().keySet()) : List.of();
+        if (activeCart != null) {
+            return List.copyOf(activeCart.getItems().keySet());
+        } else {
+            return List.of();
+        }
     }
 
     @Override
     public double getTotalPrice() {
         Cart activeCart = cartRepository.findActiveCart();
-        return activeCart != null ? activeCart.getTotalPrice() : 0.0;
+        if (activeCart != null) {
+            return activeCart.getTotalPrice();
+        } else {
+            return 0.0;
+        }
     }
 
     @Override

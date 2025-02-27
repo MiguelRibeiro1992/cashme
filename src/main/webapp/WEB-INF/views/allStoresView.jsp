@@ -36,11 +36,11 @@
                 <c:forEach var="store" items="${stores}">
                     <div class="col-md-4 text-center">
                         <div class="store-card p-3 border rounded mb-4">
-                            <a href="/store/${store.id}">
+                            <a href="/storeView/${store.id}">
                                 <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid" style="max-height: 150px;">
                             </a>
                             <h4 class="mt-2 fw-bold">${store.name}</h4>
-                            <p>Descubra os produtos disponíveis nesta loja.</p> <!-- Alterado para não dar erro -->
+                            <p>Descubra os produtos disponíveis nesta loja.</p>
                             <a href="/storeView/${store.id}" class="btn btn-primary w-100">Ver Loja</a>
                         </div>
                     </div>

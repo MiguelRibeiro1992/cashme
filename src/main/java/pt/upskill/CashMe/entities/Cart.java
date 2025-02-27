@@ -57,10 +57,10 @@ public class Cart {
     }
 
     public double getTotalPrice() {
-        double valor= items.entrySet().stream()
-                .mapToDouble(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
-
-        return valor;
+        double total = 0.0;
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            total += entry.getKey().getPrice() * entry.getValue();
+        }
+        return total;
     }
 }
