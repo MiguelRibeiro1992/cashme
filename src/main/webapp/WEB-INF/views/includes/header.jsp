@@ -67,7 +67,7 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     <% if (isAuthenticated) { %>
                     <li><a class="dropdown-item" href="/account">Perfil</a></li>
-                    <li><a class="dropdown-item" href="/settings">Definições</a></li>
+                    <li><a class="dropdown-item" href="/account/settings">Definições</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     <% } else { %>

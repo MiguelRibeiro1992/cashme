@@ -146,49 +146,6 @@ public class PublicController {
         return "storesMap";
     }
 
-    //Para as views do Perfil do utilizador
-    @GetMapping("/account")
-    public String account() {
-        return "account";
-    }
-
-    @GetMapping("/settings")
-    public String settings() {
-        return "settings";
-    }
-
-    @GetMapping("/paymentMethods")
-    public String paymentMethods(){
-        return "paymentMethods";
-    }
-
-    @GetMapping("/history")
-    public String history(){
-        return "history";
-    }
-
-    @GetMapping("/stats")
-    public String stats() {
-        return "stats";
-    }
-
-    @GetMapping("/tracking")
-    public String tracking() {
-        return "tracking";
-    }
-
-    @GetMapping("/notifications")
-    public String notifications() {
-        return "notifications";
-    }
-
-    @GetMapping("/points")
-    public String points() {
-        return "points";
-    }
-
-    //fim das views do perfil
-
     @GetMapping("/privacy-policy")
     public String privacyPolicy() { return "privacyPolicy";}
 

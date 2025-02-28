@@ -18,9 +18,9 @@
                 <h5>Conta</h5>
                 <a href="/account">A minha conta</a><br>
                 <a href="/login">Login / Registar</a><br>
-                <a href="#">Histórico</a><br>
+                <a href="/account/history">Histórico</a><br>
                 <a href="/wishlist">Wishlist</a><br>
-                <a href="#">Definições</a>
+                <a href="/account/settings">Definições</a>
             </div>
             <div class="col">
                 <h5>Links Úteis</h5>
