@@ -315,6 +315,36 @@ a.text-primary:hover {
     text-align: center; /* Garante que o texto dentro esteja alinhado */
 }
 
+/* Ajusta a altura da lista de lojas para alinhar com o mapa */
+#storeList {
+    max-height: 400px; /* Define a mesma altura do mapa */
+    overflow-y: auto; /* Adiciona um scroll interno */
+}
+
+/* Personaliza a barra de rolagem */
+#storeList::-webkit-scrollbar {
+    width: 8px; /* Define a largura da barra */
+}
+
+/* Cor de fundo do trilho da rolagem */
+#storeList::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor clara para um visual moderno */
+    border-radius: 10px;
+}
+
+/* Cor e estilo da alça da rolagem */
+#storeList::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff7b00, #ff4d00); /* Gradiente laranja */
+    border-radius: 10px; /* Borda arredondada para um visual elegante */
+}
+
+/* Efeito ao passar o mouse */
+#storeList::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff5900, #e03e00);
+}
+
+
+
 
 
 

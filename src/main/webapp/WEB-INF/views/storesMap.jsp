@@ -24,13 +24,13 @@
 <section class="container mt-4 mb-6">
     <h2 class="fw-bold">Encontre uma loja</h2>
     <div class="row mt-3">
-        <!-- Barra de pesquisa e lista de lojas -->
+        <!-- Lista de Lojas com Scroll -->
         <div class="col-md-4">
             <input type="text" id="searchBox" class="form-control mb-3" placeholder="Procure por Nome ou Região" onkeyup="filterStores()">
             <p class="text-muted" id="totalStores">Carregando lojas...</p>
 
-            <!-- Lista de Lojas (Gerada Dinamicamente) -->
-            <div class="list-group" id="storeList"></div>
+            <!-- Wrapper com altura controlada -->
+            <div id="storeList" class="list-group border rounded shadow-sm"></div>
         </div>
 
         <!-- Mapa do Google Maps -->

@@ -41,7 +41,7 @@
 </section>
 
 <!-- Produtos e Filtros -->
-<section class="container mt-4">
+<section class="container mt-4 mb-6">
     <div class="row align-items-start">
         <!-- Barra de Filtros -->
         <div class="col-md-3">
