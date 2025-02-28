@@ -18,7 +18,9 @@ public class Category {
     @Column(nullable = false)
     private boolean isActive; // Indica se a categoria está ativa na mainPage
 
-    private String slug;
+    private String slug; // Slug para a categoria
+
+    private String imageUrl; // URL da imagem da categoria
 
     @ManyToMany(mappedBy = "categories", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Item> items = new ArrayList<>();
@@ -74,6 +76,14 @@ public class Category {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 

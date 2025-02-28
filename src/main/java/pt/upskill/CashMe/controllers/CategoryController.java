@@ -26,10 +26,6 @@ public class CategoryController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping
-    public String category() {
-        return "userCategory";
-    }
 
     @GetMapping("/{slug}")
     public String showCategory(@PathVariable String slug, Model model) {
@@ -40,6 +36,13 @@ public class CategoryController {
         model.addAttribute("items", items);
 
         return "category"; // Nome da página JSP
+    }
+
+    @GetMapping("/all")
+    public String getAllCategories(Model model) {
+        List<Category> categories = categoryService.getAllCategories(); // Buscar todas as categorias
+        model.addAttribute("categories", categories);
+        return "userCategory"; // Nome da tua página JSP
     }
 
 

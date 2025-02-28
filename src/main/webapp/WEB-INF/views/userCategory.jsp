@@ -27,15 +27,14 @@
 <section class="container mt-5">
     <h2 class="fw-bold text-center mb-4">Explora as Nossas Categorias</h2>
 
-    <!-- Verifica se há categorias -->
     <c:choose>
-        <c:when test="${not empty categorias}">
+        <c:when test="${not empty categories}">
             <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 text-center">
-                <c:forEach var="categoria" items="${categorias}">
+                <c:forEach var="categoria" items="${categories}">
                     <div class="col">
                         <div class="category-card p-3">
-                            <a href="/loja?categoria=${categoria.name}" class="text-decoration-none text-dark">
-                                <img src="${not empty categoria.imagemUrl ? categoria.imagemUrl : '/images/default-category.png'}"
+                            <a href="/category/${categoria.slug}" class="text-decoration-none text-dark">
+                                <img src="/images/${categoria.imageUrl != null ? categoria.imageUrl : '/images/default-category.png'}"
                                      alt="${categoria.name}" class="img-fluid rounded-circle shadow-sm" style="width: 100px; height: 100px;">
                                 <p class="mt-2 fw-bold">${categoria.name}</p>
                             </a>

@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
-        <button class="btn btn-primary" onclick="window.location.href='/categories'">Ver todas as categorias</button>
+        <button class="btn btn-primary" onclick="window.location.href='/category/all'">Ver todas as categorias</button>
     </div>
 </section>
 
