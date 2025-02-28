@@ -3,34 +3,44 @@ package pt.upskill.CashMe.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pt.upskill.CashMe.entities.Category;
+import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.models.AddCategoryModel;
 import pt.upskill.CashMe.repositories.CategoryRepository;
 import pt.upskill.CashMe.services.CategoryService;
 import pt.upskill.CashMe.services.CategoryServiceImpl;
+import pt.upskill.CashMe.services.ItemService;
+
+import java.util.List;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
-    private CategoryServiceImpl categoryService;
+    private CategoryService categoryService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private ItemService itemService;
 
-    /**
-     * Obtém a lista de todas as categorias e envia-as para a vista.
-     * Agora usa `getAllCategories()` pois as categorias são globais.
-     */
-//    @GetMapping
-//    public ModelAndView categoryList() {
-//        ModelAndView mav = new ModelAndView("categories/categories");
-//        mav.addObject("categories", categoryService.getActiveCategories()); // Apenas categorias ativas
-//        return mav;
-//    }
+    @GetMapping
+    public String category() {
+        return "userCategory";
+    }
 
+    @GetMapping("/{slug}")
+    public String showCategory(@PathVariable String slug, Model model) {
+        Category category = categoryService.getCategoryBySlug(slug);
+        List<Item> items = itemService.getItemsByCategory(category);
+
+        model.addAttribute("category", category);
+        model.addAttribute("items", items);
+
+        return "category"; // Nome da página JSP
+    }
 
 
 }

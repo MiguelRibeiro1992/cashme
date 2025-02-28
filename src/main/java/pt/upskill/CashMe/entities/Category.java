@@ -18,6 +18,8 @@ public class Category {
     @Column(nullable = false)
     private boolean isActive; // Indica se a categoria está ativa na mainPage
 
+    private String slug;
+
     @ManyToMany(mappedBy = "categories", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Item> items = new ArrayList<>();
 
@@ -60,6 +62,18 @@ public class Category {
 
     public void setActive(boolean active) {
         this.isActive = active;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }
 

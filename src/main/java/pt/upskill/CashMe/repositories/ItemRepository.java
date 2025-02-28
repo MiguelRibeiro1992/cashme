@@ -3,6 +3,7 @@ package pt.upskill.CashMe.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
+import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Nullable
     Optional<Item> findById(Long id);
+
+    List<Item> findByCategoriesContaining(Category category);
 }

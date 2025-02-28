@@ -2,6 +2,7 @@ package pt.upskill.CashMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.models.EditItemModel;
@@ -69,6 +70,12 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findByNameContainingIgnoreCase(query);
     }
 
+    @Override
+    public List<Item> getItemsByCategory(Category category) {
+        return itemRepository.findByCategoriesContaining(category);
+    }
+
+
     public boolean itemHasCategory(Long itemId, Long categoryId) {
         Optional<Item> itemOpt = itemRepository.findById(itemId);
         if (itemOpt.isPresent()) {
@@ -78,5 +85,6 @@ public class ItemServiceImpl implements ItemService {
         }
         return false;
     }
+
 
 }

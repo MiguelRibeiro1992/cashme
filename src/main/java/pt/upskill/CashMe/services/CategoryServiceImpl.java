@@ -86,7 +86,15 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         category.setName(name);
+        String slug = name.toLowerCase().replace(" ", "-");
+        category.setSlug(slug);
         categoryRepository.save(category);
+    }
+
+    @Override
+    public Category getCategoryBySlug(String slug) {
+        return categoryRepository.findBySlug(slug)
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada."));
     }
 
     @Override

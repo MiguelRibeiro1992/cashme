@@ -27,4 +27,5 @@ public interface CategoryService {
 
     void saveCategory(Long id, String name);
 
+    Category getCategoryBySlug(String slug);
 }

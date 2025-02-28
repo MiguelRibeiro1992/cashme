@@ -18,4 +18,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     // Procurar uma categoria pelo nome
     Optional<Category> findByName(String name);
+
+    Optional<Category> findBySlug(String slug);
 }

@@ -26,46 +26,18 @@
         <div class="row align-items-start mt-5">
             <div class="col-md-3 text-left">
                 <div class="d-flex flex-column ms-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Moda feminina</b></p>
-                        <!-- redirecionar para underConstruction -->
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                        <!-- <a href="#"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a> -->
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Moda masculina</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Escritório</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Estilo de vida</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Livraria</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Desporto</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Brinquedos</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Supermercado</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="mb-3"><b>Saúde e Beleza</b></p>
-                        <a href="underConstruction"><img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3"></a>
-                    </div>
+                    <c:forEach var="category" items="${categories}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-3"><b>${category.name}</b></p>
+                            <a href="/category/${category.slug}">
+                                <img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3">
+                            </a>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
+        </div>
+    </div>
             <div class="col-md-1 d-flex justify-content-start">
                 <img src="/images/verticalLine.svg" alt="Linha vertical" class="img-fluid h-100">
             </div>
@@ -77,8 +49,6 @@
                     Descarregar <img src="/images/rightArrow.svg" alt="Seta Direita" class="ms-2" style="margin-right: 50px">
                 </a>
             </div>
-        </div>
-    </div>
 </section>
 
 
