@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pt.upskill.CashMe.entities.*;
-import pt.upskill.CashMe.repositories.UserRepository;
 import pt.upskill.CashMe.services.*;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class PublicController {
         // Verifica se cada item está na wishlist
         for (Item item : items) {
             boolean isInWishlist = userWishlist.getItems().contains(item);
-            item.setInWishlist(isInWishlist); // 🔥 Definimos corretamente antes de enviar para a view
+            item.setInWishlist(isInWishlist);
         }
 
         model.addAttribute("stores", storeService.findAllStores());
@@ -54,7 +54,6 @@ public class PublicController {
         model.addAttribute("categories", categories);
         return "mainPage";
     }
-
 
     @GetMapping("/underConstruction")
     public String underConstruction() {
@@ -66,6 +65,33 @@ public class PublicController {
         return "storeView";
     }
 
+    @GetMapping("/storeView/{id}")
+    public String storeView(@PathVariable Long id, @RequestParam(value = "category", required = false) List<String> categories,
+                            @RequestParam(value = "maxPrice", required = false) Integer maxPrice, Model model) {
+        Store store = storeService.findStoreById(id);
+
+        if (store != null) {
+            List<Item> filteredItems = storeService.getFilteredItems(store, categories, maxPrice);
+
+            //Vai buscar o user ativo para aceder à wishlist
+            User currentUser = userService.getCurrentUser();
+            Wishlist userWishlist = wishlistService.getWishlistByUser(currentUser);
+            //Vê se já está na wishlist
+            for (Item item : filteredItems) {
+                boolean isInWishlist = userWishlist.getItems().contains(item);
+                item.setInWishlist(isInWishlist);
+            }
+
+            model.addAttribute("store", store);
+            model.addAttribute("items", filteredItems);
+            model.addAttribute("categories", categoryService.getAllCategories());
+        } else {
+            model.addAttribute("error", "Store not found");
+        }
+
+        return "storeView";
+    }
+
     @GetMapping("/item/{id}")
     public String itemPage(@PathVariable("id") Long id, Model model) {
         Item item = itemService.getItemById(id);
@@ -74,7 +100,7 @@ public class PublicController {
             item.setInWishlist(inWishlist);
             model.addAttribute("item", item);
 
-            List<Store> stores = storeService.findStoresByItem(item); // Obtém a loja correspondente ao item
+            List<Store> stores = storeService.findStoresByItem(item);
             model.addAttribute("stores", stores);
         } else {
             model.addAttribute("error", "Item não encontrado");
@@ -89,19 +115,6 @@ public class PublicController {
         return "allItemView"; // Retornar para a página "items.jsp"
     }
 
-    @GetMapping("/storeView/{id}")
-    public String storeView(@PathVariable Long id, Model model) {
-        Store store = storeService.findStoreById(id);
-        if (store != null) {
-            model.addAttribute("store", store);
-            model.addAttribute("items", store.getItems());
-            model.addAttribute("categories", categoryService.getAllCategories());
-        } else {
-            model.addAttribute("error", "Store not found");
-        }
-        return "storeView";
-    }
-
     @GetMapping("/aboutUs")
     public String aboutUs() {
         return "aboutUs";
@@ -111,7 +124,6 @@ public class PublicController {
     public String contacts() {
         return "contacts";
     }
-
 
     @GetMapping("/wishlist")
     public String getWishlist(Model model) {
@@ -123,7 +135,7 @@ public class PublicController {
             model.addAttribute("error", "Wishlist não encontrada.");
         }
 
-        return "wishlist"; // Criar uma página para exibir os favoritos
+        return "wishlist";
     }
 
     @PostMapping("/wishlist/toggle/{itemId}")
@@ -144,16 +156,19 @@ public class PublicController {
     }
 
     @GetMapping("/privacy-policy")
-    public String privacyPolicy() { return "privacyPolicy";}
+    public String privacyPolicy() {
+        return "privacyPolicy";
+    }
 
     @GetMapping("/terms")
     public String showTerms() {
         return "terms";
     }
+
     @GetMapping("/faq")
     public String showFAQ() {
-            return "faq";
-        }
+        return "faq";
+    }
 
     @GetMapping("/redirectToMainPage")
     public String redirectToMainPage(Authentication authentication) {
@@ -166,15 +181,13 @@ public class PublicController {
 
     @GetMapping("/stores")
     public String showAllStores(Model model) {
-        List<Store> stores = storeService.findAllStores(); // Buscar todas as lojas
+        List<Store> stores = storeService.findAllStores();
         model.addAttribute("stores", stores);
-        return "allStoresView"; // Nome da página JSP
+        return "allStoresView";
     }
 
     @GetMapping("/availableSoon")
     public String availableSoon() {
         return "availableSoon";
     }
-
-
 }

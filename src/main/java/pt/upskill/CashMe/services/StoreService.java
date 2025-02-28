@@ -21,4 +21,6 @@ public interface StoreService {
     List<Store> findStoresByItem(Item item);
 
     List<Store> getStoresWithStatus();
+
+    List<Item> getFilteredItems(Store store, List<String> categories, Integer maxPrice);
 }

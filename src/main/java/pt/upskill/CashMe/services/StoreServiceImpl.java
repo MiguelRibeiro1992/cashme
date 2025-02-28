@@ -59,5 +59,24 @@ public class StoreServiceImpl implements StoreService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Item> getFilteredItems(Store store, List<String> categories, Integer maxPrice) {
+        List<Item> items = store.getItems();
 
+        // Filtra por categorias
+        if (categories != null && !categories.isEmpty()) {
+            items = items.stream()
+                    .filter(item -> item.getCategories().stream()
+                            .anyMatch(category -> categories.contains(category.getName())))
+                    .collect(Collectors.toList());
+        }
+
+        // Filtra por preço
+        if (maxPrice != null) {
+            items = items.stream()
+                    .filter(item -> item.getPrice() <= maxPrice)
+                    .collect(Collectors.toList());
+        }
+        return items;
+    }
 }

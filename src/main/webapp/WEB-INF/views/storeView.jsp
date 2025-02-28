@@ -48,25 +48,30 @@
             <div class="filters p-3 border rounded" style="height: 100%;">
                 <h5 class="fw-bold">Filtros</h5>
 
-                <!-- Categorias -->
-                <div class="mb-3">
-                    <h6 class="fw-bold">Categorias</h6>
-                    <c:forEach var="category" items="${categories}">
-                        <div>
-                            <input type="checkbox" id="${category.name}" class="form-check-input">
-                            <label for="${category.name}" class="form-check-label ms-2">${category.name}</label>
-                        </div>
-                    </c:forEach>
-                </div>
+                <!-- Filtros -->
+                <form method="GET" action="/storeView/${store.id}">
+                    <!-- Categorias -->
+                    <div class="mb-3">
+                        <h6 class="fw-bold">Categorias</h6>
+                        <c:forEach var="category" items="${categories}">
+                            <div>
+                                <input type="checkbox" name="category" value="${category.name}" id="${category.name}"
+                                       class="form-check-input">
+                                <label for="${category.name}" class="form-check-label ms-2">${category.name}</label>
+                            </div>
+                        </c:forEach>
+                    </div>
 
-                <!-- Faixa de Preço -->
-                <div class="mb-3">
-                    <h6 class="fw-bold">Preço</h6>
-                    <input type="range" class="form-range" id="priceRange" min="0" max="500" step="5" value="100">
-                    <p class="text-muted">Até <b id="priceValue">100€</b></p>
-                </div>
+                    <!-- Faixa de Preço -->
+                    <div class="mb-3">
+                        <h6 class="fw-bold">Preço</h6>
+                        <input type="range" class="form-range" id="priceRange" name="maxPrice" min="0" max="500"
+                               step="5" value="100">
+                        <p class="text-muted">Até <b id="priceValue">100€</b></p>
+                    </div>
 
-                <button class="btn btn-primary w-100">Aplicar Filtros</button>
+                    <button class="btn btn-primary w-100" type="submit">Aplicar Filtros</button>
+                </form>
             </div>
         </div>
 
@@ -79,16 +84,27 @@
                     <c:when test="${not empty items}">
                         <c:forEach var="item" items="${items}">
                             <div class="col-md-4 text-center">
-                                <div class="product-card p-3 border rounded mb-6">
+                                <div class="product-card p-3 border rounded mb-6 position-relative">
+                                    <!-- Wishlist -->
+                                    <div class="position-absolute top-0 end-0 p-2">
+                                        <button onclick="toggleWishlist(${item.id}, event)" type="button"
+                                                class="border-0 bg-transparent p-0">
+                                            <img id="wishlist-icon-${item.id}"
+                                                 src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
+                                                 alt="Favorito"
+                                                 class="icon"
+                                                 data-in-wishlist="${item.inWishlist ? 'true' : 'false'}">
+                                        </button>
+                                    </div>
+
                                     <a href="/item/${item.id}">
                                         <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid">
                                     </a>
                                     <p class="mt-2"><b>${item.name}</b></p>
                                     <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
-                                    <button class="btn btn-dark mt-2 w-100" onclick="window.location.href='/wishlist.jsp?id=${item.id}'">
-                                        Adicionar à Wishlist
-                                    </button>
-                                    <button class="btn btn-primary mt-2 w-100" onclick="window.location.href='/scan/viaBarcode?id=${item.id}'">
+
+                                    <button class="btn btn-primary mt-2 w-100"
+                                            onclick="window.location.href='/scan/viaBarcode?id=${item.id}'">
                                         Scan do Produto
                                     </button>
                                 </div>
@@ -112,11 +128,34 @@
     });
 </script>
 
+<!-- script para a wishlist -->
+<script>
+    function toggleWishlist(itemId, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        let heartIcon = document.getElementById("wishlist-icon-" + itemId);
+        let isCurrentlyInWishlist = heartIcon.dataset.inWishlist === "true";
+
+        fetch("/wishlist/toggle/" + itemId, {
+            method: "POST"
+        })
+            .then(response => {
+                if (response.ok) {
+                    heartIcon.src = isCurrentlyInWishlist ? "/images/heart.svg" : "/images/heartfill.svg";
+                    heartIcon.dataset.inWishlist = isCurrentlyInWishlist ? "false" : "true";
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao atualizar a wishlist:", error);
+            });
+    }
+</script>
 
 
 <%@ include file="includes/footer.jsp"%> <!-- Footer -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src= "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/scripts/scripts.js" defer></script>
 
 </body>
