@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CashMe - Definições</title>
+    <title>CashMe - Opções de Pagamento</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,7 +29,7 @@
 
 <!-- Breadcrumb -->
 <section class="container mt-4">
-    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Definições</b></p>
+    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Estatísticas de Gastos</b></p>
 </section>
 
 <!-- Seção Principal -->
@@ -45,8 +45,8 @@
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
-                    <li><a href="/history" class="text-decoration-none text-muted">Histórico</a></li>
-                    <li><a href="/stats" class="text-decoration-none text-muted">Estatísticas de Gastos</a></li>
+                    <li><a href="history" class="text-decoration-none text-muted">Histórico</a></li>
+                    <li><a href="/stats" class="text-decoration-none text-orange">Estatísticas de Gastos</a></li>
                     <li><a href="/tracking" class="text-decoration-none text-muted">Tracking de Preços</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Outros</h5>
@@ -54,37 +54,50 @@
                     <li><a href="/wishlist" class="text-decoration-none text-muted">Wishlist</a></li>
                     <li><a href="/notifications" class="text-decoration-none text-muted">Notificações</a></li>
                     <li><a href="/points" class="text-decoration-none text-muted">Pontos</a></li>
-                    <li><a href="/settings" class="text-decoration-none text-orange">Definições</a></li>
+                    <li><a href="/settings" class="text-decoration-none text-muted">Definições</a></li>
                 </ul>
             </div>
         </div>
 
-        <!-- Formulário de Definições da Conta -->
-        <div class="col-md-9 d-flex align-items-center">
-            <div class="p-4 border rounded shadow-sm w-100 align-self-center">
-                <h4 class="fw-bold text-orange">Definições da Conta</h4>
-                <form id="settingsForm">
-                    <div class="row g-3">
-                        <!-- Ativar 2 fatores -->
-                        <h5 class="fw-bold mt-4">Segurança</h5>
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Autenticação de Dois Fatores (2FA)</label>
-                            <select class="form-select" name="2faMethod">
-                                <option value="none" selected>Desativado</option>
-                                <option value="email">Código via E-mail</option>
-                            </select>
-                        </div>
+        <!-- Estatísticas de Gastos -->
+        <div class="col-md-9">
+            <div class="p-4 border rounded shadow-sm w-100">
+                <h4 class="fw-bold text-orange">Estatísticas de Gastos</h4>
 
-                        <!-- Botões -->
-                        <div class="col-12 d-flex justify-content-between mt-3">
-                            <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="saveSettingsBtn">Guardar Alterações
-                            </button>
-                        </div>
+                <div class="d-flex justify-content-end align-items-center mb-4">
+                    <div>
+                        <label class="fw-bold">Início</label>
+                        <input type="date" class="form-control" value="2024-01-07">
                     </div>
-                </form>
+                    <div>
+                        <label class="fw-bold">Fim</label>
+                        <input type="date" class="form-control" value="2024-12-31">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-around text-center">
+                    <!-- Eventualmente ter gráficos aqui -->
+                </div>
+
+                <h5 class="mt-4 fw-bold">Gastos Por Loja</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Data</th>
+                        <th>Loja</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>15/02/2025</td><td>Fnac</td><td>€ 1.300,87</td></tr>
+                    <tr><td>2</td><td>10/02/2025</td><td>Continente</td><td>€ 1.004,45</td></tr>
+                    <tr><td>3</td><td>05/02/2025</td><td>Zara</td><td>€ 682,27</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
 
     </div>
 </section>

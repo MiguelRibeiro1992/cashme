@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CashMe - Definições</title>
+    <title>CashMe - Notificações</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,7 +29,7 @@
 
 <!-- Breadcrumb -->
 <section class="container mt-4">
-    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Definições</b></p>
+    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Notificações</b></p>
 </section>
 
 <!-- Seção Principal -->
@@ -52,9 +52,9 @@
                 <h5 class="fw-bold mt-4">Outros</h5>
                 <ul class="list-unstyled mt-3">
                     <li><a href="/wishlist" class="text-decoration-none text-muted">Wishlist</a></li>
-                    <li><a href="/notifications" class="text-decoration-none text-muted">Notificações</a></li>
+                    <li><a href="/notifications" class="text-decoration-none text-orange">Notificações</a></li>
                     <li><a href="/points" class="text-decoration-none text-muted">Pontos</a></li>
-                    <li><a href="/settings" class="text-decoration-none text-orange">Definições</a></li>
+                    <li><a href="/settings" class="text-decoration-none text-muted">Definições</a></li>
                 </ul>
             </div>
         </div>
@@ -62,17 +62,24 @@
         <!-- Formulário de Definições da Conta -->
         <div class="col-md-9 d-flex align-items-center">
             <div class="p-4 border rounded shadow-sm w-100 align-self-center">
-                <h4 class="fw-bold text-orange">Definições da Conta</h4>
+                <h4 class="fw-bold text-orange">Notificações</h4>
                 <form id="settingsForm">
                     <div class="row g-3">
-                        <!-- Ativar 2 fatores -->
-                        <h5 class="fw-bold mt-4">Segurança</h5>
+                        <!-- Preferências de Notificações -->
                         <div class="col-md-12">
-                            <label class="form-label fw-bold">Autenticação de Dois Fatores (2FA)</label>
-                            <select class="form-select" name="2faMethod">
-                                <option value="none" selected>Desativado</option>
-                                <option value="email">Código via E-mail</option>
-                            </select>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notifEmail" name="notifEmail">
+                                <label class="form-check-label" for="notifEmail">Receber notificações por e-mail</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="notifSms" id="notifSms">
+                                <label class="form-check-label" for="notifSms">Receber notificações por SMS</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="notifPush" id="notifPush" checked>
+                                <label class="form-check-label" for="notifPush">Receber notificações push no
+                                    telemóvel</label>
+                            </div>
                         </div>
 
                         <!-- Botões -->

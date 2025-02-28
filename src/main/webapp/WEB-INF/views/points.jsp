@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CashMe - Definições</title>
+    <title>CashMe - Pontos</title>
 
     <!-- Importação do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,7 +29,7 @@
 
 <!-- Breadcrumb -->
 <section class="container mt-4">
-    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Definições</b></p>
+    <p><a href="/mainPage" class="text-decoration-none text-dark">Home</a> / <b>Pontos</b></p>
 </section>
 
 <!-- Seção Principal -->
@@ -53,8 +53,8 @@
                 <ul class="list-unstyled mt-3">
                     <li><a href="/wishlist" class="text-decoration-none text-muted">Wishlist</a></li>
                     <li><a href="/notifications" class="text-decoration-none text-muted">Notificações</a></li>
-                    <li><a href="/points" class="text-decoration-none text-muted">Pontos</a></li>
-                    <li><a href="/settings" class="text-decoration-none text-orange">Definições</a></li>
+                    <li><a href="/points" class="text-decoration-none text-orange">Pontos</a></li>
+                    <li><a href="/settings" class="text-decoration-none text-muted">Definições</a></li>
                 </ul>
             </div>
         </div>
@@ -62,26 +62,41 @@
         <!-- Formulário de Definições da Conta -->
         <div class="col-md-9 d-flex align-items-center">
             <div class="p-4 border rounded shadow-sm w-100 align-self-center">
-                <h4 class="fw-bold text-orange">Definições da Conta</h4>
+                <h4 class="fw-bold text-orange">Pontos</h4>
                 <form id="settingsForm">
                     <div class="row g-3">
-                        <!-- Ativar 2 fatores -->
-                        <h5 class="fw-bold mt-4">Segurança</h5>
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Autenticação de Dois Fatores (2FA)</label>
-                            <select class="form-select" name="2faMethod">
-                                <option value="none" selected>Desativado</option>
-                                <option value="email">Código via E-mail</option>
-                            </select>
+                        <!-- Secção de Pontos -->
+                            <div class="p-4 border rounded shadow-sm w-100">
+                                <div class="row g-3">
+                                    <!-- Pontos Atuais -->
+                                    <div class="col-md-6">
+                                        <div class="p-3 border rounded text-center bg-light w-100">
+                                            <h5 class="fw-bold">Pontos Atuais</h5>
+                                            <p class="fs-4 fw-bold text" style="color: #d1641d">1258</p> <!-- Número fictício -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Pontos a Expirar -->
+                                    <div class="col-md-6">
+                                        <div class="p-3 border rounded text-center bg-light w-100">
+                                            <h5 class="fw-bold">Pontos a expirar nos próximos 30 dias:</h5>
+                                            <p class="fs-4 fw-bold text" style="color: #606060">279</p> <!-- Número fictício -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <br>
+                        <h5 class="fw-bold text-orange">Produtos disponíveis para redimir</h5>
+                        <div class="p-4 border rounded shadow-sm w-100">
+                            Neste momento não há produtos para redimir.
                         </div>
 
                         <!-- Botões -->
-                        <div class="col-12 d-flex justify-content-between mt-3">
-                            <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="saveSettingsBtn">Guardar Alterações
-                            </button>
+                            <div class="col-12 d-flex justify-content-end mt-3">
+                                <button type="submit" class="btn btn-primary" id="saveSettingsBtn">Redimir Pontos
+                                </button>
+                            </div>
                         </div>
-                    </div>
                 </form>
             </div>
         </div>

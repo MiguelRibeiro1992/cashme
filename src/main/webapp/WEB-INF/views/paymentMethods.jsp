@@ -46,14 +46,14 @@
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
                     <li><a href="history" class="text-decoration-none text-muted">Histórico</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Estatísticas de Gastos</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Tracking de Preços</a></li>
+                    <li><a href="/stats" class="text-decoration-none text-muted">Estatísticas de Gastos</a></li>
+                    <li><a href="/tracking" class="text-decoration-none text-muted">Tracking de Preços</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Outros</h5>
                 <ul class="list-unstyled mt-3">
-                    <li><a href="#" class="text-decoration-none text-muted">Wishlist</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Notificações</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Pontos</a></li>
+                    <li><a href="/wishlist" class="text-decoration-none text-muted">Wishlist</a></li>
+                    <li><a href="/notifications" class="text-decoration-none text-muted">Notificações</a></li>
+                    <li><a href="/points" class="text-decoration-none text-muted">Pontos</a></li>
                     <li><a href="/settings" class="text-decoration-none text-muted">Definições</a></li>
                 </ul>
             </div>
@@ -62,7 +62,7 @@
         <!-- Opções de Pagamento -->
         <div class="col-md-9">
             <div class="p-4 border rounded shadow-sm w-100">
-                <h4 class="fw-bold text-orange">Adicionar Forma de Pagamento</h4>
+                <h4 class="fw-bold text-orange">Métodos de Pagamento</h4>
 
                 <!-- Dropdown para Seleção do Metodo de Pagamento Predefinido -->
                 <div class="mb-4">
