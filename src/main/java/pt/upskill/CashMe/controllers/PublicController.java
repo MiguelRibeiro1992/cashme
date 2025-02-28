@@ -89,15 +89,13 @@ public class PublicController {
         return "allItemView"; // Retornar para a página "items.jsp"
     }
 
-
-
-
     @GetMapping("/storeView/{id}")
     public String storeView(@PathVariable Long id, Model model) {
         Store store = storeService.findStoreById(id);
         if (store != null) {
             model.addAttribute("store", store);
             model.addAttribute("items", store.getItems());
+            model.addAttribute("categories", categoryService.getAllCategories());
         } else {
             model.addAttribute("error", "Store not found");
         }

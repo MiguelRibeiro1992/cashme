@@ -51,18 +51,12 @@
                 <!-- Categorias -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Categorias</h6>
-                    <div><input type="checkbox" id="gaming" class="form-check-input"><label for="gaming" class="form-check-label ms-2">Gaming</label></div>
-                    <div><input type="checkbox" id="eletronicos" class="form-check-input"><label for="eletronicos" class="form-check-label ms-2">Eletrónicos</label></div>
-                    <div><input type="checkbox" id="roupas" class="form-check-input"><label for="roupas" class="form-check-label ms-2">Roupas</label></div>
-                    <div><input type="checkbox" id="animais" class="form-check-input"><label for="animais" class="form-check-label ms-2">Animais</label></div>
-                    <div><input type="checkbox" id="brinquedos" class="form-check-input"><label for="brinquedos" class="form-check-label ms-2">Brinquedos e Jogos</label></div>
-                    <div><input type="checkbox" id="bricolage" class="form-check-input"><label for="bricolage" class="form-check-label ms-2">Bricolage</label></div>
-                    <div><input type="checkbox" id="casa" class="form-check-input"><label for="casa" class="form-check-label ms-2">Casa e Jardim</label></div>
-                    <div><input type="checkbox" id="bebe" class="form-check-input"><label for="bebe" class="form-check-label ms-2">Bebé</label></div>
-                    <div><input type="checkbox" id="beleza" class="form-check-input"><label for="beleza" class="form-check-label ms-2">Beleza e Higiene</label></div>
-                    <div><input type="checkbox" id="mercearia" class="form-check-input"><label for="mercearia" class="form-check-label ms-2">Mercearia</label></div>
-                    <div><input type="checkbox" id="eletrodomesticos" class="form-check-input"><label for="eletrodomesticos" class="form-check-label ms-2">Eletrodomésticos</label></div>
-                    <div><input type="checkbox" id="desporto" class="form-check-input"><label for="desporto" class="form-check-label ms-2">Desporto</label></div>
+                    <c:forEach var="category" items="${categories}">
+                        <div>
+                            <input type="checkbox" id="${category.name}" class="form-check-input">
+                            <label for="${category.name}" class="form-check-label ms-2">${category.name}</label>
+                        </div>
+                    </c:forEach>
                 </div>
 
                 <!-- Faixa de Preço -->
