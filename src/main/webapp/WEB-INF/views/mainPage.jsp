@@ -70,7 +70,9 @@
                 <img src="/images/verticalLine.svg" alt="Linha vertical" class="img-fluid h-100">
             </div>
             <div class="col-md-8 d-flex flex-column align-items-end">
-                <img src="/images/saldosZara.svg" alt="Saldos Zara" class="img-fluid" style="max-width: 200%; height: auto; margin-right: 70px;">
+                <a href="/storeView/152" target="_blank">
+                    <img src="/images/saldosZara.svg" alt="Saldos Zara" class="img-fluid" style="max-width: 200%; height: auto; margin-right: 70px;">
+                </a>
                 <a href="/availableSoon" class="text-dark fw-bold mt-3 d-flex align-items-center">
                     Descarregar <img src="/images/rightArrow.svg" alt="Seta Direita" class="ms-2" style="margin-right: 50px">
                 </a>
@@ -110,10 +112,6 @@
                     <a href="/storeView/${store.id}" target="_blank">
                         <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid">
                     </a>
-                    <div class="position-absolute top-0 end-0 d-flex flex-column p-2">
-                        <a href="/wishlist.jsp"><img src="/images/heart.svg" alt="Favorito" class="img-fluid mb-1"></a>
-                        <a href="#"><img src="/images/eye.svg" alt="Visualizar" class="img-fluid"></a>
-                    </div>
                     <p class="mt-3 text-left"><b>${store.name}</b></p>
                     <div class="rating">
                         <span class="star" data-value="5">&#9733;</span>
@@ -129,7 +127,6 @@
     <div class="d-flex justify-content-center mt-4">
         <button class="btn btn-primary" onclick="window.location.href='/stores'">Ver todas as lojas</button>
     </div>
-
 
 
 <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
@@ -172,8 +169,8 @@
                     <p class="mt-2"><b>SmartWatch</b></p>
                 </div>
                 <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/camara.svg" alt="Camera" class="img-fluid category-link">
-                    <p class="mt-2"><b>Camera</b></p>
+                    <img src="/images/maquinafotografica.svg" alt="Camara" class="img-fluid category-link">
+                    <p class="mt-2"><b>Máquinas fotográficas</b></p>
                 </div>
                 <div class="col-md-3 d-flex flex-column align-items-center position-relative">
                     <img src="/images/headphones.svg" alt="HeadPhones" class="img-fluid category-link">
@@ -186,6 +183,9 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-primary" onclick="window.location.href='/categories'">Ver todas as categorias</button>
+    </div>
 </section>
 
 <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
@@ -193,7 +193,7 @@
 <section class="container mt-5 position-relative">
     <div>
         <img src="/images/sorteio.svg" alt="Sorteio" class="img-fluid w-100">
-        <button class="btn btn-primary position-absolute" style="bottom: 100px; left: 75px; height: 60px" onclick="window.location.href='#'">Descarregar agora</button>
+        <button class="btn btn-primary position-absolute" style="bottom: 100px; left: 75px; height: 60px" onclick="window.location.href='/availableSoon'">Descarregar agora</button>
     </div>
 </section>
 

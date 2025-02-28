@@ -293,3 +293,28 @@ a.text-primary:hover {
     border-color: var(--laranja1) !important;
 }
 
+/* Ajusta a posição da Máquina Fotográfica dentro do carrossel */
+.category-wrapper .col-md-3 img[alt="Camara"] {
+    transform: translateY(-12px); /* Move a imagem 10px para cima */
+}
+
+/* Ajusta o texto correspondente da Máquina Fotográfica */
+.category-wrapper .col-md-3 img[alt="Camara"] + p {
+    transform: translateY(-17px); /* Move o texto 10px para cima */
+    margin-top: 0 !important; /* Remove qualquer margem superior extra */
+}
+
+.downloadHeader .col-md-6 h2 {
+    text-align: center;
+}
+
+/* Centraliza o botão-like dentro do container */
+.col-md-6 .btn-like {
+    display: block; /* Permite centralizar no pai */
+    margin: 10px auto; /* Centraliza horizontalmente */
+    text-align: center; /* Garante que o texto dentro esteja alinhado */
+}
+
+
+
+

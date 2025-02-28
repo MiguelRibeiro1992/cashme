@@ -63,3 +63,14 @@
     fill: black;
 }
 
+.btn-like {
+    display: inline-block; /* Para manter aparência de botão sem ser um */
+    background-color: var(--laranja1);
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+    cursor: default; /* Remove o efeito de clique */
+    text-align: center;
+}

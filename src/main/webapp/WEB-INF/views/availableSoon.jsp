@@ -30,18 +30,18 @@
 
 <!-- Seção Principal -->
 <section class="container mt-4">
-    <div class="row align-items-center">
+    <div class="row align-items-center downloadHeader">
         <div class="col-md-6 d-flex justify-content-center">
             <img src="/images/mobileApp.svg" alt="Fast Checkout" class="img-fluid w-50">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 text-align-center">
             <div class="p-4 border rounded shadow-sm">
-                <h2 class="text-primary">🚀 O futuro das compras está a chegar!</h2>
+                <h2> 🚀 O futuro das compras está a chegar!</h2>
                 <p class="mt-3">Diga adeus às filas e aos processos demorados! Com o <b>Fast Checkout</b>, pagar as suas compras nunca foi tão rápido e simples.
                     Um único toque e está pronto para seguir viagem.</p>
                 <p>Fique entre os primeiros a experimentar esta revolução no checkout. Simples, seguro e sem complicações!</p>
                 <p><b>Prepare-se para uma nova experiência de compras! 📲</b></p>
-                <a href="#" class="btn btn-primary mt-3 disabled">Disponível em Breve</a>
+                <span class="btn-like mt-3 align-items-center">Disponível em breve</span>
             </div>
         </div>
     </div>
