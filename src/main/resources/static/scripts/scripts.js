@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Carrossel para as setas direita e esquerda
 
     const carousel = document.getElementById("partnerCarousel");
-    const partners = document.querySelectorAll(".partner-carousel .col-md-3");
-    const partnerWidth = partners[0].offsetWidth + 20; // Largura + margem
+    const partners = document.querySelectorAll(".partner-carousel .partner-carousel-item");
+    const partnerWidth = 320; // Largura + margem
     let currentIndex = 0;
 
     function updateCarousel() {

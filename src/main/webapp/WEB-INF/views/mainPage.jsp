@@ -19,36 +19,39 @@
 <%@ include file="includes/header.jsp" %>
 
 
-
 <!-- Banner Principal -->
-<section class="container-fluid mt-0">
-    <div class="container">
-        <div class="row align-items-start mt-5">
-            <div class="col-md-3 text-left">
-                <div class="d-flex flex-column ms-4">
-                    <c:forEach var="category" items="${categories}">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-3"><b>${category.name}</b></p>
-                            <a href="/category/${category.slug}">
-                                <img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3">
-                            </a>
-                        </div>
-                    </c:forEach>
+<section class="container mt-0">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row align-items-start mt-5">
+                <div class="text-left">
+                    <div class="d-flex flex-column ms-4">
+                        <c:forEach var="category" items="${categories}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-0"><b>${category.name}</b></p>
+                                <a href="/category/${category.slug}">
+                                    <img src="/images/arrowRightNoFill.svg" alt="Seta Direita" class="img-fluid ms-3">
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-sm-1 d-flex justify-content-center">
+            <img src="/images/verticalLine.svg" alt="Linha vertical" class="img-fluid h-100">
+        </div>
+        <div class="col-sm-8 d-flex flex-column align-items-end">
+            <a href="/storeView/152" target="_blank" class="mt-5">
+                <img src="/images/saldosZara.svg" alt="Saldos Zara" class="img-fluid"
+                     style="height: auto; margin-right: 70px;">
+            </a>
+            <a href="/availableSoon" class="text-dark fw-bold mt-3 d-flex align-items-center">
+                Descarregar <img src="/images/rightArrow.svg" alt="Seta Direita" class="ms-2"
+                                 style="margin-right: 40px">
+            </a>
+        </div>
     </div>
-            <div class="col-md-1 d-flex justify-content-start">
-                <img src="/images/verticalLine.svg" alt="Linha vertical" class="img-fluid h-100">
-            </div>
-            <div class="col-md-8 d-flex flex-column align-items-end">
-                <a href="/storeView/152" target="_blank">
-                    <img src="/images/saldosZara.svg" alt="Saldos Zara" class="img-fluid" style="max-width: 200%; height: auto; margin-right: 70px;">
-                </a>
-                <a href="/availableSoon" class="text-dark fw-bold mt-3 d-flex align-items-center">
-                    Descarregar <img src="/images/rightArrow.svg" alt="Seta Direita" class="ms-2" style="margin-right: 50px">
-                </a>
-            </div>
 </section>
 
 
@@ -70,7 +73,6 @@
 </section>
 
 
-
 <section class="container mt-5">
     <h2>Lojas mais visitadas</h2>
     <div class="mb-4"></div>
@@ -78,9 +80,9 @@
     <div class="partner-wrapper mt-6 mb-6">
         <div class="partner-carousel row flex-nowrap" id="partnerCarousel">
             <c:forEach var="store" items="${stores}">
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                <div class="d-flex flex-column align-items-center position-relative partner-carousel-item">
                     <a href="/storeView/${store.id}" target="_blank">
-                        <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-fluid">
+                        <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-store">
                     </a>
                     <p class="mt-3 text-left"><b>${store.name}</b></p>
                     <div class="rating">
@@ -99,94 +101,98 @@
     </div>
 
 
-<img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
+    <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
-<section class="container mt-5">
-    <div class="d-flex align-items-center">
-        <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
-        <span class="ms-2 span-highlight">Categorias</span>
-        <div class="ms-auto d-flex">
-        <!-- Botão Seta Esquerda -->
-        <button class="arrow-btn" id="prevCategoryBtn">
-            <img src="images/leftArrow.svg" alt="Seta Esquerda">
-        </button>
+    <section class="container mt-5">
+        <div class="d-flex align-items-center">
+            <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
+            <span class="ms-2 span-highlight">Categorias</span>
+            <div class="ms-auto d-flex">
+                <!-- Botão Seta Esquerda -->
+                <button class="arrow-btn" id="prevCategoryBtn">
+                    <img src="images/leftArrow.svg" alt="Seta Esquerda">
+                </button>
 
-        <!-- Botão Seta Direita -->
-        <button class="arrow-btn" id="nextCategoryBtn">
-            <img src="images/rightArrow.svg" alt="Seta Direita">
-        </button>
-    </div>
-    </div>
-</section>
+                <!-- Botão Seta Direita -->
+                <button class="arrow-btn" id="nextCategoryBtn">
+                    <img src="images/rightArrow.svg" alt="Seta Direita">
+                </button>
+            </div>
+        </div>
+    </section>
 
-<section class="container mt-5 overflow-hidden">
-    <h2>Pesquise lojas por categoria</h2>
-    <div class="mb-4"></div>
+    <section class="container mt-5 overflow-hidden">
+        <h2>Pesquise lojas por categoria</h2>
+        <div class="mb-4"></div>
 
-    <div class="category-wrapper mt-6 mb-6 position-relative">
-        <div class="category-carousel d-flex flex-nowrap" id="categoryCarousel" style="overflow: hidden; white-space: nowrap;">
-            <div class="category-container d-flex">
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/smartphone.svg" alt="Smartphone" class="img-fluid category-link">
-                    <p class="mt-2"><b>Smartphones</b></p>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/computadores.svg" alt="Computadores" class="img-fluid category-link">
-                    <p class="mt-2"><b>Computadores</b></p>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/smartwatch.svg" alt="SmartWatch" class="img-fluid category-link">
-                    <p class="mt-2"><b>SmartWatch</b></p>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/maquinafotografica.svg" alt="Camara" class="img-fluid category-link">
-                    <p class="mt-2"><b>Máquinas fotográficas</b></p>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/headphones.svg" alt="HeadPhones" class="img-fluid category-link">
-                    <p class="mt-2"><b>HeadPhones</b></p>
-                </div>
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <img src="/images/gaming.svg" alt="Gaming" class="img-fluid category-link">
-                    <p class="mt-2"><b>Gaming</b></p>
+        <div class="category-wrapper mt-6 mb-6 position-relative">
+            <div class="category-carousel d-flex flex-nowrap" id="categoryCarousel"
+                 style="overflow: hidden; white-space: nowrap;">
+                <div class="category-container d-flex">
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <img src="/images/smartphone.svg" alt="Smartphone" class="img-fluid category-link">
+                        <p class="mt-2"><b>Smartphones</b></p>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <img src="/images/computadores.svg" alt="Computadores" class="img-fluid category-link">
+                        <p class="mt-2"><b>Computadores</b></p>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <img src="/images/smartwatch.svg" alt="SmartWatch" class="img-fluid category-link">
+                        <p class="mt-2"><b>SmartWatch</b></p>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <img src="/images/maquinafotografica.svg" alt="Camara" class="img-fluid category-link">
+                        <p class="mt-2"><b>Máquinas fotográficas</b></p>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <img src="/images/headphones.svg" alt="HeadPhones" class="img-fluid category-link">
+                        <p class="mt-2"><b>HeadPhones</b></p>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <img src="/images/gaming.svg" alt="Gaming" class="img-fluid category-link">
+                        <p class="mt-2"><b>Gaming</b></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-center mt-4">
-        <button class="btn btn-primary" onclick="window.location.href='/category/all'">Ver todas as categorias</button>
-    </div>
-</section>
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary" onclick="window.location.href='/category/all'">Ver todas as categorias
+            </button>
+        </div>
+    </section>
 
-<img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
+    <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
-<section class="container mt-5 position-relative">
-    <div>
-        <img src="/images/sorteio.svg" alt="Sorteio" class="img-fluid w-100">
-        <button class="btn btn-primary position-absolute" style="bottom: 100px; left: 75px; height: 60px" onclick="window.location.href='/availableSoon'">Descarregar agora</button>
-    </div>
-</section>
+    <section class="container mt-5 position-relative">
+        <div>
+            <img src="/images/sorteio.svg" alt="Sorteio" class="img-fluid w-100">
+            <button class="btn btn-primary position-absolute" style="bottom: 100px; left: 75px; height: 60px"
+                    onclick="window.location.href='/availableSoon'">Descarregar agora
+            </button>
+        </div>
+    </section>
 
-<img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
+    <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
-<section class="container mt-5">
-    <div class="d-flex align-items-center">
-        <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
-        <span class="ms-2 span-highlight">Produtos dos nossos parceiros</span>
-        <div class="ms-auto d-flex">
+    <section class="container mt-5">
+        <div class="d-flex align-items-center">
+            <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
+            <span class="ms-2 span-highlight">Produtos dos nossos parceiros</span>
+            <div class="ms-auto d-flex">
 
-        <!-- Botão Seta Esquerda -->
-        <button class="arrow-btn" id="prevProductBtn">
-            <img src="images/leftArrow.svg" alt="Seta Esquerda">
-        </button>
+                <!-- Botão Seta Esquerda -->
+                <button class="arrow-btn" id="prevProductBtn">
+                    <img src="images/leftArrow.svg" alt="Seta Esquerda">
+                </button>
 
-        <!-- Botão Seta Direita -->
-        <button class="arrow-btn" id="nextProductBtn">
-            <img src="images/rightArrow.svg" alt="Seta Direita">
-        </button>
-    </div>
-    </div>
-</section>
+                <!-- Botão Seta Direita -->
+                <button class="arrow-btn" id="nextProductBtn">
+                    <img src="images/rightArrow.svg" alt="Seta Direita">
+                </button>
+            </div>
+        </div>
+    </section>
 
     <section class="container mt-5">
         <h2>Produtos mais vendidos</h2>
@@ -203,7 +209,8 @@
 
                                 <!-- Ícones de Favorito e Visualizar -->
                                 <div class="icons-container position-absolute top-0 end-0 p-2">
-                                    <button onclick="toggleWishlist(${item.id}, event)" type="button" class="border-0 bg-transparent p-0">
+                                    <button onclick="toggleWishlist(${item.id}, event)" type="button"
+                                            class="border-0 bg-transparent p-0">
                                         <img id="wishlist-icon-${item.id}"
                                              src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
                                              alt="Favorito"
@@ -240,84 +247,83 @@
     </section>
 
 
+    <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
-<img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
-
-<section class="container mt-5">
-    <div class="d-flex align-items-center">
-        <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
-        <span class="ms-2 span-highlight">Novidades</span>
-        <div class="ms-auto d-flex">
-    </div>
-    </div>
-</section>
-
-<section class="container mt-5">
-    <h2 class="fw-bold">Novas Lojas estão a chegar!</h2>
-    <div class="mb-4"></div>
-    <div class="row">
-        <div class="col-md-6">
-            <a href="storeView/4" target="_blank">
-                <img src="/images/groupWorten.svg" alt="Worten" class="img-fluid w-100">
-            </a>
+    <section class="container mt-5">
+        <div class="d-flex align-items-center">
+            <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
+            <span class="ms-2 span-highlight">Novidades</span>
+            <div class="ms-auto d-flex">
+            </div>
         </div>
-        <div class="col-md-6 d-flex flex-column">
-            <div class="mb-3">
-                <a href="storeView/3" target="_blank">
-                    <img src="/images/stradivarius.svg" alt="Stradivarius" class="img-fluid w-100">
+    </section>
+
+    <section class="container mt-5">
+        <h2 class="fw-bold">Novas Lojas estão a chegar!</h2>
+        <div class="mb-4"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="storeView/4" target="_blank">
+                    <img src="/images/groupWorten.svg" alt="Worten" class="img-fluid w-100">
                 </a>
             </div>
-            <div class="d-flex">
-                <div class="col-md-6">
-                    <a href="storeView/1" target="_blank">
-                        <img src="/images/auchan.svg" alt="Auchan" class="img-fluid w-100">
+            <div class="col-md-6 d-flex flex-column">
+                <div class="mb-3">
+                    <a href="storeView/3" target="_blank">
+                        <img src="/images/stradivarius.svg" alt="Stradivarius" class="img-fluid w-100">
                     </a>
                 </div>
-                <div class="col-md-6">
-                    <a href="storeView/2" target="_blank">
-                        <img src="/images/pullAndBear.svg" alt="Pull&Bear" class="img-fluid w-100">
-                    </a>
+                <div class="d-flex">
+                    <div class="col-md-6">
+                        <a href="storeView/1" target="_blank">
+                            <img src="/images/auchan.svg" alt="Auchan" class="img-fluid w-100">
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="storeView/2" target="_blank">
+                            <img src="/images/pullAndBear.svg" alt="Pull&Bear" class="img-fluid w-100">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
+    <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
 
-<section class="container text-center mt-5">
-    <div class="row mt-6 mb-6">
-        <div class="col-md-4">
-            <div class="icon-circle">
-                <img src="/images/scanMini.svg" alt="Leitura fácil e rápida" class="img-fluid">
+    <section class="container text-center mt-5">
+        <div class="row mt-6 mb-6">
+            <div class="col-md-4">
+                <div class="icon-circle">
+                    <img src="/images/scanMini.svg" alt="Leitura fácil e rápida" class="img-fluid">
+                </div>
+                <h4 class="fw-bold mt-3">Leitura fácil e rápida</h4>
+                <p>Leitura de produtos fácil de usar para fast-checkout</p>
             </div>
-            <h4 class="fw-bold mt-3">Leitura fácil e rápida</h4>
-            <p>Leitura de produtos fácil de usar para fast-checkout</p>
-        </div>
-        <div class="col-md-4">
-            <div>
-                <img src="/images/phonesMini.svg" alt="Apoio ao cliente" class="img-fluid">
+            <div class="col-md-4">
+                <div>
+                    <img src="/images/phonesMini.svg" alt="Apoio ao cliente" class="img-fluid">
+                </div>
+                <h4 class="fw-bold mt-3">Apoio ao cliente</h4>
+                <p>Linha de apoio ao cliente disponível 24/7</p>
             </div>
-            <h4 class="fw-bold mt-3">Apoio ao cliente</h4>
-            <p>Linha de apoio ao cliente disponível 24/7</p>
-        </div>
-        <div class="col-md-4">
-            <div>
-                <img src="/images/securityMini.svg" alt="Segurança garantida" class="img-fluid">
+            <div class="col-md-4">
+                <div>
+                    <img src="/images/securityMini.svg" alt="Segurança garantida" class="img-fluid">
+                </div>
+                <h4 class="fw-bold mt-3">Segurança garantida</h4>
+                <p>Procedimentos com segurança máxima garantida</p>
             </div>
-            <h4 class="fw-bold mt-3">Segurança garantida</h4>
-            <p>Procedimentos com segurança máxima garantida</p>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="container mt-5 d-flex justify-content-end mb-5 arrow-container">
-    <button class="arrow-btn arrow-up" id="scrollTopBtn">
-        <img src="/images/upArrow.svg" alt="Seta cima" class="img-fluid">
-    </button>
-</section>
+    <section class="container mt-5 d-flex justify-content-end mb-5 arrow-container">
+        <button class="arrow-btn arrow-up" id="scrollTopBtn">
+            <img src="/images/upArrow.svg" alt="Seta cima" class="img-fluid">
+        </button>
+    </section>
 
     <script>
         function toggleWishlist(itemId, event) {
@@ -348,7 +354,7 @@
 
 </section>
 
-<%@ include file="includes/footer.jsp"%> <!-- Footer -->
+<%@ include file="includes/footer.jsp" %> <!-- Footer -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/scripts/scripts.js" defer></script>
