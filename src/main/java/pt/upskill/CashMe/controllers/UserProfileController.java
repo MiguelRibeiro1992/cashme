@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.PaymentMethod;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.repositories.PaymentMethodRepository;
+import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.PaymentMethodServiceImpl;
 import pt.upskill.CashMe.services.UserServiceImpl;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -24,6 +28,9 @@ public class UserProfileController {
 
     @Autowired
     private PaymentMethodServiceImpl paymentMethodService;
+
+    @Autowired
+    private ItemServiceImpl itemService;
 
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
@@ -82,7 +89,9 @@ public class UserProfileController {
     }
 
     @GetMapping("/tracking")
-    public String tracking() {
+    public String tracking(Model model) {
+        List<Item> items = itemService.getAllItemsSortedByPrice();
+        model.addAttribute("items", items);
         return "tracking";
     }
 

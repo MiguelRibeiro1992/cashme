@@ -41,7 +41,8 @@
                 <h5 class="fw-bold">Gestão de Conta</h5>
                 <ul class="list-unstyled mt-3">
                     <li><a href="/account" class="text-decoration-none text-muted">O meu perfil</a></li>
-                    <li><a href="/account/paymentMethods" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
+                    <li><a href="/account/paymentMethods" class="text-decoration-none text-muted">Opções de
+                        Pagamento</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
@@ -65,26 +66,29 @@
 
                 <!-- Barra de pesquisa -->
                 <div class="mb-3">
-                    <input type="text" id="searchBar" class="form-control" placeholder="Pesquisar produto..." onkeyup="filterProducts()">
+                    <input type="text" id="searchBar" name="query" class="form-control" placeholder="Pesquisar produto..." onkeyup="filterProducts()">
                 </div>
 
-                <h5 class="fw-bold mt-4">Menores Preços</h5>
-                <table class="table table-striped" id="priceTable">
-                    <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Preço mais baixo (€)</th>
-                        <th>Loja</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td style="color: gray">Produto</td>
-                        <td style="color: gray">€ 0,00</td>
-                        <td style="color: gray">Loja</td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                    <table class="table table-striped" id="priceTable">
+                        <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Preço (€ &#x2B07)</th>
+                            <th>Loja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>€ ${item.price}</td>
+                                <td>${item.store.name}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
             </div>
         </div>
 
@@ -94,16 +98,24 @@
 <script>
     function filterProducts() {
         let input = document.getElementById("searchBar").value.toLowerCase();
+        let normalizedInput = normalizeString(input);
         let rows = document.querySelectorAll("#priceTable tbody tr");
 
         rows.forEach(row => {
             let product = row.cells[0].textContent.toLowerCase();
-            if (product.includes(input)) {
+            let normalizedProduct = normalizeString(product);
+
+            if (normalizedProduct.includes(normalizedInput)) {
                 row.style.display = "";
             } else {
                 row.style.display = "none";
             }
         });
+    }
+
+    // Função para remover acentos e tornar a pesquisa insensível a maiúsculas
+    function normalizeString(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
 </script>
 

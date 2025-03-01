@@ -20,4 +20,6 @@ public interface ItemService {
     public List<Item> searchItems(String query);
 
     List<Item> getItemsByCategory(Category category);
+
+    public List<Item> getAllItemsSortedByPrice();
 }

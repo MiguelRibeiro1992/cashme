@@ -1,6 +1,7 @@
 package pt.upskill.CashMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
@@ -75,6 +76,11 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findByCategoriesContaining(category);
     }
 
+    //Para ir buscar os preços por ordem - usar no tracking
+    @Override
+    public List<Item> getAllItemsSortedByPrice() {
+        return itemRepository.findAll(Sort.by(Sort.Direction.ASC, "price"));
+    }
 
     public boolean itemHasCategory(Long itemId, Long categoryId) {
         Optional<Item> itemOpt = itemRepository.findById(itemId);
