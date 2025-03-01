@@ -41,7 +41,8 @@
                 <h5 class="fw-bold">Gestão de Conta</h5>
                 <ul class="list-unstyled mt-3">
                     <li><a href="/account" class="text-decoration-none text-muted">O meu perfil</a></li>
-                    <li><a href="/account/paymentMethods" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
+                    <li><a href="/account/paymentMethods" class="text-decoration-none text-muted">Opções de
+                        Pagamento</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
@@ -58,44 +59,44 @@
             </div>
         </div>
 
-        <!-- Formulário de Definições da Conta -->
+        <!-- Sistema de Pontos (em construção) -->
         <div class="col-md-9 d-flex align-items-center">
             <div class="p-4 border rounded shadow-sm w-100 align-self-center">
                 <h4 class="fw-bold text-orange">Pontos</h4>
                 <form id="settingsForm">
                     <div class="row g-3">
                         <!-- Secção de Pontos -->
-                            <div class="p-4 border rounded shadow-sm w-100">
-                                <div class="row g-3">
-                                    <!-- Pontos Atuais -->
-                                    <div class="col-md-6">
-                                        <div class="p-3 border rounded text-center bg-light w-100">
-                                            <h5 class="fw-bold">Pontos Atuais</h5>
-                                            <p class="fs-4 fw-bold text" style="color: #d1641d">1258</p> <!-- Número fictício -->
-                                        </div>
+                        <div class="p-4 border rounded shadow-sm w-100">
+                            <div class="row g-3">
+                                <!-- Pontos Atuais -->
+                                <div class="col-md-6">
+                                    <div class="p-3 border rounded text-center bg-light">
+                                        <h6>Pontos Atuais</h6>
+                                        <p class="fs-5 text">0</p>
                                     </div>
+                                </div>
 
-                                    <!-- Pontos a Expirar -->
-                                    <div class="col-md-6">
-                                        <div class="p-3 border rounded text-center bg-light w-100">
-                                            <h5 class="fw-bold">Pontos a expirar nos próximos 30 dias:</h5>
-                                            <p class="fs-4 fw-bold text" style="color: #606060">279</p> <!-- Número fictício -->
-                                        </div>
+                                <!-- Pontos a Expirar -->
+                                <div class="col-md-6">
+                                    <div class="p-3 border rounded text-center bg-light">
+                                        <h6>Pontos a expirar nos próximos 30 dias:</h6>
+                                        <p class="fs-5 text-danger">0</p>
                                     </div>
                                 </div>
                             </div>
-                        <br>
-                        <h5 class="fw-bold text-orange">Produtos disponíveis para redimir</h5>
-                        <div class="p-4 border rounded shadow-sm w-100">
-                            Neste momento não há produtos para redimir.
                         </div>
+                        <!-- Div de Produtos para Redimir -->
+                        <h5 class="fw-bold text-orange mt-4">Produtos disponíveis para redimir</h5>
+                        <div class="p-4 border rounded shadow-sm">
+                            <p class="text-muted text-center"> Neste momento, não há produtos disponíveis. Volte em
+                                breve!</p>
 
-                        <!-- Botões -->
+                            <!-- Botão para redimir -->
                             <div class="col-12 d-flex justify-content-end mt-3">
-                                <button type="submit" class="btn btn-primary" id="saveSettingsBtn">Redimir Pontos
-                                </button>
+                                <button type="button" class="btn btn-secondary" disabled>Redimir Pontos</button>
                             </div>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
