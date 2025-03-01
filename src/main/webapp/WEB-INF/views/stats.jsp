@@ -63,37 +63,42 @@
             <div class="p-4 border rounded shadow-sm w-100">
                 <h4 class="fw-bold text-orange">Estatísticas de Gastos</h4>
 
-                <div class="d-flex justify-content-end align-items-center mb-4">
-                    <div>
-                        <label class="fw-bold">Início</label>
-                        <input type="date" class="form-control" value="2024-01-07">
-                    </div>
-                    <div>
-                        <label class="fw-bold">Fim</label>
-                        <input type="date" class="form-control" value="2024-12-31">
-                    </div>
-                </div>
-
                 <div class="d-flex justify-content-around text-center">
                     <!-- Eventualmente ter gráficos aqui -->
                 </div>
 
                 <h5 class="mt-4 fw-bold">Gastos Por Loja</h5>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Data</th>
-                        <th>Loja</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr><td>1</td><td>15/02/2025</td><td>Fnac</td><td>€ 1.300,87</td></tr>
-                    <tr><td>2</td><td>10/02/2025</td><td>Continente</td><td>€ 1.004,45</td></tr>
-                    <tr><td>3</td><td>05/02/2025</td><td>Zara</td><td>€ 682,27</td></tr>
-                    </tbody>
-                </table>
+
+                <c:if test="${empty totalByStore}">
+                    <div id="noHistoryMessage" class="mt-3">
+                        <p class="text-center">Ainda não tem compras realizadas.</p>
+                    </div>
+                </c:if>
+
+                <c:if test="${not empty totalByStore}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Loja</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:set var="counter" value="1" />
+                        <c:forEach var="entry" items="${totalByStore}">
+                            <tr>
+                                <td>${counter}</td>
+                                <td>${entry.key}</td>
+                                <td>€ ${entry.value}</td>
+                            </tr>
+                            <c:set var="counter" value="${counter + 1}" />
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+                </c:if>
+
             </div>
         </div>
 

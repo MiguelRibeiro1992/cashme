@@ -32,4 +32,9 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     public void deletePaymentMethod(Long id) {
         paymentMethodRepository.deleteById(id);
     }
+
+    @Override
+    public PaymentMethod findById(Long id) {
+        return paymentMethodRepository.findById(id).orElse(null);
+    }
 }

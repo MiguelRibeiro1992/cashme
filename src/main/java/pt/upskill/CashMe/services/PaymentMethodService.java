@@ -11,4 +11,6 @@ public interface PaymentMethodService {
     public void savePaymentMethod(User user, PaymentMethod paymentMethod);
 
     public void deletePaymentMethod(Long id);
+
+    PaymentMethod findById(Long id);
 }

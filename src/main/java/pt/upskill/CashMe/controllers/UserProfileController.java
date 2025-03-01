@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.PaymentMethod;
+import pt.upskill.CashMe.entities.Purchase;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.repositories.PaymentMethodRepository;
-import pt.upskill.CashMe.services.ItemServiceImpl;
-import pt.upskill.CashMe.services.PaymentMethodServiceImpl;
-import pt.upskill.CashMe.services.UserServiceImpl;
+import pt.upskill.CashMe.services.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/account")
@@ -31,6 +28,9 @@ public class UserProfileController {
 
     @Autowired
     private ItemServiceImpl itemService;
+
+    @Autowired
+    private PurchaseServiceImpl purchaseService;
 
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
@@ -79,12 +79,25 @@ public class UserProfileController {
     }
 
     @GetMapping("/history")
-    public String history(){
+    public String history(Model model){
+        User user = userService.getCurrentUser();
+        List<Purchase> purchases = purchaseService.getPurchasesByUser(user);
+        model.addAttribute("purchases", purchases);
         return "history";
     }
 
     @GetMapping("/stats")
-    public String stats() {
+    public String stats(Model model) {
+        List<Purchase> purchases = purchaseService.findAllPurchases();
+        Map<String, Double> totalByStore = new HashMap<>();
+
+        for (Purchase purchase : purchases) {
+            totalByStore.merge(purchase.getStore(), purchase.getTotal(), Double::sum);
+        }
+
+        model.addAttribute("purchases", purchases);
+        model.addAttribute("totalByStore", totalByStore);
+
         return "stats";
     }
 

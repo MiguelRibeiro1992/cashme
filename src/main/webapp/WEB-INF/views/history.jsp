@@ -41,7 +41,8 @@
                 <h5 class="fw-bold">Gestão de Conta</h5>
                 <ul class="list-unstyled mt-3">
                     <li><a href="/account" class="text-decoration-none text-muted">O meu perfil</a></li>
-                    <li><a href="/account/paymentMethods" class="text-decoration-none text-muted">Opções de Pagamento</a></li>
+                    <li><a href="/account/paymentMethods" class="text-decoration-none text-muted">Opções de
+                        Pagamento</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
@@ -63,50 +64,35 @@
             <div class="p-4 border rounded shadow-sm w-100 align-self-center">
                 <h4 class="fw-bold text-orange">Histórico de Compras</h4>
 
-                <!-- Filtro -->
-                <div class="mb-4">
-                    <label for="dateFilter" class="form-label fw-bold">Filtrar por Data</label>
-                    <input type="date" id="dateFilter" class="form-control" name="dateFilter">
-                </div>
+                <c:if test="${empty purchases}">
+                    <div id="noHistoryMessage" class="mt-3">
+                        <p class="text-center">Ainda não tem compras realizadas.</p>
+                    </div>
+                </c:if>
 
-                <!-- Tabela -->
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Data da Compra</th>
-                        <th scope="col">Loja</th>
-                        <th scope="col">Preço</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Detalhes</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- Simulação de exemplos -->
-                    <tr>
-                        <td>2025-02-15</td>
-                        <td>Fnac</td>
-                        <td>€ 20,00</td>
-                        <td><span class="badge bg-success">Pago</span></td>
-                        <td>
-                            <button class="btn btn-outline-secondary btn-sm">Ver Detalhes</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2025-02-10</td>
-                        <td>Continente</td>
-                        <td>€ 15,50</td>
-                        <td><span class="badge bg-warning">Aguardando Pagamento</span></td>
-                        <td>
-                            <button class="btn btn-outline-secondary btn-sm">Ver Detalhes</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <c:if test="${not empty purchases}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Data da Compra</th>
+                            <th scope="col">Loja</th>
+                            <th scope="col">Preço</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="purchase" items="${purchases}">
+                            <tr>
+                                <td>${purchase.date}</td>
+                                <td>${purchase.store}</td>
+                                <td>€ ${purchase.total}</td>
+                                <td><span class="badge bg-success">Pago</span></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
 
-                <!-- Se não houver compras, exibir uma mensagem -->
-                <div id="noHistoryMessage" class="mt-3" style="display: none;">
-                    <p class="text-center">Ainda não tem compras realizadas.</p>
-                </div>
+                </c:if>
 
             </div>
         </div>

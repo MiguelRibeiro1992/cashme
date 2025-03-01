@@ -71,21 +71,22 @@
         <button id="finalizePurchase" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Compra Finalizada</button>
     </div>
 
+
 <script>
-             document.addEventListener("DOMContentLoaded", function() {
-                 fetch('/cart/checkout/qrcode')
-                     .then(response => {
-                         if (!response.ok) {
-                             throw new Error('Network response was not ok');
-                         }
-                         return response.blob();
-                     })
-                     .then(blob => {
-                         const url = URL.createObjectURL(blob);
-                         document.getElementById('qrcode').src = url;
-                     })
-                     .catch(error => console.error('Error fetching QR code:', error));
-             });
+             // document.addEventListener("DOMContentLoaded", function() {
+             //     fetch('/cart/checkout/qrcode')
+             //         .then(response => {
+             //             if (!response.ok) {
+             //                 throw new Error('Network response was not ok');
+             //             }
+             //             return response.blob();
+             //         })
+             //         .then(blob => {
+             //             const url = URL.createObjectURL(blob);
+             //             document.getElementById('qrcode').src = url;
+             //         })
+             //         .catch(error => console.error('Error fetching QR code:', error));
+             // });
 
              //Lógica para o botão "Compra Finalizada"
              document.getElementById("finalizePurchase").addEventListener("click", function() {

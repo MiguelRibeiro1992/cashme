@@ -5,11 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pt.upskill.CashMe.entities.Cart;
-import pt.upskill.CashMe.entities.Item;
+import pt.upskill.CashMe.entities.*;
 import pt.upskill.CashMe.repositories.ItemRepository;
-import pt.upskill.CashMe.services.CartServiceImpl;
+import pt.upskill.CashMe.services.*;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,7 +21,19 @@ public class CartController {
     private CartServiceImpl cartService;
 
     @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
+    private PaymentMethodServiceImpl paymentMethodService;
+
+    @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private StoreServiceImpl storeServiceImpl;
+    @Autowired
+    private PurchaseService purchaseService;
+    @Autowired
+    private ItemServiceImpl itemServiceImpl;
 
     @GetMapping
     public String showCart(Model model) {
@@ -116,12 +129,53 @@ public class CartController {
             model.addAttribute("totalPrice", 0.0);
         }
 
+        User user = userService.getCurrentUser();
+        List<PaymentMethod> creditCards = paymentMethodService.getUserPaymentMethods(user);
+        Long lastAddedCardId= creditCards.isEmpty() ? null : creditCards.get(creditCards.size() - 1).getId();
+        model.addAttribute("lastAddedCardId", lastAddedCardId);
+
         return "checkout";
+    }
+
+    @PostMapping("/complete")
+    public String completeCheckout(Model model) {
+        User user = userService.getCurrentUser();
+        List<PaymentMethod> creditCards = paymentMethodService.getUserPaymentMethods(user);
+        Long lastAddedCardId = creditCards.isEmpty() ? null : creditCards.get(creditCards.size() - 1).getId();
+
+        if (lastAddedCardId == null) {
+            model.addAttribute("error", "Nenhum cartão de crédito disponível.");
+            return "checkout";
+        }
+
+        PaymentMethod selectedCard = paymentMethodService.findById(lastAddedCardId);
+        if (selectedCard == null) {
+            model.addAttribute("error", "Cartão de crédito inválido.");
+            return "checkout";
+        }
+
+        return "redirect:/confirmation";
     }
 
     //Para limpar o carrinho quando a compra é finalizada
     @GetMapping("/clear")
     public String clearCart() {
+        User user = userService.getCurrentUser();
+        Cart cart = cartService.getCart();
+
+        if (cart != null && !cart.getItems().isEmpty()) {
+            Item firstItem = cart.getItems().keySet().iterator().next();
+            String store = firstItem.getStore().getName();
+
+            Purchase purchase = new Purchase();
+            purchase.setUser(user);
+            purchase.setDate(LocalDate.now());
+            purchase.setStore(store);
+            purchase.setTotal(cart.getTotalPrice());
+            purchase.setStatus("Pago");
+
+            purchaseService.save(purchase);
+        }
         cartService.clearCart();
         return "redirect:/mainPage";
     }
