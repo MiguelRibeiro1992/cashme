@@ -52,7 +52,6 @@
                 </ul>
                 <h5 class="fw-bold mt-4">Outros</h5>
                 <ul class="list-unstyled mt-3">
-                    <li><a href="/wishlist" class="text-decoration-none text-muted">Wishlist</a></li>
                     <li><a href="/account/notifications" class="text-decoration-none text-muted">Notificações</a></li>
                     <li><a href="/account/points" class="text-decoration-none text-muted">Pontos</a></li>
                     <li><a href="/account/settings" class="text-decoration-none text-muted">Definições</a></li>
