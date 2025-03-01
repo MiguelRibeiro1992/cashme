@@ -41,7 +41,8 @@
                 <h5 class="fw-bold">Gestão de Conta</h5>
                 <ul class="list-unstyled mt-3">
                     <li><a href="/account" class="text-decoration-none text-muted">O meu perfil</a></li>
-                    <li><a href="/account/paymentMethods" class="text-decoration-none text-orange">Opções de Pagamento</a></li>
+                    <li><a href="/account/paymentMethods" class="text-decoration-none text-orange">Opções de
+                        Pagamento</a></li>
                 </ul>
                 <h5 class="fw-bold mt-4">Encomendas</h5>
                 <ul class="list-unstyled mt-3">
@@ -63,62 +64,61 @@
         <div class="col-md-9">
             <div class="p-4 border rounded shadow-sm w-100">
                 <h4 class="fw-bold text-orange">Métodos de Pagamento</h4>
-
-                <!-- Dropdown para Seleção do Metodo de Pagamento Predefinido -->
-                <div class="mb-4">
-                    <label for="paymentMethod" class="form-label fw-bold">Selecionar Método de Pagamento
-                        Predefinido</label>
-                    <select id="paymentMethod" class="form-select">
-                        <option value="" selected disabled>Selecione o seu método de pagamento</option>
-                        <!-- Estas opções são só simulações estáticas -->
-                        <option value="visa-1548">Visa --------- 1548</option>
-                        <option value="visa-5723">Visa --------- 5723</option>
-                        <option value="funds">Fundos em Conta</option>
-                    </select>
-                </div>
-
                 <div class="row">
                     <!-- Cartões Atuais e Formulário Para Novo Cartão -->
-                    <div class="col-md-6">
-                        <h5 class="fw-bold">Cartões Atuais</h5>
-                        <ul class="list-group mb-4">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span><img src="/images/visaIcon.svg" alt="Visa" class="me-2"
-                                           style="width: 30px; height: 30px"> Visa --------- 1548</span>
-                                <div>
-                                    <button class="btn btn-sm btn-secondary">
-                                        <img src="/images/edit.svg" alt="Editar" style="width: 16px; height: 16px;">
-                                    </button>
-                                    <button class="btn btn-sm btn-danger">
-                                        <img src="/images/delete.svg" alt="Deletar" style="width: 16px; height: 16px;">
-                                    </button>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span><img src="/images/visaIcon.svg" alt="Visa" class="me-2"
-                                           style="width: 30px; height: 30px"> Visa --------- 5723 </span>
-                                <div>
-                                    <button class="btn btn-sm btn-secondary">
-                                        <img src="/images/edit.svg" alt="Editar" style="width: 16px; height: 16px;">
-                                    </button>
-                                    <button class="btn btn-sm btn-danger">
-                                        <img src="/images/delete.svg" alt="Deletar" style="width: 16px; height: 16px;">
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="col-md-6 border-end">
+                        <c:choose>
+                            <c:when test="${not empty paymentMethods}">
+                                <h5 class="fw-bold">Cartões Atuais</h5>
+                                <ul class="list-group mb-4">
+                                    <c:forEach var="paymentMethod" items="${paymentMethods}">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                            <!-- Informação do Cartão -->
+                                            <span>
+                                <img src="/images/${paymentMethod.cardBrand}Icon.svg"
+                                     alt="${paymentMethod.cardBrand}" class="me-2"
+                                     style="width: 30px; height: 30px">
+                                ${paymentMethod.cardBrand} --------- ${paymentMethod.cardNumber}
+                            </span>
+
+                                            <!-- Para apagar -->
+                                            <form action="/account/paymentMethods/delete" method="post"
+                                                  style="display: inline;">
+                                                <input type="hidden" name="id" value="${paymentMethod.id}">
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <img src="/images/delete.svg" alt="Deletar"
+                                                         style="width: 16px; height: 16px;">
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </c:when>
+                            <c:otherwise>
+                                <p>Você ainda não adicionou nenhum método de pagamento.</p>
+                            </c:otherwise>
+                        </c:choose>
 
                         <h5 class="fw-bold">Adicionar Novo Cartão</h5>
-                        <form>
+                        <form action="/account/paymentMethods/add" method="post">
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Número do Cartão">
+                                <select class="form-select" name="cardBrand" required>
+                                    <option value="" selected disabled>Selecione o tipo de cartão</option>
+                                    <option value="Visa">Visa</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="cardNumber" placeholder="Número do Cartão"
+                                       required>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" placeholder="Data de Validade">
+                                    <input type="text" class="form-control" name="expiryDate"
+                                           placeholder="Data de Validade" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" placeholder="CVV">
+                                    <input type="text" class="form-control" name="cvv" placeholder="CVV" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Guardar Cartão</button>
@@ -129,24 +129,32 @@
                     <div class="col-md-6">
                         <h5 class="fw-bold">Adicionar Fundos</h5>
                         <p class="mb-2">Valor Atual em Conta</p>
-                        <h4 class="fw-bold text-orange">€ 5,98</h4>
+                        <h4 class="fw-bold text-orange">
+                            <c:choose>
+                                <c:when test="${accountBalance > 0}">€ ${accountBalance}</c:when>
+                                <c:otherwise>€ 0,00</c:otherwise>
+                            </c:choose>
+                        </h4>
 
-                        <p class="mt-3">Escolhe o Valor a Carregar:</p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-outline-secondary">€ 5</button>
-                            <button class="btn btn-outline-secondary">€ 10</button>
-                            <button class="btn btn-outline-secondary">€ 20</button>
-                            <button class="btn btn-outline-secondary">€ 50</button>
-                            <button class="btn btn-outline-secondary">€ 100</button>
-                            <button class="btn btn-outline-secondary">€ 200</button>
+                        <p class="mt-4 text-center">Disponível em breve!</p>
+
+                        <div class="mt-4 opacity-50">
+                            <h5 class="fw-bold">Adicionar Fundos</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <button class="btn btn-outline-secondary">€ 5</button>
+                                <button class="btn btn-outline-secondary">€ 10</button>
+                                <button class="btn btn-outline-secondary">€ 20</button>
+                                <button class="btn btn-outline-secondary">€ 50</button>
+                                <button class="btn btn-outline-secondary">€ 100</button>
+                                <button class="btn btn-outline-secondary">€ 200</button>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3">Gerar Referência Multibanco</button>
                         </div>
-                        <button class="btn btn-primary w-100 mt-3">Gerar Referência Multibanco</button>
+
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
 </section>
 
