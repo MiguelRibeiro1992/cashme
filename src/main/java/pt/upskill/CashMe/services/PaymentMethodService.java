@@ -6,11 +6,11 @@ import pt.upskill.CashMe.entities.User;
 import java.util.List;
 
 public interface PaymentMethodService {
+
     public List<PaymentMethod> getUserPaymentMethods(User user );
 
     public void savePaymentMethod(User user, PaymentMethod paymentMethod);
 
     public void deletePaymentMethod(Long id);
 
-    PaymentMethod findById(Long id);
 }

@@ -83,14 +83,13 @@ public class CartController {
         }
     }
 
-
     //Aumenta OU diminui um a um os items do carrinho com base no código de barras
     @GetMapping("/increaseQuantity")
     public String increaseQuantity(@RequestParam("barcode") String barcode, RedirectAttributes redirectAttributes) {
         Item item = itemRepository.findByBarcode(barcode);
 
         if (item == null || item.getQuantity() <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Stock insuficiente para adicionar mais deste produto.");
+            redirectAttributes.addFlashAttribute("error", "Stock insuficiente.");
         } else {
             cartService.addItemToCart(barcode);
         }
@@ -102,7 +101,6 @@ public class CartController {
         cartService.decreaseItemQuantity(barcode);
         return "redirect:/cart";
     }
-
 
     //Remove todos os items do carrinho com base no código de barras
     @GetMapping("/removeFromCart")
@@ -129,32 +127,7 @@ public class CartController {
             model.addAttribute("totalPrice", 0.0);
         }
 
-        User user = userService.getCurrentUser();
-        List<PaymentMethod> creditCards = paymentMethodService.getUserPaymentMethods(user);
-        Long lastAddedCardId= creditCards.isEmpty() ? null : creditCards.get(creditCards.size() - 1).getId();
-        model.addAttribute("lastAddedCardId", lastAddedCardId);
-
         return "checkout";
-    }
-
-    @PostMapping("/complete")
-    public String completeCheckout(Model model) {
-        User user = userService.getCurrentUser();
-        List<PaymentMethod> creditCards = paymentMethodService.getUserPaymentMethods(user);
-        Long lastAddedCardId = creditCards.isEmpty() ? null : creditCards.get(creditCards.size() - 1).getId();
-
-        if (lastAddedCardId == null) {
-            model.addAttribute("error", "Nenhum cartão de crédito disponível.");
-            return "checkout";
-        }
-
-        PaymentMethod selectedCard = paymentMethodService.findById(lastAddedCardId);
-        if (selectedCard == null) {
-            model.addAttribute("error", "Cartão de crédito inválido.");
-            return "checkout";
-        }
-
-        return "redirect:/confirmation";
     }
 
     //Para limpar o carrinho quando a compra é finalizada
