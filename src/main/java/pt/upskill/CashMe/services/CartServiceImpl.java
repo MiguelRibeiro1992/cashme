@@ -20,9 +20,18 @@ public class CartServiceImpl implements CartService {
     private ItemRepository itemRepository;
 
     @Override
-    public List<Item> findAllCartItems() {
+    public Cart getCart() {
+        return cartRepository.findActiveCart();
+    }
+
+    @Override
+    public List<Item> getCartItems() {
         Cart activeCart = cartRepository.findActiveCart();
-        return activeCart != null ? List.copyOf(activeCart.getItems().keySet()) : List.of();
+        if (activeCart != null) {
+            return List.copyOf(activeCart.getItems().keySet());
+        } else {
+            return List.of();
+        }
     }
 
     @Override
@@ -48,28 +57,19 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Item> getCartItems() {
-        Cart activeCart = cartRepository.findActiveCart();
-        if (activeCart != null) {
-            return List.copyOf(activeCart.getItems().keySet());
-        } else {
-            return List.of();
-        }
-    }
-
-    @Override
     public double getTotalPrice() {
         Cart activeCart = cartRepository.findActiveCart();
-        if (activeCart != null) {
-            return activeCart.getTotalPrice();
-        } else {
+        if (activeCart == null || activeCart.getItems().isEmpty()) {
             return 0.0;
         }
-    }
 
-    @Override
-    public Cart getCart() {
-        return cartRepository.findActiveCart();
+        double total = 0.0;
+
+        for (Map.Entry<Item, Integer> entry : activeCart.getItems().entrySet()) {
+            total += entry.getKey().getPrice() * entry.getValue();
+        }
+
+        return total;
     }
 
     @Override
@@ -128,7 +128,6 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(activeCart);
     }
 
-
     @Override
     public void removeItemFromCart(String barcode) {
         Item item = itemRepository.findByBarcode(barcode);
@@ -160,7 +159,4 @@ public class CartServiceImpl implements CartService {
             cartRepository.save(activeCart);
         }
     }
-
-
-
 }

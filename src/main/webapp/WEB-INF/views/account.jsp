@@ -60,18 +60,14 @@
                 <form>
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">Primeiro Nome</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="José">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Último Nome</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="Paloco">
+                            <label class="form-label fw-bold">Nome</label>
+                            <input type="text" class="form-control" name="name" placeholder="José Paloco">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Email</label>
                             <input type="email" class="form-control" name="email" placeholder="josepaloco@gmail.com">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label fw-bold">Morada</label>
                             <input type="text" class="form-control" name="address" placeholder="15 Yemen Road, Yemen">
                         </div>

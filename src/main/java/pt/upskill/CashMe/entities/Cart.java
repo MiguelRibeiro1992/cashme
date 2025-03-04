@@ -55,12 +55,4 @@ public class Cart {
     public void removeItem(String barcode) {
         items.entrySet().removeIf(entry -> entry.getKey().getBarcode().equals(barcode));
     }
-
-    public double getTotalPrice() {
-        double total = 0.0;
-        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
-            total += entry.getKey().getPrice() * entry.getValue();
-        }
-        return total;
-    }
 }

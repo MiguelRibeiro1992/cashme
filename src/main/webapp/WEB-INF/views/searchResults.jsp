@@ -40,7 +40,7 @@
                         <div class="card-body">
                             <h5 class="card-title">${item.name}</h5>
                             <p class="card-text">${item.description}</p>
-                            <h6 class="text-success">${item.formattedPrice} €</h6>
+                            <h6 class="text-success">${item.formattedPrice}</h6>
 
                             <!-- Avaliação Clicável -->
                             <div class="d-flex align-items-center mb-2">

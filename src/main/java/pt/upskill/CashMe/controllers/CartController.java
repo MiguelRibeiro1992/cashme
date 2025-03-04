@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pt.upskill.CashMe.entities.*;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.services.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,48 +24,36 @@ public class CartController {
     private UserServiceImpl userService;
 
     @Autowired
-    private PaymentMethodServiceImpl paymentMethodService;
+    private ItemRepository itemRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private StoreServiceImpl storeServiceImpl;
-    @Autowired
-    private PurchaseService purchaseService;
-    @Autowired
-    private ItemServiceImpl itemServiceImpl;
+    private PurchaseServiceImpl purchaseService;
 
     @GetMapping
-    public String showCart(Model model) {
+    public ModelAndView showCart() {
+        ModelAndView mav = new ModelAndView("cart");
         Cart cart = cartService.getCart();
 
         if (cart != null) {
-            model.addAttribute("cartItems", cart.getItems());
-            model.addAttribute("totalPrice", cart.getTotalPrice());
+            mav.addObject("cartItems", cart.getItems());
+            mav.addObject("totalPrice", cartService.getTotalPrice());
         } else {
-            model.addAttribute("cartItems", Map.of());
-            model.addAttribute("totalPrice", 0.0);
+            mav.addObject("cartItems", Map.of());
+            mav.addObject("totalPrice", 0.0);
         }
 
-        return "cart";
+        return mav;
     }
 
     @GetMapping("/addToCart")
     @ResponseBody
-    public String addToCart(@RequestParam("barcode") String barcode, Model model) {
-        System.out.println("Barcode received (with trim): '" + barcode.trim() + "'");
+    public String addToCart(@RequestParam("barcode") String barcode) {
 
         Item item = itemRepository.findByBarcode(barcode);
-
         if (item == null) {
-            System.out.println("Item not found in the database.");
-            model.addAttribute("error", "Product not found");
             throw new IllegalArgumentException("Product not found");
         }
-
-        System.out.println("Item found: " + item.getName());
         cartService.addItemToCart(barcode);
-
         return "ok";
     }
 
@@ -105,12 +93,7 @@ public class CartController {
     //Remove todos os items do carrinho com base no código de barras
     @GetMapping("/removeFromCart")
     public String removeFromCart(@RequestParam("barcode") String barcode) {
-        try {
-            cartService.removeItemFromCart(barcode);
-            System.out.println("Item removido com sucesso.");
-        } catch (Exception e) {
-            System.err.println("Erro ao remover item: " + e.getMessage());
-        }
+        cartService.removeItemFromCart(barcode);
         return "redirect:/cart";
     }
 
@@ -121,7 +104,7 @@ public class CartController {
 
         if (cart != null) {
             model.addAttribute("cartItems", cart.getItems());
-            model.addAttribute("totalPrice", cart.getTotalPrice());
+            model.addAttribute("totalPrice", cartService.getTotalPrice());
         } else {
             model.addAttribute("cartItems", Map.of());
             model.addAttribute("totalPrice", 0.0);
@@ -144,7 +127,7 @@ public class CartController {
             purchase.setUser(user);
             purchase.setDate(LocalDate.now());
             purchase.setStore(store);
-            purchase.setTotal(cart.getTotalPrice());
+            purchase.setTotal(cartService.getTotalPrice());
             purchase.setStatus("Pago");
 
             purchaseService.save(purchase);
