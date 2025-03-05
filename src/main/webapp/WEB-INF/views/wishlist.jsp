@@ -41,7 +41,7 @@
                                 <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid">
                             </a>
                             <p class="mt-2"><b>${item.name}</b></p>
-                            <h5 class="text-primary fw-bold">${item.price}€</h5>
+                            <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
 
                             <!-- Botão para remover dos favoritos -->
                             <form action="/wishlist/toggle/${item.id}" method="post">

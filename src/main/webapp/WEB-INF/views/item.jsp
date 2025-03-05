@@ -78,7 +78,7 @@
             </div>
 
             <!-- Preço Formatado -->
-            <h3 class="mt-3 fw-bold">${item.formattedPrice}</h3>
+            <h3 class="mt-3 text-primary fw-bold">${item.formattedPrice}</h3>
 
             <p class="mt-2">${item.description}</p>
 

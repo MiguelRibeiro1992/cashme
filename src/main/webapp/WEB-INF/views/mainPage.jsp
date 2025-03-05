@@ -91,7 +91,9 @@
                         <span class="star" data-value="3">&#9733;</span>
                         <span class="star" data-value="2">&#9733;</span>
                         <span class="star" data-value="1">&#9733;</span>
+                        <span class="rating-value">(0)</span>
                     </div>
+
                 </div>
             </c:forEach>
         </div>
@@ -99,6 +101,8 @@
     <div class="d-flex justify-content-center mt-4">
         <button class="btn btn-primary" onclick="window.location.href='/stores'">Ver todas as lojas</button>
     </div>
+
+</section>
 
 
     <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
@@ -108,6 +112,7 @@
             <img src="/images/rectangleBullet.svg" alt="Rectangle Bullet" class="img-fluid">
             <span class="ms-2 span-highlight">Categorias</span>
             <div class="ms-auto d-flex">
+
                 <!-- Botão Seta Esquerda -->
                 <button class="arrow-btn" id="prevCategoryBtn">
                     <img src="images/leftArrow.svg" alt="Seta Esquerda">
@@ -194,60 +199,64 @@
         </div>
     </section>
 
-    <section class="container mt-5">
-        <h2>Produtos mais vendidos</h2>
-        <div class="mb-4"></div>
+<section class="container mt-5">
+    <h2>Produtos mais vendidos</h2>
+    <div class="mb-4"></div>
 
-        <div class="product-wrapper mt-6 mb-6 position-relative">
-            <div class="row justify-content-center">
-                <c:forEach var="item" items="${items}">
-                    <div class="col-md-4 col-sm-6 d-flex flex-column align-items-center position-relative p-3 bg-light rounded">
-                        <a href="/item/${item.id}" class="text-decoration-none text-dark">
-                            <!-- Container da imagem para posicionamento correto dos ícones -->
-                            <div class="image-container position-relative">
-                                <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid product-link">
+    <div class="product-wrapper mt-6 mb-6 position-relative">
+        <div class="product-carousel row flex-nowrap" id="productCarousel">
+            <c:forEach var="item" items="${items}">
+                <div class="d-flex flex-column align-items-center position-relative product-carousel-item">
+                    <!-- Link apenas na imagem e nome para evitar redirecionamento ao clicar nas estrelas -->
+                    <a href="/item/${item.id}" class="text-decoration-none text-dark">
+                        <div class="image-container position-relative">
+                            <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-store">
 
-                                <!-- Ícones de Favorito e Visualizar -->
-                                <div class="icons-container position-absolute top-0 end-0 p-2">
-                                    <button onclick="toggleWishlist(${item.id}, event)" type="button"
-                                            class="border-0 bg-transparent p-0">
-                                        <img id="wishlist-icon-${item.id}"
-                                             src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
-                                             alt="Favorito"
-                                             class="icon"
-                                             data-in-wishlist="${item.inWishlist ? 'true' : 'false'}">
-                                    </button>
-                                </div>
-
+                            <!-- Ícones de Favorito e Visualizar -->
+                            <div class="icons-container position-absolute top-0 end-0 p-2">
+                                <button onclick="toggleWishlist(${item.id}, event)" type="button"
+                                        class="icons-container">
+                                    <img id="wishlist-icon-${item.id}"
+                                         src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
+                                         alt="Favorito"
+                                         class="icon"
+                                         data-in-wishlist="${item.inWishlist ? 'true' : 'false'}">
+                                </button>
                             </div>
+                        </div>
+                    </a>
 
-                            <!-- Nome do Produto -->
-                            <p class="mt-4"><b>${item.name}</b></p>
+                    <!-- Nome do Produto (também clicável para evitar clique nas estrelas) -->
+                    <a href="/item/${item.id}" class="text-decoration-none text-dark">
+                        <p class="mt-4"><b>${item.name}</b></p>
+                    </a>
 
-                            <!-- Preço formatado -->
-                            <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
+                    <!-- Preço formatado -->
+                    <h5 class="text-primary fw-bold">${item.formattedPrice}</h5>
 
-                            <!-- Classificação por estrelas -->
-                            <div class="rating mt-2">
-                                <c:forEach var="i" begin="1" end="5">
-                                    <span class="star ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : ''}">&#9733;</span>
-                                </c:forEach>
-                                <span class="rating-value">(${item.reviewsCount != null ? item.reviewsCount : 0})</span>
-                            </div>
-                        </a>
+                    <!-- Classificação por estrelas -->
+                    <div class="rating mt-2" id="rating-${item.id}">
+                        <c:forEach var="i" begin="1" end="5">
+        <span class="star"
+              data-value="${i}"
+              onclick="rateItem(${item.id}, ${i}, event)">&#9733;</span>
+                        </c:forEach>
+                        <span class="rating-value">(0)</span>
                     </div>
-                </c:forEach>
-            </div>
+                </div>
+            </c:forEach>
         </div>
+    </div>
 
-        <!-- Botão para ver todos os produtos -->
-        <div class="d-flex justify-content-center mt-4">
-            <button class="btn btn-primary" onclick="window.location.href='/items'">Ver todos os produtos</button>
-        </div>
-    </section>
+    <!-- Botão para ver todos os produtos -->
+    <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-primary" onclick="window.location.href='/items'">Ver todos os produtos</button>
+    </div>
+</section>
 
 
-    <img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
+
+<img src="/images/lineBlack.svg" alt="Linha separadora" class="d-block mx-auto my-5">
 
 
     <section class="container mt-5">

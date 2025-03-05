@@ -73,29 +73,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Carrossel para produtos mais vendidos
+    // Carrossel para as setas direita e esquerda - Produtos
     const productCarousel = document.getElementById("productCarousel");
-    const productContainer = document.querySelector(".product-container");
-    const products = document.querySelectorAll(".product-container .col-md-3");
-    const productWidth = products[0].offsetWidth + 20;
+    const products = document.querySelectorAll(".product-carousel .product-carousel-item");
+    const productWidth = products[0].offsetWidth + 20; // Largura + margem
     let productIndex = 0;
-    const visibleProducts = 4;
 
     function updateProductCarousel() {
-        productContainer.style.transition = 'transform 0.5s ease-in-out';
-        productContainer.style.transform = `translateX(${-productIndex * productWidth}px)`;
+        productCarousel.style.transform = `translateX(${-productIndex * productWidth}px)`;
     }
 
     document.getElementById("prevProductBtn").addEventListener("click", function () {
         if (productIndex > 0) {
             productIndex--;
         } else {
-            productIndex = products.length - visibleProducts;
+            productIndex = products.length - 4;
         }
         updateProductCarousel();
     });
 
     document.getElementById("nextProductBtn").addEventListener("click", function () {
-        if (productIndex < products.length - visibleProducts) {
+        if (productIndex < products.length - 4) {
             productIndex++;
         } else {
             productIndex = 0;
@@ -111,77 +109,85 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //Adiciona eventos de classificação
-    document.querySelectorAll(".rating").forEach(rating => {
-        const stars = Array.from(rating.querySelectorAll(".star")).reverse(); // Inverte a ordem das estrelas
-        const ratingValue = rating.querySelector(".rating-value");
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".rating").forEach(rating => {
+            const itemId = rating.id.replace("rating-", ""); // Pega o ID do item
+            const storedRating = localStorage.getItem(`rating-${itemId}`);
+            const ratingValue = rating.querySelector(".rating-value");
 
-        stars.forEach(star => {
-            star.addEventListener("mouseover", function() {
-                highlightStars(this);
-            });
+            // Se houver uma avaliação armazenada, aplica na interface
+            if (storedRating) {
+                rating.setAttribute("data-selected", storedRating);
+                highlightStars(rating, parseInt(storedRating));
+                updateVotes(ratingValue, true); // Incrementa visualmente os votos
+            }
 
-            star.addEventListener("click", function() {
-                toggleRating(this, ratingValue);
-            });
+            // Adiciona os eventos aos botões de estrela
+            rating.querySelectorAll(".star").forEach(star => {
+                star.addEventListener("click", function (event) {
+                    event.stopPropagation(); // Impede que clique acione outros elementos
+                    const value = parseInt(this.getAttribute("data-value"));
+                    rateItem(itemId, value, rating, ratingValue);
+                });
 
-            rating.addEventListener("mouseleave", function() {
-                resetStars(rating);
+                star.addEventListener("mouseover", function () {
+                    highlightStars(rating, parseInt(this.getAttribute("data-value")));
+                });
+
+                rating.addEventListener("mouseleave", function () {
+                    resetStars(rating);
+                });
             });
         });
-
-        function highlightStars(star) {
-            const value = parseInt(star.getAttribute("data-value"));
-            resetStars(star.parentNode);
-            star.parentNode.querySelectorAll(".star").forEach(s => {
-                if (parseInt(s.getAttribute("data-value")) >= value) { // Da direita para a esquerda
-                    s.classList.add("active");
-                }
-            });
-        }
-
-        function toggleRating(star, ratingValue) {
-            const value = parseInt(star.getAttribute("data-value"));
-            const ratingContainer = star.parentNode;
-            const selectedValue = ratingContainer.getAttribute("data-selected");
-
-            if (selectedValue === value.toString()) {
-                // Se a mesma estrela for clicada novamente, desselecionar e decrementar votos
-                ratingContainer.removeAttribute("data-selected");
-                resetStars(ratingContainer);
-                decrementVotes(ratingValue);
-            } else {
-                // Senão, atribuir a classificação e incrementar votos
-                ratingContainer.setAttribute("data-selected", value);
-                highlightStars(star);
-                incrementVotes(ratingValue);
-            }
-        }
-
-        function resetStars(rating) {
-            const selectedValue = rating.getAttribute("data-selected");
-            rating.querySelectorAll(".star").forEach(s => {
-                s.classList.remove("active");
-            });
-            if (selectedValue) {
-                rating.querySelectorAll(".star").forEach(s => {
-                    if (parseInt(s.getAttribute("data-value")) >= selectedValue) { // Mantém lógica invertida
-                        s.classList.add("active");
-                    }
-                });
-            }
-        }
-
-        function incrementVotes(ratingValue) {
-            let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10);
-            ratingValue.textContent = `(${currentVotes + 1})`;
-        }
-
-        function decrementVotes(ratingValue) {
-            let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10);
-            ratingValue.textContent = `(${Math.max(currentVotes - 1, 0)})`; // Garante que não fica negativo
-        }
     });
 
+    function rateItem(itemId, value, rating, ratingValue) {
+        let selectedValue = rating.getAttribute("data-selected") || "0";
+        let previousValue = parseInt(selectedValue);
+
+        if (previousValue === value) {
+            // Se a mesma estrela for clicada novamente, remove a avaliação
+            rating.removeAttribute("data-selected");
+            resetStars(rating);
+            localStorage.removeItem(`rating-${itemId}`);
+            updateVotes(ratingValue, false); // Decrementa visualmente os votos
+        } else {
+            // Se for uma nova avaliação, atualiza a UI e salva no LocalStorage
+            rating.setAttribute("data-selected", value);
+            highlightStars(rating, value);
+            localStorage.setItem(`rating-${itemId}`, value);
+
+            if (previousValue === 0) {
+                updateVotes(ratingValue, true); // Incrementa votos apenas na primeira avaliação
+            }
+        }
+    }
+
+    function highlightStars(rating, value) {
+        rating.querySelectorAll(".star").forEach(star => {
+            if (parseInt(star.getAttribute("data-value")) <= value) {
+                star.classList.add("text-warning");
+            } else {
+                star.classList.remove("text-warning");
+            }
+        });
+    }
+
+    function resetStars(rating) {
+        let selectedValue = rating.getAttribute("data-selected");
+        rating.querySelectorAll(".star").forEach(star => {
+            star.classList.remove("text-warning");
+        });
+
+        if (selectedValue) {
+            highlightStars(rating, parseInt(selectedValue));
+        }
+    }
+
+    function updateVotes(ratingValue, isAdding) {
+        let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10) || 0;
+        ratingValue.textContent = `(${isAdding ? currentVotes + 1 : Math.max(currentVotes - 1, 0)})`;
+    }
 
 });
 
