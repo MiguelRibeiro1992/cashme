@@ -59,21 +59,28 @@
     }
 
     function fetchStoresWithStatus() {
-        fetch('/api/status')  // ✅ Usa o endpoint correto para obter status dinâmico
+        fetch('/api/status')
             .then(response => response.json())
             .then(stores => {
                 const storeList = document.getElementById("storeList");
-                storeList.innerHTML = ""; // Limpa a lista anterior
+                storeList.innerHTML = "";
 
                 stores.forEach(store => {
                     addStoreMarker(store);
 
-                    // ✅ Formata os horários corretamente (removendo segundos)
                     const openingTime = store.openingTime ? store.openingTime.substring(0, 5) : "-";
                     const closingTime = store.closingTime ? store.closingTime.substring(0, 5) : "-";
-                    const statusClass = store.status != null && store.status == 'Aberto' ? 'text-success' : 'text-danger';
+                    let statusClass = "text-danger";
+                    let statusText = "Indisponível";
 
-                    // ✅ Certifica-se de que apenas os atributos existentes são usados
+                    if (store.status === 'Aberto') {
+                        statusClass = "text-success";
+                        statusText = `Aberto <span class= 'text-dark'> - Fecha às` + " " + closingTime +`</span>`;
+                    } else if (store.status === 'Fechado') {
+                        statusClass = "text-danger";
+                        statusText = `Fechado <span class='text-dark'> - Abre às ` + " " + openingTime + `</span>`;
+                    }
+
                     const storeItem = document.createElement("div");
                     storeItem.classList.add("list-group-item", "border-0");
                     storeItem.innerHTML = `
@@ -82,15 +89,15 @@
                             <div>
                                 <h5 class="fw-bold">` + store.name + `</h5>
                                 <p class="mb-1">` + store.location + ` </p>
-                                <p class="${statusClass} fw-bold">` + (store.status != null ? store.status : 'Indisponível') + `</p>
-                                <p class="text-muted">Horário: ` + openingTime + ` - ` + closingTime + ` </p>
+                                <p class="` + statusClass + ` fw-bold">` + statusText + `</p>
+                                <p class='text-dark'> <b>Horário: </b>` + openingTime + ` - ` + closingTime + ` </p>
                             </div>
                         </div>
                     `;
                     storeList.appendChild(storeItem);
                 });
 
-                document.getElementById("totalStores").innerText = `${stores.length} lojas encontradas`;
+                document.getElementById("totalStores").innerText = stores.length + ` lojas encontradas`;
             })
             .catch(error => {
                 console.error("Erro ao carregar lojas:", error);
@@ -100,7 +107,6 @@
 
 
     function addStoreMarker(store) {
-        // ✅ Garante que só adiciona marcadores se houver coordenadas válidas
         if (store.latitude !== 0.0 && store.longitude !== 0.0) {
             const marker = new google.maps.Marker({
                 position: { lat: store.latitude, lng: store.longitude },
@@ -108,17 +114,24 @@
                 title: store.name,
             });
 
-            // Adiciona InfoWindow
+            let statusClass = "text-danger";
+            if (store.status === 'Aberto') {
+                statusClass = "text-success";
+            }
+
             const infoWindow = new google.maps.InfoWindow({
-                content: `<h6>\${store.name}</h6><p>\${store.location}</p><p><strong>\${store.status}</strong></p>`,
+                content: `
+                    <div style="text-align: center;">
+                        <h6>\${store.name}</h6>
+                        <img src="/images/\${store.imageUrl}" alt="\${store.name}" style="width: 100px; height: 100px; border-radius: 8px; margin-bottom: 5px;">
+                        <p>\${store.location}</p>
+                        <p class="\${statusClass} fw-bold">\${store.status}</p>
+                    </div>
+                `,
             });
 
-            marker.addListener("mouseover", () => {
+            marker.addListener("click", () => {
                 infoWindow.open(map, marker);
-            });
-
-            marker.addListener("mouseout", () => {
-                infoWindow.close();
             });
 
             markers.push(marker);
@@ -128,6 +141,35 @@
     function formatTime(time) {
         return time.substring(0, 5); // Transforma "08:30:00" em "08:30"
     }
+
+    function filterStores() {
+        const query = document.getElementById("searchBox").value.toLowerCase().trim();
+        const storeItems = document.querySelectorAll(".list-group-item");
+        let visibleCount = 0;
+
+        storeItems.forEach(item => {
+            const name = item.querySelector("h5")?.textContent.toLowerCase() || "";
+            const location = item.querySelector("p.mb-1")?.textContent.toLowerCase() || "";
+
+            if (name.includes(query) || location.includes(query)) {
+                item.style.display = "block";
+                visibleCount++;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        document.getElementById("totalStores").innerText = visibleCount + ` lojas encontradas`;
+    }
+
+    document.getElementById("searchBox").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            filterStores();
+        }
+    });
+
+
 </script>
 
 <!-- Google Maps API -->
