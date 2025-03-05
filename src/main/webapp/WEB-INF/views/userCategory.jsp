@@ -29,7 +29,7 @@
 
     <c:choose>
         <c:when test="${not empty categories}">
-            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 text-center">
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center text-center">
                 <c:forEach var="categoria" items="${categories}">
                     <div class="col">
                         <div class="category-card p-3">

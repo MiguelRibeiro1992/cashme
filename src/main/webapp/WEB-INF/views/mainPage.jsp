@@ -142,8 +142,8 @@
                         <p class="mt-2"><b>SmartWatch</b></p>
                     </div>
                     <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                        <img src="/images/maquinafotografica.svg" alt="Camara" class="img-fluid category-link">
-                        <p class="mt-2"><b>Máquinas fotográficas</b></p>
+                        <img src="/images/fotografia.svg" alt="Fotografia" class="img-fluid category-link">
+                        <p class="mt-2"><b>Fotografia</b></p>
                     </div>
                     <div class="col-md-3 d-flex flex-column align-items-center position-relative">
                         <img src="/images/headphones.svg" alt="HeadPhones" class="img-fluid category-link">
