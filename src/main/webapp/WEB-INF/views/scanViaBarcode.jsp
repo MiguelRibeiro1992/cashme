@@ -25,6 +25,7 @@
     <script src="https://unpkg.com/html5-qrcode@latest"></script>
 
 </head>
+<body>
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
