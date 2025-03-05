@@ -7,7 +7,6 @@ import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.repositories.CartRepository;
 import pt.upskill.CashMe.repositories.ItemRepository;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,33 +24,50 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Item> getCartItems() {
-        Cart activeCart = cartRepository.findActiveCart();
-        if (activeCart != null) {
-            return List.copyOf(activeCart.getItems().keySet());
-        } else {
-            return List.of();
-        }
-    }
-
-    @Override
     public void addItemToCart(String barcode) {
         Item item = itemRepository.findByBarcode(barcode);
         if (item != null) {
             if (item.getQuantity() < 1) {
-                throw new IllegalArgumentException("Requested quantity exceeds available stock.");
+                item.setQuantity(0);
+                itemRepository.save(item);
+                return;
             }
-
             Cart activeCart = cartRepository.findActiveCart();
             if (activeCart == null) {
                 activeCart = new Cart();
                 cartRepository.save(activeCart);
             }
-
             activeCart.addItem(item, 1);
             cartRepository.save(activeCart);
-
             item.setQuantity(item.getQuantity() - 1);
+            itemRepository.save(item);
+        }
+    }
+
+    @Override
+    public void addItemToCartById(Long itemId, int quantity) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+        if (item.getQuantity() < 1) {
+            item.setQuantity(0);
+            itemRepository.save(item);
+            return;
+        }
+
+        Cart activeCart = cartRepository.findActiveCart();
+        if (activeCart == null) {
+            activeCart = new Cart();
+            cartRepository.save(activeCart);
+        }
+
+        if (item.getQuantity() < quantity) {
+            activeCart.addItem(item, item.getQuantity());
+            cartRepository.save(activeCart);
+            item.setQuantity(item.getQuantity() - item.getQuantity());
+            itemRepository.save(item);
+        } else {
+            activeCart.addItem(item, quantity);
+            cartRepository.save(activeCart);
+            item.setQuantity(item.getQuantity() - quantity);
             itemRepository.save(item);
         }
     }
@@ -89,43 +105,12 @@ public class CartServiceImpl implements CartService {
                         items.remove(item);
                     }
 
-                    // Devolve UM item ao stock
                     item.setQuantity(item.getQuantity() + 1);
                     itemRepository.save(item);
-
-                    // Atualiza o carrinho
                     cartRepository.save(activeCart);
                 }
             }
         }
-    }
-
-    @Override
-    public void addItemToCartById(Long itemId, int quantity) {
-
-        Item item = itemRepository.findById(itemId).orElse(null);
-
-        if (item == null) {
-            throw new IllegalArgumentException("Produto não encontrado.");
-        }
-
-        Cart activeCart = cartRepository.findActiveCart();
-        if (activeCart == null) {
-            activeCart = new Cart();
-            cartRepository.save(activeCart);
-        }
-
-        Map<Item, Integer> items = activeCart.getItems();
-
-        // Se o item já está no carrinho, substituímos a quantidade pela nova selecionada
-        if (items.containsKey(item)) {
-            int currentQuantity = items.get(item); // 🔹 Obtém a quantidade atual no carrinho
-            items.put(item, currentQuantity + quantity); // 🔹 Incrementa corretamente
-        } else {
-            items.put(item, quantity);
-        }
-
-        cartRepository.save(activeCart);
     }
 
     @Override

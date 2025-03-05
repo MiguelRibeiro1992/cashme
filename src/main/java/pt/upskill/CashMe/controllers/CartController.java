@@ -48,7 +48,6 @@ public class CartController {
     @GetMapping("/addToCart")
     @ResponseBody
     public String addToCart(@RequestParam("barcode") String barcode) {
-
         Item item = itemRepository.findByBarcode(barcode);
         if (item == null) {
             throw new IllegalArgumentException("Product not found");
@@ -63,15 +62,10 @@ public class CartController {
         if (itemId == null || quantity < 1) {
             return "error: Parâmetros inválidos.";
         }
-        try {
-            cartService.addItemToCartById(itemId, quantity);
-            return "ok";
-        } catch (IllegalArgumentException e) {
-            return "error: " + e.getMessage();
-        }
+        cartService.addItemToCartById(itemId, quantity);
+        return "ok";
     }
 
-    //Aumenta OU diminui um a um os items do carrinho com base no código de barras
     @GetMapping("/increaseQuantity")
     public String increaseQuantity(@RequestParam("barcode") String barcode, RedirectAttributes redirectAttributes) {
         Item item = itemRepository.findByBarcode(barcode);
@@ -90,14 +84,12 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    //Remove todos os items do carrinho com base no código de barras
     @GetMapping("/removeFromCart")
     public String removeFromCart(@RequestParam("barcode") String barcode) {
         cartService.removeItemFromCart(barcode);
         return "redirect:/cart";
     }
 
-    //Vai para a página de pagamento
     @GetMapping("/checkout")
     public String checkout(Model model) {
         Cart cart = cartService.getCart();
@@ -113,7 +105,6 @@ public class CartController {
         return "checkout";
     }
 
-    //Para limpar o carrinho quando a compra é finalizada
     @GetMapping("/clear")
     public String clearCart() {
         User user = userService.getCurrentUser();
@@ -135,5 +126,4 @@ public class CartController {
         cartService.clearCart();
         return "redirect:/mainPage";
     }
-
 }

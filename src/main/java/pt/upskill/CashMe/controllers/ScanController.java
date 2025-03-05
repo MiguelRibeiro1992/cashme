@@ -24,49 +24,37 @@ public class ScanController {
     @Autowired
     private CartServiceImpl cartService;
 
-    //View para Código de Barras
     @GetMapping("/viaBarcode")
     public String showBarcodeScanner() {
         return "scanViaBarcode";
     }
 
-    //Processar o código de barras
     @GetMapping("/processBarcode")
     public ModelAndView processBarcode(@RequestParam("barcode") String barcode) {
         boolean success = barcodeScanService.processBarcode(barcode);
-
         if (!success) {
             ModelAndView mav = new ModelAndView("scanViaBarcode");
             mav.addObject("error", "Produto não encontrado!");
             return mav;
         }
-
         cartService.addItemToCart(barcode);
-
         return new ModelAndView("redirect:/cart");
     }
 
-
-    //View para NFC
     @GetMapping("/viaNFC")
     public String showNFCScanner() {
         return "scanViaNFC";
     }
 
-    //Processar o NFC
     @GetMapping("/processNFC")
     public ModelAndView processNFC(@RequestParam("nfc") String nfc) {
         boolean success = nfcScanService.processNFC(nfc);
-
         if (!success) {
             ModelAndView mav = new ModelAndView("scanViaNFC");
             mav.addObject("error", "Produto NFC não encontrado!");
             return mav;
         }
-
         cartService.addItemToCart(nfc);
-
         return new ModelAndView("redirect:/cart");
     }
-
 }

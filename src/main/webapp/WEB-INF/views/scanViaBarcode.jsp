@@ -29,7 +29,6 @@
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
 
-
 <!-- Scan Container -->
 <div class="container login-container d-flex flex-column align-items-center py-5" style="max-width: 70%;">
 
@@ -93,7 +92,6 @@
 
 </div>
 
-
 <script>
     // Inicializa o scanner
     let html5QrcodeScanner = new Html5QrcodeScanner(
@@ -113,7 +111,6 @@
         startScanButton.classList.remove("btn-primary", "btn-success");
         startScanButton.classList.add("btn-warning");
         startScanButton.disabled = true;
-
 
         document.getElementById("scanSymbol").style.display = "none";
         document.getElementById("reader").style.display = "block";
@@ -187,8 +184,8 @@
 
     // Exibe o campo de entrada para código manual
     document.getElementById("manualEntryWarning").addEventListener("click", function() {
-        document.getElementById("manualEntryWarning").style.display = "none"; // Esconde o aviso
-        document.getElementById("manualEntry").style.display = "block"; // Exibe o campo de entrada
+        document.getElementById("manualEntryWarning").style.display = "none";
+        document.getElementById("manualEntry").style.display = "block";
     });
 
     // Função para cancelar a entrada manual e esconder o formulário
@@ -215,10 +212,10 @@
         startScanButton.classList.add("btn-success");
         startScanButton.disabled = false;
 
-        // Mostrar o botão de adicionar ao carrinho
+        // Mostra o botão de adicionar ao carrinho - confirmar necessidade
         document.getElementById("addToCart").style.display = "inline-block";
 
-        // Adicionar o produto ao carrinho ao clicar
+        // Adiciona o produto ao carrinho ao clicar
         document.getElementById("addToCart").onclick = function () {
             fetch("/cart/addToCart?barcode=" + barcode, {
                 method: 'GET',
