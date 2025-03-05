@@ -43,7 +43,6 @@
                 <input type="text" class="form-control search-input" name="query" placeholder="Pesquisar produtos..." required>
                 <a href="/scan/viaBarcode" class="search-btn btn btn-link p-0 ms-2 d-flex flex-column align-items-center" style="text-decoration: none;">
                     <img src="/images/scanIcon.svg" alt="Scan" height="20">
-                    <span style="font-size: 10px; text-decoration: underline; text-decoration-color: orange; text-underline-offset: 2px; color: black; ">Scan</span>
                 </a>
             </form>
 
