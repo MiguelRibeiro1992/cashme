@@ -55,7 +55,6 @@ public class PublicController {
         return "mainPage";
     }
 
-
     @GetMapping("/underConstruction")
     public String underConstruction() {
         return "underConstruction";
@@ -134,7 +133,6 @@ public class PublicController {
         return "contacts";
     }
 
-
     @GetMapping("/wishlist")
     public String getWishlist(Model model) {
         Wishlist wishlist = wishlistService.getWishlistByUser(userService.getCurrentUser());
@@ -174,6 +172,7 @@ public class PublicController {
     public String showTerms() {
         return "terms";
     }
+
     @GetMapping("/faq")
     public String showFAQ() {
         return "faq";
@@ -200,5 +199,6 @@ public class PublicController {
         return "availableSoon";
     }
 
-
+    @GetMapping("/atm")
+    public String atm() { return "atm"; }
 }
