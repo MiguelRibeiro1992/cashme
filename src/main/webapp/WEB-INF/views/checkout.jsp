@@ -23,6 +23,19 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 
+    <style>
+        .atm-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .atm-button img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+
 </head>
 
 <%@ include file="includes/header.jsp" %> <!-- Navbar -->
@@ -62,19 +75,26 @@
 
 <!-- Referencia Multibanco e QR Code para sair FALTA TESTAR-->
 <div class="container login-container d-flex flex-column align-items-center py-5" style="max-width: 70%;">
-    <div class="text-center mt-4">
-        <h5>Dados para pagamento Multibanco</h5>
-        <!-- Mostrar dados de pagamento se paid for false -->
-        <br>
-        <c:if test="${not empty paymentReference && !paid}">
-            <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
-            <p><strong>Referência:</strong> ${paymentReference.reference}</p>
-            <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number"
-                                                         pattern="0.00"/> €</p>
-        </c:if>
 
-        <!-- Mostrar QR Code se paid for true -->
-        <c:if test="${paid}">
+    <h5>Dados para pagamento Multibanco</h5>
+    <!-- Mostrar dados de pagamento se paid for false -->
+    <br>
+    <c:if test="${not empty paymentReference && !paid}">
+    <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
+    <p><strong>Referência:</strong> ${paymentReference.reference}</p>
+    <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number"
+    pattern="0.00"/> €</p>
+    </c:if>
+
+    <!-- Ícone para pagamento -->
+    <br>
+    <button onclick="openAtmWindow()" class="atm-button">
+        <img src="/images/atm.svg" alt="Pagar via Multibanco">
+    </button>
+    <div class="text-center mt-4">
+
+    <!-- Mostrar QR Code se paid for true -->
+    <c:if test="${paid}">
             <div class="text-center mt-4">
                 <h5>Apresente este QR Code na saída</h5>
                 <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code"
@@ -104,6 +124,11 @@
             })
             .catch(error => console.error("Erro ao finalizar a compra:", error));
     });
+
+    //abrir janela de pagamento
+    function openAtmWindow() {
+        window.open('/atm', 'AtmWindow', 'width=400,height=500,scrollbars=no,resizable=no');
+    }
 </script>
 
 <br>

@@ -12,7 +12,6 @@
     <style>
         body {
             background-color: #3366cc;
-            font-family: Arial, sans-serif;
             text-align: center;
             color: white;
             display: flex;
