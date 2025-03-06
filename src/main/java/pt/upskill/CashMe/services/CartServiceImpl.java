@@ -143,6 +143,8 @@ public class CartServiceImpl implements CartService {
 
                     //Atualiza o carrinho
                     cartRepository.save(activeCart);
+
+                    invalidatePaymentReference(activeCart);
                 }
             }
         }
@@ -154,6 +156,8 @@ public class CartServiceImpl implements CartService {
         if (activeCart != null) {
             activeCart.getItems().clear();
             cartRepository.save(activeCart);
+
+            invalidatePaymentReference(activeCart);
         }
     }
 

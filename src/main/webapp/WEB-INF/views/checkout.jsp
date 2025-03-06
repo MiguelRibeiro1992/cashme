@@ -60,22 +60,28 @@
     <h4 class="mt-4">Total a pagar: <fmt:formatNumber value="${totalPrice}" type="number" pattern="0.00"/> €</h4>
 </div>
 
-<%--<!-- QR Code para sair (funcionalidade em falta, só está imagem de QRCode para exemplificar)-->--%>
-<%--    <div class="text-center mt-4">--%>
-<%--        <h5>Apresente este QR Code na saída</h5>--%>
-<%--        <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code" style="width: 150px; height: 150px" />--%>
-<%--    </div>--%>
+<!-- Referencia Multibanco e QR Code para sair FALTA TESTAR-->
+<div class="container login-container d-flex flex-column align-items-center py-5" style="max-width: 70%;">
+    <div class="text-center mt-4">
+        <h5>Dados para pagamento Multibanco</h5>
+        <!-- Mostrar dados de pagamento se paid for false -->
+        <br>
+        <c:if test="${not empty paymentReference && !paid}">
+            <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
+            <p><strong>Referência:</strong> ${paymentReference.reference}</p>
+            <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number"
+                                                         pattern="0.00"/> €</p>
+        </c:if>
 
-<div class="text-center mt-4">
-    <h5>Dados para pagamento Multibanco</h5>
-    <c:if test="${not empty paymentReference}">
-        <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
-        <p><strong>Referência:</strong> ${paymentReference.reference}</p>
-        <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number" pattern="0.00"/> €</p>
-    </c:if>
-    <c:if test="${empty paymentReference}">
-        <p>Erro ao gerar referência de pagamento.</p>
-    </c:if>
+        <!-- Mostrar QR Code se paid for true -->
+        <c:if test="${paid}">
+            <div class="text-center mt-4">
+                <h5>Apresente este QR Code na saída</h5>
+                <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code"
+                     style="width: 150px; height: 150px"/>
+            </div>
+        </c:if>
+    </div>
 </div>
 
     <div class="d-flex justify-content-center">
