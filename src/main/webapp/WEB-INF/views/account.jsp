@@ -61,15 +61,15 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Nome</label>
-                            <input type="text" class="form-control" name="name" placeholder="José Paloco">
+                            <input type="text" class="form-control" name="name" placeholder="Insira o seu nome">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="josepaloco@gmail.com">
+                            <input type="email" class="form-control" name="email" placeholder="Insira o seu novo email">
                         </div>
                         <div class="col-md-12">
                             <label class="form-label fw-bold">Morada</label>
-                            <input type="text" class="form-control" name="address" placeholder="15 Yemen Road, Yemen">
+                            <input type="text" class="form-control" name="address" placeholder="Insira a sua morada">
                         </div>
                         <h5 class="fw-bold mt-4">Alterar Password</h5>
                         <div class="col-md-12">

@@ -13,6 +13,8 @@ public class Cart {
     @GeneratedValue
     private Long id;
     private boolean active;
+    private boolean paid;
+
 
     @ElementCollection
     @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
@@ -22,6 +24,7 @@ public class Cart {
 
     public Cart() {
         this.active = true;
+        this.paid = false;
     }
 
     public Long getId() {
@@ -38,6 +41,14 @@ public class Cart {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
     public Map<Item, Integer> getItems() {

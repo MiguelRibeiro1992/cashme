@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -47,64 +48,57 @@
                 <c:forEach var="entry" items="${cartItems}">
                     <tr id="row-${entry.key.barcode}">
                         <td>${entry.key.name}</td>
-                        <td>${entry.key.price} €</td>
+                        <td><fmt:formatNumber value="${entry.key.price}" type="number" pattern="0.00"/> €</td>
                         <td>${entry.value}</td>
-                        <td>${entry.key.price * entry.value} €</td>
+                        <td><fmt:formatNumber value="${entry.key.price * entry.value}" type="number" pattern="0.00"/> €</td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </c:if>
 
-    <h4 class="mt-4">Total a pagar: ${totalPrice} €</h4>
+    <h4 class="mt-4">Total a pagar: <fmt:formatNumber value="${totalPrice}" type="number" pattern="0.00"/> €</h4>
 </div>
 
+<%--<!-- QR Code para sair (funcionalidade em falta, só está imagem de QRCode para exemplificar)-->--%>
+<%--    <div class="text-center mt-4">--%>
+<%--        <h5>Apresente este QR Code na saída</h5>--%>
+<%--        <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code" style="width: 150px; height: 150px" />--%>
+<%--    </div>--%>
 
-<!-- QR Code para pagamento (funcionalidade em falta, só está imagem de QRCode para exemplificar)-->
-    <div class="text-center mt-4">
-        <h5>Apresente este QR Code para pagamento</h5>
-        <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code" style="width: 150px; height: 150px" />
-    </div>
+<div class="text-center mt-4">
+    <h5>Dados para pagamento Multibanco</h5>
+    <c:if test="${not empty paymentReference}">
+        <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
+        <p><strong>Referência:</strong> ${paymentReference.reference}</p>
+        <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number" pattern="0.00"/> €</p>
+    </c:if>
+    <c:if test="${empty paymentReference}">
+        <p>Erro ao gerar referência de pagamento.</p>
+    </c:if>
+</div>
 
     <div class="d-flex justify-content-center">
         <a href="/cart" class="btn btn-secondary mt-3 d-flex align-items-center me-2">Voltar ao Carrinho</a>
         <button id="finalizePurchase" class="btn btn-primary mt-3 d-flex align-items-center ms-2">Compra Finalizada</button>
     </div>
 
-
 <script>
-             // document.addEventListener("DOMContentLoaded", function() {
-             //     fetch('/cart/checkout/qrcode')
-             //         .then(response => {
-             //             if (!response.ok) {
-             //                 throw new Error('Network response was not ok');
-             //             }
-             //             return response.blob();
-             //         })
-             //         .then(blob => {
-             //             const url = URL.createObjectURL(blob);
-             //             document.getElementById('qrcode').src = url;
-             //         })
-             //         .catch(error => console.error('Error fetching QR code:', error));
-             // });
-
-             //Lógica para o botão "Compra Finalizada"
-             document.getElementById("finalizePurchase").addEventListener("click", function() {
-                 fetch('/cart/clear', {
-                     method: 'GET'
-                 })
-                     .then(response => {
-                         if (response.ok) {
-                             window.location.href = "/mainPage";
-                         } else {
-                             console.error("Erro ao finalizar a compra.");
-                         }
-                     })
-                     .catch(error => console.error("Erro ao finalizar a compra:", error));
-             });
-
+    //Lógica para o botão "Compra Finalizada"
+    document.getElementById("finalizePurchase").addEventListener("click", function () {
+        fetch('/cart/clear', {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "/mainPage";
+                } else {
+                    console.error("Erro ao finalizar a compra.");
+                }
+            })
+            .catch(error => console.error("Erro ao finalizar a compra:", error));
+    });
 </script>
-
 
 <br>
 <!-- Footer -->

@@ -97,6 +97,9 @@ public class CartController {
         if (cart != null) {
             model.addAttribute("cartItems", cart.getItems());
             model.addAttribute("totalPrice", cartService.getTotalPrice());
+
+            PaymentReference paymentReference = cartService.createPaymentReference(cart);
+            model.addAttribute("paymentReference", paymentReference);
         } else {
             model.addAttribute("cartItems", Map.of());
             model.addAttribute("totalPrice", 0.0);

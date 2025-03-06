@@ -76,7 +76,7 @@
             <c:forEach var="entry" items="${cartItems}">
                 <tr id="row-${entry.key.barcode}">
                     <td>${entry.key.name}</td>
-                    <td>${entry.key.price} €</td>
+                    <td><fmt:formatNumber value="${entry.key.price}" type="number" pattern="0.00"/> €</td>
                     <td>${entry.value}</td>
                     <td>
                         <fmt:formatNumber value="${entry.key.price * entry.value}" type="number" pattern="0.00"/> €

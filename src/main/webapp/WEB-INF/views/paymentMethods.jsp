@@ -120,7 +120,9 @@
                                     <input type="text" class="form-control" name="cvv" placeholder="CVV" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Guardar Cartão</button>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Guardar Cartão</button>
+                            </div>
                         </form>
                     </div>
 
@@ -147,9 +149,10 @@
                                 <button class="btn btn-outline-secondary">€ 100</button>
                                 <button class="btn btn-outline-secondary">€ 200</button>
                             </div>
-                            <button class="btn btn-primary w-100 mt-3">Gerar Referência Multibanco</button>
+                            <div class="d-flex justify-content-center mt-4">
+                                <button class="btn btn-primary">Gerar Referência Multibanco</button>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>

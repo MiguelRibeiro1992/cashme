@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Cart;
 import pt.upskill.CashMe.entities.Item;
+import pt.upskill.CashMe.entities.PaymentReference;
 import pt.upskill.CashMe.repositories.CartRepository;
 import pt.upskill.CashMe.repositories.ItemRepository;
+import pt.upskill.CashMe.repositories.PaymentReferenceRepository;
 
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -17,6 +20,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private PaymentReferenceRepository paymentReferenceRepository;
 
     @Override
     public Cart getCart() {
@@ -41,6 +47,8 @@ public class CartServiceImpl implements CartService {
             cartRepository.save(activeCart);
             item.setQuantity(item.getQuantity() - 1);
             itemRepository.save(item);
+
+            invalidatePaymentReference(activeCart);
         }
     }
 
@@ -69,6 +77,8 @@ public class CartServiceImpl implements CartService {
             cartRepository.save(activeCart);
             item.setQuantity(item.getQuantity() - quantity);
             itemRepository.save(item);
+
+            invalidatePaymentReference(activeCart);
         }
     }
 
@@ -108,6 +118,8 @@ public class CartServiceImpl implements CartService {
                     item.setQuantity(item.getQuantity() + 1);
                     itemRepository.save(item);
                     cartRepository.save(activeCart);
+
+                    invalidatePaymentReference(activeCart);
                 }
             }
         }
@@ -142,6 +154,34 @@ public class CartServiceImpl implements CartService {
         if (activeCart != null) {
             activeCart.getItems().clear();
             cartRepository.save(activeCart);
+        }
+    }
+
+    @Override
+    public PaymentReference createPaymentReference(Cart cart) {
+        Cart activeCart = cartRepository.findActiveCart();
+
+        if (activeCart == null) {
+            return null;
+        }
+
+        double totalPrice = getTotalPrice();
+        String entity = "99999";
+        String reference = String.format("%09d", new Random().nextInt(1_000_000_000));
+
+        PaymentReference existingPaymentReference = paymentReferenceRepository.findByCart(activeCart);
+        if (existingPaymentReference != null) {
+            return existingPaymentReference;
+        }
+
+        PaymentReference paymentReference = new PaymentReference(entity, reference, totalPrice, activeCart);
+        return paymentReferenceRepository.save(paymentReference);
+    }
+
+    private void invalidatePaymentReference (Cart cart) {
+        PaymentReference paymentReference = paymentReferenceRepository.findByCart(cart);
+        if (paymentReference != null) {
+            paymentReferenceRepository.delete(paymentReference);
         }
     }
 }
