@@ -106,13 +106,6 @@
             <c:forEach var="store" items="${stores}">
             <div class="col-md-3 text-center">
                 <img src="/images/${store.imageUrl == null ? 'store-placeholder.svg' : store.imageUrl}" alt="Loja" class="img-fluid">
-                <p class="mt-2">${store.name}</p>
-                <div class="rating">
-                    <c:forEach var="i" begin="1" end="5">
-                        <span class="star text-warning">&#9733;</span>
-                    </c:forEach>
-                    <span>(${store.location})</span>
-                </div>
             </div>
             </c:forEach>
         </c:if>
