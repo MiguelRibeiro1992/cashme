@@ -141,59 +141,54 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function rateItem(itemId, value, rating, ratingValue) {
-        let selectedValue = rating.getAttribute("data-selected") || "0";
-        let previousValue = parseInt(selectedValue);
-
-        if (previousValue === value) {
-            // Se a mesma estrela for clicada novamente, remove a avaliação
-            rating.removeAttribute("data-selected");
-            resetStars(rating);
-            localStorage.removeItem(`rating-${itemId}`);
-            updateVotes(ratingValue, false); // Decrementa visualmente os votos
-        } else {
-            // Se for uma nova avaliação, atualiza a UI e salva no LocalStorage
-            rating.setAttribute("data-selected", value);
-            highlightStars(rating, value);
-            localStorage.setItem(`rating-${itemId}`, value);
-
-            if (previousValue === 0) {
-                updateVotes(ratingValue, true); // Incrementa votos apenas na primeira avaliação
-            }
-        }
-    }
-
-    function highlightStars(rating, value) {
-        rating.querySelectorAll(".star").forEach(star => {
-            if (parseInt(star.getAttribute("data-value")) <= value) {
-                star.classList.add("text-warning");
-            } else {
-                star.classList.remove("text-warning");
-            }
-        });
-    }
-
-    function resetStars(rating) {
-        let selectedValue = rating.getAttribute("data-selected");
-        rating.querySelectorAll(".star").forEach(star => {
-            star.classList.remove("text-warning");
-        });
-
-        if (selectedValue) {
-            highlightStars(rating, parseInt(selectedValue));
-        }
-    }
-
-    function updateVotes(ratingValue, isAdding) {
-        let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10) || 0;
-        ratingValue.textContent = `(${isAdding ? currentVotes + 1 : Math.max(currentVotes - 1, 0)})`;
-    }
 
 });
 
+function highlightStars(rating, value) {
+    //update rating to use black stars for the values (&#9733;) and white stars for the rest (&#9734;)
+    rating.querySelectorAll(".star").forEach(star => {
+        const starValue = parseInt(star.getAttribute("data-value"));
+        star.innerHTML = starValue <= value ? "&#9733;" : "&#9734;";
+        star.style.color = "#FFD700";
+    });
+}
 
+function updateVotes(ratingValue, isAdding) {
+    let currentVotes = parseInt(ratingValue.textContent.replace(/\D/g, ""), 10) || 0;
+    ratingValue.textContent = `(${isAdding ? currentVotes + 1 : Math.max(currentVotes - 1, 0)})`;
+}
 
+function rateItem(itemId, value) {
+    //if it already exists on localStorage, ignore
+    if (localStorage.getItem(`rating-${itemId}`) !== null) {
+        return;
+    }
 
+    let rating = document.getElementById(`rating-${itemId}`);
+    let ratingValue = rating.querySelector(".rating-value");
 
+    rating.setAttribute("data-selected", value);
+    highlightStars(rating, value);
+    localStorage.setItem(`rating-${itemId}`, value);
+    updateVotes(ratingValue, true);
 
+    //send the rating to the server
+    fetch(`/item/${itemId}/rate/${value}`, {
+        method: "POST"
+    });
+}
+
+//update stars from localStorage when the page is loaded
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".rating").forEach(rating => {
+        const itemId = rating.id.replace("rating-", ""); // Pega o ID do item
+        const storedRating = localStorage.getItem(`rating-${itemId}`);
+
+        // Se houver uma avaliação armazenada, aplica na interface
+        if (storedRating) {
+            rating.setAttribute("data-selected", storedRating);
+            highlightStars(rating, parseInt(storedRating));
+        }
+    });
+});
 

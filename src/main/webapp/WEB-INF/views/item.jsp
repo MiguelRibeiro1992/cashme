@@ -46,8 +46,8 @@
             <div class="image-container">
                 <img src="/images/${item.imageUrl}" alt="${item.name}" class="img-fluid w-100 border rounded">
                 <!-- Botão Wishlist -->
-                <div class="icons-container p-2">
-                    <button onclick="toggleWishlist(${item.id}, event)" type="button" class="border-0 bg-transparent p-0">
+                <div class="icons-container position-absolute top-0 end-0 p-2">
+                    <button onclick="toggleWishlist(${item.id}, event)" type="button" class="icons-container">
                         <img id="wishlist-icon-${item.id}"
                              src="/images/${item.inWishlist ? 'heartfill.svg' : 'heart.svg'}"
                              alt="Favorito"
@@ -65,16 +65,16 @@
             <!-- Avaliação Clicável -->
             <div class="d-flex align-items-center">
                 <div class="rating text-warning">
-                    <c:forEach var="i" begin="1" end="5">
-                <span class="star clickable ${i <= (item.rating != null ? item.rating : 0) ? 'text-warning' : 'text-secondary'}"
-                      data-value="${i}"
-                      onclick="rateItem(${item.id}, ${i})">
-                    &#9733;
-                </span>
-                    </c:forEach>
+                    <div class="rating mt-2" id="rating-${item.id}">
+                        <c:forEach var="i" begin="1" end="5">
+                            <span class="star"
+                                  data-value="${i}"
+                                  onclick="rateItem(${item.id}, ${i}, event)">${item.rating >= i ? "&#9733;" : "&#9734;"}</span>
+                        </c:forEach>
+                        <span class="rating-value">(${item.reviewsCount} Reviews)</span>
+                    </div>
                 </div>
-                <span class="ms-2 text-muted">(${item.reviewsCount != null ? item.reviewsCount : 0} Reviews)</span>
-                <span class="text-success ms-3">Em stock</span>
+                <span class="text-success ms-3 mt-2">Em stock</span>
             </div>
 
             <!-- Preço Formatado -->

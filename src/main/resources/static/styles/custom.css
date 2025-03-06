@@ -272,6 +272,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px; /* Espaço entre os ícones */
+    outline: unset;
+    border-style: unset;
+    border-color: unset;
+    background-color: transparent;
 }
 
 .icons-container a img {
@@ -286,13 +290,11 @@ body {
     transform: scale(1.1);
 }
 
-button {
-    all: unset; /* Reseta todas as propriedades padrão do botão */
-    cursor: pointer;
+.button {
+    border-style: unset;
+    border-color: unset;
+
 }
-
-
-
 
 /* Define a cor dos links sublinhados APENAS no body */
 body a {

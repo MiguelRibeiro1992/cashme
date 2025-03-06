@@ -36,7 +36,7 @@ public class Item {
     private double discount = 0.0;
     private int quantity;
     private Double rating;
-    private Integer reviewsCount;
+    private Integer reviewsCount = 0;
 
 
     public Item(){

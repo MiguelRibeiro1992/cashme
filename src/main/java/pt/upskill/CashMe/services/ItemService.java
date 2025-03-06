@@ -22,4 +22,6 @@ public interface ItemService {
     List<Item> getItemsByCategory(Category category);
 
     public List<Item> getAllItemsSortedByPrice();
+
+    void rateItem(Item item, int rating);
 }

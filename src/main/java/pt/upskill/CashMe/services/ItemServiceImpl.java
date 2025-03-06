@@ -82,6 +82,21 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findAll(Sort.by(Sort.Direction.ASC, "price"));
     }
 
+    @Override
+    public void rateItem(Item item, int rating) {
+
+
+        double newRating = (double) rating;
+        double currentRating = item.getRating();
+        int reviewsCount = item.getReviewsCount();
+
+        double updatedRating = ((currentRating * reviewsCount) + newRating) / (reviewsCount + 1);
+        item.setRating(updatedRating);
+        item.setReviewsCount(reviewsCount + 1);
+
+        itemRepository.save(item);
+    }
+
     public boolean itemHasCategory(Long itemId, Long categoryId) {
         Optional<Item> itemOpt = itemRepository.findById(itemId);
         if (itemOpt.isPresent()) {

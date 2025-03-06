@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pt.upskill.CashMe.entities.*;
+import pt.upskill.CashMe.repositories.UserRepository;
 import pt.upskill.CashMe.services.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class PublicController {
@@ -54,6 +54,7 @@ public class PublicController {
         model.addAttribute("categories", categories);
         return "mainPage";
     }
+
 
     @GetMapping("/underConstruction")
     public String underConstruction() {
@@ -108,6 +109,14 @@ public class PublicController {
         return "item";
     }
 
+    @PostMapping("/item/{id}/rate/{rating}")
+    @ResponseBody
+    public Item rateItem(@PathVariable("id") Item item, @PathVariable("rating") Integer rating) {
+        System.out.println("Rating: " + rating + " Item: " + item);
+        itemService.rateItem(item, rating);
+        return item;
+    }
+
     @GetMapping("/items")
     public String itemsPage(Model model) {
         List<Item> items = itemService.findAll(); // Buscar todos os itens
@@ -124,6 +133,7 @@ public class PublicController {
     public String contacts() {
         return "contacts";
     }
+
 
     @GetMapping("/wishlist")
     public String getWishlist(Model model) {
@@ -164,7 +174,6 @@ public class PublicController {
     public String showTerms() {
         return "terms";
     }
-
     @GetMapping("/faq")
     public String showFAQ() {
         return "faq";
@@ -190,4 +199,6 @@ public class PublicController {
     public String availableSoon() {
         return "availableSoon";
     }
+
+
 }
