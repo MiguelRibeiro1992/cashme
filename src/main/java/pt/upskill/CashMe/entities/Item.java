@@ -18,6 +18,7 @@ public class Item {
 
     private String barcode;
     private String name;
+    @Column(length = 2000)
     private String description;
     private String imageUrl;
 

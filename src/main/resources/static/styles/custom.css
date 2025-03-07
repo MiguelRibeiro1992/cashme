@@ -121,7 +121,6 @@ body {
     width: 100%;
     display: flex;
     position: relative;
-    justify-content: center; /* Centraliza o contêiner */
 }
 
 /* Container deslizante */
@@ -129,8 +128,7 @@ body {
     display: flex;
     transition: transform 0.5s ease-in-out;
     gap: 20px;
-    justify-content: center; /* Centraliza os itens dentro do carrossel */
-    flex-wrap: wrap; /* Permite que os itens se ajustem se forem poucos */
+    flex-wrap: nowrap; /* Permite que os itens se ajustem se forem poucos */
 }
 
 /* Estilo individual dos produtos */
