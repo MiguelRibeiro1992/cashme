@@ -1,17 +1,12 @@
 package pt.upskill.CashMe.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
-import pt.upskill.CashMe.models.AddCategoryModel;
-import pt.upskill.CashMe.repositories.CategoryRepository;
 import pt.upskill.CashMe.services.CategoryService;
-import pt.upskill.CashMe.services.CategoryServiceImpl;
 import pt.upskill.CashMe.services.ItemService;
 
 import java.util.List;

@@ -9,19 +9,15 @@ import pt.upskill.CashMe.entities.Category;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.Store;
 import pt.upskill.CashMe.entities.User;
-import pt.upskill.CashMe.models.AddCategoryModel;
 import pt.upskill.CashMe.models.EditItemModel;
-import pt.upskill.CashMe.repositories.CategoryRepository;
-import pt.upskill.CashMe.repositories.ItemRepository;
-import pt.upskill.CashMe.repositories.StoreRepository;
 import pt.upskill.CashMe.services.CategoryServiceImpl;
 import pt.upskill.CashMe.services.ItemServiceImpl;
 import pt.upskill.CashMe.services.StoreServiceImpl;
 import pt.upskill.CashMe.services.UserServiceImpl;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Controller

@@ -162,14 +162,6 @@ public class Item {
         this.reviewsCount = reviewsCount;
     }
 
-    public String getCategoriesIds() {
-        return categories.stream()
-                .map(Category::getId)
-                .map(String::valueOf)
-                .reduce((a, b) -> a + "," + b)
-                .orElse("");
-    }
-
     @Transient // Não salva este campo na BD
     private boolean inWishlist;
 
