@@ -76,7 +76,7 @@
 <!-- Referencia Multibanco e QR Code para sair-->
 <div class="container login-container d-flex flex-column align-items-center py-5" style="max-width: 70%;">
     <!-- Mostrar dados de pagamento se paid for false -->
-    <div id="paymentReferenceSection">
+    <div id="paymentReferenceSection" class="text-center">
         <h5>Dados para pagamento Multibanco</h5>
         <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
         <p><strong>Referência:</strong> ${paymentReference.reference}</p>
@@ -88,7 +88,7 @@
     </div>
 
     <!-- QR Code -->
-    <div id="qrcodeSection" style="display: none;">
+    <div id="qrcodeSection" class="text-center" style="display: none;">
         <h5>Apresente este QR Code na saída</h5>
         <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code"
              style="width: 150px; height: 150px"/>
