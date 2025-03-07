@@ -6,12 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pt.upskill.CashMe.entities.*;
-import pt.upskill.CashMe.repositories.UserRepository;
 import pt.upskill.CashMe.services.*;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @Controller
 public class PublicController {
