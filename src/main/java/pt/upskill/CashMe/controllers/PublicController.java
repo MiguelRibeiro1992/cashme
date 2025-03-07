@@ -29,8 +29,10 @@ public class PublicController {
 
     @Autowired
     private UserServiceImpl userService;
+
     @Autowired
     private PaymentReferenceRepository paymentReferenceRepository;
+
     @Autowired
     private CartServiceImpl cartService;
 

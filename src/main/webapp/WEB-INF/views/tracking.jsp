@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -68,8 +69,6 @@
                 <div class="mb-3">
                     <input type="text" id="searchBar" name="query" class="form-control" placeholder="Pesquisar produto..." onkeyup="filterProducts()">
                 </div>
-
-
                     <table class="table table-striped" id="priceTable">
                         <thead>
                         <tr>
@@ -82,13 +81,12 @@
                         <c:forEach var="item" items="${items}">
                             <tr>
                                 <td>${item.name}</td>
-                                <td>€ ${item.price}</td>
+                                <td><fmt:formatNumber value="${item.price}" type="number" pattern="0.00"/> €</td>
                                 <td>${item.store.name}</td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
-
             </div>
         </div>
 

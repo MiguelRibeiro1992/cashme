@@ -100,9 +100,6 @@ public class CartController {
 
             PaymentReference paymentReference = cartService.createPaymentReference(cart);
             model.addAttribute("paymentReference", paymentReference);
-        } else {
-            model.addAttribute("cartItems", Map.of());
-            model.addAttribute("totalPrice", 0.0);
         }
 
         return "checkout";

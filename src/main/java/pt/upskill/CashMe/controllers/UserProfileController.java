@@ -11,7 +11,6 @@ import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.PaymentMethod;
 import pt.upskill.CashMe.entities.Purchase;
 import pt.upskill.CashMe.entities.User;
-import pt.upskill.CashMe.repositories.PaymentMethodRepository;
 import pt.upskill.CashMe.services.*;
 
 import java.util.*;
@@ -31,9 +30,6 @@ public class UserProfileController {
 
     @Autowired
     private PurchaseServiceImpl purchaseService;
-
-    @Autowired
-    private PaymentMethodRepository paymentMethodRepository;
 
     @GetMapping
     public String account() {
