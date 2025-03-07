@@ -97,15 +97,5 @@ public class ItemServiceImpl implements ItemService {
         itemRepository.save(item);
     }
 
-    public boolean itemHasCategory(Long itemId, Long categoryId) {
-        Optional<Item> itemOpt = itemRepository.findById(itemId);
-        if (itemOpt.isPresent()) {
-            Item item = itemOpt.get();
-            return item.getCategories().stream()
-                    .anyMatch(cat -> cat.getId().equals(categoryId));
-        }
-        return false;
-    }
-
 
 }

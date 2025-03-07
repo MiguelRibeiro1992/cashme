@@ -14,9 +14,6 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
 
-    @Autowired
-    private UserServiceImpl userService;
-
     @Override
     public List<PaymentMethod> getUserPaymentMethods(User user) {
         return paymentMethodRepository.findByUser(user);

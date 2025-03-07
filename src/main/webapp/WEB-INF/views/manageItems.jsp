@@ -192,7 +192,7 @@
                                             <td>${item.imageUrl}</td>
                                             <td>
                                                 <!-- Botão de Editar -->
-                                                <button class="btn btn-warning btn-sm" onclick="openEditModal('${item.id}', '${item.barcode}', '${item.name}', '${item.price}', '${item.quantity}', '${item.brand}', '${item.description}', '${item.imageUrl}', '${item.store.id}', '${item.getCategoriesIds()}')">
+                                                <button class="btn btn-warning btn-sm" onclick="openEditModal('${item.id}', '${item.barcode}', '${item.name}', '${item.price}', '${item.quantity}', '${item.brand}', '${item.description}', '${item.imageUrl}', '${item.store.id}', '${item.getCategories()}')">
                                                     Editar
                                                 </button>
 

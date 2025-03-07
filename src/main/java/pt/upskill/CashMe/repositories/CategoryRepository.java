@@ -16,8 +16,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     // Verificar se já existe uma categoria com determinado nome
     boolean existsByName(String name);
 
-    // Procurar uma categoria pelo nome
-    Optional<Category> findByName(String name);
-
     Optional<Category> findBySlug(String slug);
 }

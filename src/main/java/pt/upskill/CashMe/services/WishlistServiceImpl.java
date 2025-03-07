@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pt.upskill.CashMe.entities.Item;
 import pt.upskill.CashMe.entities.User;
 import pt.upskill.CashMe.entities.Wishlist;
-import pt.upskill.CashMe.models.WishlistModel;
 import pt.upskill.CashMe.repositories.ItemRepository;
 import pt.upskill.CashMe.repositories.UserRepository;
 import pt.upskill.CashMe.repositories.WishlistRepository;
@@ -20,13 +19,6 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Autowired
     private UserServiceImpl userService;
-
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private ItemServiceImpl itemServiceImpl;
 
 
     // Busca a wishlist de um utilizador
