@@ -122,7 +122,6 @@ public class CartController {
             purchase.setDate(LocalDate.now());
             purchase.setStore(store);
             purchase.setTotal(cartService.getTotalPrice());
-            purchase.setStatus("Pago");
 
             purchaseService.save(purchase);
         }

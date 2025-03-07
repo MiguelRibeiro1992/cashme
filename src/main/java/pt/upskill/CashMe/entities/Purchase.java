@@ -14,11 +14,18 @@ public class Purchase {
     private LocalDate date;
     private String store;
     private double total;
-    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToOne
+    @JoinColumn(name = "payment_reference_id", referencedColumnName = "id")
+    private PaymentReference paymentReference;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private Cart cart;
 
     public Long getId() {
         return id;
@@ -52,19 +59,27 @@ public class Purchase {
         this.total = total;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PaymentReference getPaymentReference() {
+        return paymentReference;
+    }
+
+    public void setPaymentReference(PaymentReference paymentReference) {
+        this.paymentReference = paymentReference;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pt.upskill.CashMe.entities.*;
+import pt.upskill.CashMe.repositories.PaymentReferenceRepository;
+import pt.upskill.CashMe.repositories.UserRepository;
 import pt.upskill.CashMe.services.*;
 
 import java.util.List;
@@ -28,6 +30,10 @@ public class PublicController {
 
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private PaymentReferenceRepository paymentReferenceRepository;
+    @Autowired
+    private CartServiceImpl cartService;
 
     @GetMapping("/")
     public String homePage() {
@@ -199,4 +205,22 @@ public class PublicController {
 
     @GetMapping("/atm")
     public String atm() { return "atm"; }
+
+    @PostMapping("/atm/pay")
+    @ResponseBody
+    public Cart atmPay(String entity, String reference, Double amount) {
+        System.out.println(entity + " " + reference + " " + amount);
+
+        if (entity == null || reference == null || amount == null){
+            throw new IllegalArgumentException("Todos os campos são obrigatórios.");
+        }
+
+        PaymentReference paymentReference = paymentReferenceRepository.findByReference(reference);
+        if (paymentReference == null) {
+            throw new IllegalArgumentException("Referência não encontrada.");
+        }
+
+        Cart cart = cartService.pay(entity, reference, amount);
+        return cart;
+    }
 }

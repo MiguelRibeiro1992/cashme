@@ -23,4 +23,6 @@ public interface CartService {
     public void addItemToCartById(Long itemId, int quantity);
 
     public PaymentReference createPaymentReference(Cart cart);
+
+    Cart pay(String entity, String reference, Double amount);
 }

@@ -73,34 +73,25 @@
     <h4 class="mt-4">Total a pagar: <fmt:formatNumber value="${totalPrice}" type="number" pattern="0.00"/> €</h4>
 </div>
 
-<!-- Referencia Multibanco e QR Code para sair FALTA TESTAR-->
+<!-- Referencia Multibanco e QR Code para sair-->
 <div class="container login-container d-flex flex-column align-items-center py-5" style="max-width: 70%;">
-
-    <h5>Dados para pagamento Multibanco</h5>
     <!-- Mostrar dados de pagamento se paid for false -->
-    <br>
-    <c:if test="${not empty paymentReference && !paid}">
-    <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
-    <p><strong>Referência:</strong> ${paymentReference.reference}</p>
-    <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number"
-    pattern="0.00"/> €</p>
-    </c:if>
+    <div id="paymentReferenceSection">
+        <h5>Dados para pagamento Multibanco</h5>
+        <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
+        <p><strong>Referência:</strong> ${paymentReference.reference}</p>
+        <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number" pattern="0.00"/> €</p>
+        <br>
+        <button onclick="openAtmWindow()" class="atm-button">
+            <img src="/images/atm.svg" alt="Pagar via Multibanco">
+        </button>
+    </div>
 
-    <!-- Ícone para pagamento -->
-    <br>
-    <button onclick="openAtmWindow()" class="atm-button">
-        <img src="/images/atm.svg" alt="Pagar via Multibanco">
-    </button>
-    <div class="text-center mt-4">
-
-    <!-- Mostrar QR Code se paid for true -->
-    <c:if test="${paid}">
-            <div class="text-center mt-4">
-                <h5>Apresente este QR Code na saída</h5>
-                <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code"
-                     style="width: 150px; height: 150px"/>
-            </div>
-        </c:if>
+    <!-- QR Code -->
+    <div id="qrcodeSection" style="display: none;">
+        <h5>Apresente este QR Code na saída</h5>
+        <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code"
+             style="width: 150px; height: 150px"/>
     </div>
 </div>
 
@@ -125,9 +116,17 @@
             .catch(error => console.error("Erro ao finalizar a compra:", error));
     });
 
-    //abrir janela de pagamento
     function openAtmWindow() {
-        window.open('/atm', 'AtmWindow', 'width=400,height=500,scrollbars=no,resizable=no');
+        window.open('/atm', 'AtmWindow', 'width=400,height=500');
+    }
+
+    // // Verifica o pagamento a cada segundo
+    // setInterval(checkPaymentStatus, 1000);
+
+    function paymentSuccessful(cart_id) {
+        document.getElementById("paymentReferenceSection").style.display = 'none'; // Esconde os dados de Multibanco
+        document.getElementById("qrcodeSection").style.display = 'block'; // Mostra o QR Code
+        document.getElementById("qrcode_cash_black").src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=/cart/finish/" + cart_id;
     }
 </script>
 

@@ -8,4 +8,6 @@ import pt.upskill.CashMe.entities.PaymentReference;
 @Repository
 public interface PaymentReferenceRepository extends JpaRepository <PaymentReference, Long> {
     PaymentReference findByCart(Cart activeCart);
+
+    PaymentReference findByReference(String reference);
 }

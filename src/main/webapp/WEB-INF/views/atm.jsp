@@ -52,35 +52,82 @@
         .orange { background-color: orange; color: black; }
         .green { background-color: green; color: white; }
     </style>
+
 </head>
 <body>
 <div class="content">
-    <!-- Nome do Banco no topo -->
-    <h1 class="logo-title">BANCO BCG</h1>
-    <h5 class="logo-subtitle">Banco Cheio de Guito</h5>
+    <h1>BANCO BCG</h1>
     <h2>PAGAMENTO DE SERVIÇOS / COMPRAS</h2>
     <div class="container">
-        <form action="processarPagamento.jsp" method="post">
+        <form id="paymentForm">
             <div>
                 <label>ENTIDADE</label>
-                <div class="input-box">96969</div>
+                <input type="text" id="entity" class="input-box" required>
             </div>
             <div>
                 <label>REFERÊNCIA</label>
-                <input type="text" name="referencia" class="input-box" required>
+                <input type="text" id="reference" class="input-box" required>
             </div>
             <div>
                 <label>MONTANTE</label>
-                <input type="text" name="montante" class="input-box" required>
+                <input type="text" id="amount" class="input-box" required>
             </div>
-            <p>CONFIRME NA TECLA VERDE</p>
+            <p id="message">CONFIRME NA TECLA VERDE</p>
             <div class="buttons">
                 <button type="reset" class="button red">ANULAR</button>
                 <button type="button" class="button orange">CORRIGIR</button>
-                <button type="submit" class="button green">CONFIRMAR</button>
+                <button type="button" class="button green" id="confirmPayment">CONFIRMAR</button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", (e) => {
+        document.getElementById("confirmPayment").addEventListener("click", function (e) {
+            e.preventDefault();
+            let entity_input = document.getElementById("entity");
+            let reference_input = document.getElementById("reference");
+            let amount_input = document.getElementById("amount");
+            let message_el = document.getElementById("message");
+
+            let entity = entity_input.value;
+            let reference = reference_input.value;
+            let amount = amount_input.value;
+
+            if(amount.includes(",")) {
+                amount = amount.split(",").join(".");
+            }
+
+            let form_data = new FormData();
+            form_data.append("entity", entity);
+            form_data.append("reference", reference);
+            form_data.append("amount", amount);
+
+            fetch("/atm/pay", {
+                method: "POST",
+                body: form_data
+            }).then(e => {
+                console.log(e);
+                if(e.status === 200) {
+                    e.json().then(cart => {
+                        if (window.opener) {
+                            window.opener.paymentSuccessful(cart.id);
+                        }
+                        window.close();
+                    })
+                } else {
+                    message_el.textContent = "Dados incorretos";
+                    message_el.style.color = "red";
+                }
+            }).catch(e => {
+                //
+                console.error(e);
+            });
+            return false;
+        });
+    });
+</script>
+
 </body>
 </html>

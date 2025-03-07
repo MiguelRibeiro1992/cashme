@@ -9,4 +9,5 @@ import pt.upskill.CashMe.entities.Cart;
 public interface CartRepository extends JpaRepository<Cart, Long> {
     @Query("SELECT c FROM Cart c WHERE c.active = true")
     Cart findActiveCart();
+
 }

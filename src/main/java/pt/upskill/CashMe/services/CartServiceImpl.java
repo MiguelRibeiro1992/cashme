@@ -182,6 +182,22 @@ public class CartServiceImpl implements CartService {
         return paymentReferenceRepository.save(paymentReference);
     }
 
+    @Override
+    public Cart pay(String entity, String reference, Double amount) {
+        PaymentReference paymentReference = paymentReferenceRepository.findByReference(reference);
+        Cart cart = paymentReference.getCart();
+        if (cart == null) {
+            throw new IllegalArgumentException("Carrinho não encontrado.");
+        }
+
+        cart.setPaid(true);
+        cartRepository.save(cart);
+
+        paymentReferenceRepository.delete(paymentReference);
+
+        return cart;
+    }
+
     private void invalidatePaymentReference (Cart cart) {
         PaymentReference paymentReference = paymentReferenceRepository.findByCart(cart);
         if (paymentReference != null) {
