@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -90,7 +91,7 @@
                             <tr>
                                 <td>${counter}</td>
                                 <td>${entry.key}</td>
-                                <td>€ ${entry.value}</td>
+                                <td><fmt:formatNumber value="${entry.value}" type="number" pattern="0.00"/> €</td>
                             </tr>
                             <c:set var="counter" value="${counter + 1}" />
                         </c:forEach>

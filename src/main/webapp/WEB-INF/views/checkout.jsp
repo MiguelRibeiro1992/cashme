@@ -78,6 +78,7 @@
     <!-- Mostrar dados de pagamento se paid for false -->
     <div id="paymentReferenceSection" class="text-center">
         <h5>Dados para pagamento Multibanco</h5>
+        <br>
         <p><strong>Entidade:</strong> ${paymentReference.entity}</p>
         <p><strong>Referência:</strong> ${paymentReference.reference}</p>
         <p><strong>Valor:</strong> <fmt:formatNumber value="${paymentReference.amount}" type="number" pattern="0.00"/> €</p>
@@ -87,7 +88,7 @@
         </button>
     </div>
 
-    <!-- QR Code -->
+    <!-- QR Code se paid for true -->
     <div id="qrcodeSection" class="text-center" style="display: none;">
         <h5>Apresente este QR Code na saída</h5>
         <img id="qrcode_cash_black" src="/images/qrcode_cash_black.svg" alt="QR Code"
@@ -120,12 +121,9 @@
         window.open('/atm', 'AtmWindow', 'width=400,height=500');
     }
 
-    // // Verifica o pagamento a cada segundo
-    // setInterval(checkPaymentStatus, 1000);
-
     function paymentSuccessful(cart_id) {
-        document.getElementById("paymentReferenceSection").style.display = 'none'; // Esconde os dados de Multibanco
-        document.getElementById("qrcodeSection").style.display = 'block'; // Mostra o QR Code
+        document.getElementById("paymentReferenceSection").style.display = 'none';
+        document.getElementById("qrcodeSection").style.display = 'block';
         document.getElementById("qrcode_cash_black").src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=/cart/finish/" + cart_id;
     }
 </script>

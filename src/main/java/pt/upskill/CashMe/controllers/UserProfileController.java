@@ -88,13 +88,15 @@ public class UserProfileController {
 
     @GetMapping("/stats")
     public String stats(Model model) {
-        List<Purchase> purchases = purchaseService.findAllPurchases();
+        User user = userService.getCurrentUser();
+        List<Purchase> purchases = purchaseService.getPurchasesByUser(user);
         Map<String, Double> totalByStore = new HashMap<>();
 
         for (Purchase purchase : purchases) {
             totalByStore.merge(purchase.getStore(), purchase.getTotal(), Double::sum);
         }
 
+        model.addAttribute("user", user);
         model.addAttribute("purchases", purchases);
         model.addAttribute("totalByStore", totalByStore);
 

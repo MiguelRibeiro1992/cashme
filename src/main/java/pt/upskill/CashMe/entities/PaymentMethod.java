@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+//Para adicionar Cartão de Pagamento - Por implementar
+//Falta implementação dos Fundos
+
 @Entity
 public class PaymentMethod {
 

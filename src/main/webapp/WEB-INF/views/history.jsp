@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -85,8 +87,9 @@
                             <tr>
                                 <td>${purchase.date}</td>
                                 <td>${purchase.store}</td>
-                                <td>€ ${purchase.total}</td>
+                                <td><fmt:formatNumber value="${purchase.total}" type="number" pattern="0.00"/> €</td>
                                 <td><span class="badge bg-success">Pago</span></td>
+
                             </tr>
                         </c:forEach>
                         </tbody>

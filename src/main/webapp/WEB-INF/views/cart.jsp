@@ -107,7 +107,7 @@
         </table>
     </c:if>
 
-    <h4 class="mt-4">Total: <span id="totalPrice"><fmt:formatNumber value="${totalPrice}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span> €</h4>
+    <h4 class="mt-4">Total: <span id="totalPrice"><fmt:formatNumber value="${totalPrice}" type="number" pattern="0.00"/></span> €</h4>
     <br>
 
     <c:if test="${empty cartItems}">

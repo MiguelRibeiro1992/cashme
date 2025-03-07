@@ -64,7 +64,9 @@
             <div class="p-4 border rounded shadow-sm w-100 align-self-center">
                 <h4 class="fw-bold text-orange">Pontos</h4>
                 <form id="settingsForm">
-                    <div class="row g-3">
+                    <p class="mt-4 text-center">Disponível em breve!</p>
+                    <br>
+                    <div class="row g-3 opacity-50">
                         <!-- Secção de Pontos -->
                         <div class="p-4 border rounded shadow-sm w-100">
                             <div class="row g-3">
