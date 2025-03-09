@@ -110,11 +110,16 @@
         <p class="mt-1">compras sem ter de esperar em filas!</p>
         <div class="mt-4">
             <div class="col-md-12 d-flex justify-content-center">
+
                 <img src="/images/qrcode_cash_black.svg" alt="QR Code" class="img-fluid" style="width: 150px; height: auto; position: relative; top: 5px; left: -120px;">
             </div>
             <div class="col-md-12 d-flex flex-column justify-content-center align-items-center mt-3">
+                <a href="/availableSoon">
                 <img src="/images/googlePlay.svg" alt="QR Code Google Play" class="img-fluid mb-2 app-link" data-url="https://play.google.com/" style="width: 200px; height: auto; position: relative; top: -150px; left: 60px;">
-                <img src="/images/appStore.svg" alt="QR Code App Store" class="img-fluid app-link" data-url="https://www.apple.com/app-store/" style="width: 200px; height: auto; position: relative; top: -150px; left: 60px;">
+                </a>
+                <a href="/availableSoon">
+                <img src="/images/appStore.svg" alt="QR Code App Store" class="img-fluid app-link" data-url="/availableSoon" style="width: 200px; height: auto; position: relative; top: -150px; left: 60px;">
+                </a>
             </div>
         </div>
     </div>
@@ -150,24 +155,14 @@
 
     <div class="partner-wrapper mt-6 mb-6">
         <div class="partner-carousel row flex-nowrap" id="partnerCarousel">
-            <div class="col-md-3 d-flex justify-content-center">
-                <a href="https://www.continente.pt" target="_blank"><img src="/images/continente.svg" alt="Continente" class="img-fluid partner-link"></a>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center">
-                <a href="https://www.zara.pt" target="_blank"><img src="/images/zara.svg" alt="Zara" class="img-fluid partner-link"></a>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center">
-                <a href="https://www.lidl.pt" target="_blank"><img src="/images/lidl.svg" alt="Lidl" class="img-fluid partner-link"></a>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center">
-                <a href="https://www.fnac.pt" target="_blank"><img src="/images/fnac.svg" alt="Fnac" class="img-fluid partner-link"></a>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center">
-                <a href="https://www.nike.com.pt" target="_blank"><img src="/images/nike.svg" alt="Nike" class="img-fluid partner-link"></a>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center">
-                <a href="https://www.adidas.pt" target="_blank"><img src="/images/adidas.svg" alt="Adidas" class="img-fluid partner-link"></a>
-            </div>
+            <c:forEach var="store" items="${stores}">
+                <div class="d-flex flex-column align-items-center position-relative partner-carousel-item">
+                    <a href="/storeView/${store.id}">
+                        <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-store">
+                    </a>
+                    <p class="mt-3 text-left"><b>${store.name}</b></p>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </section>
@@ -189,24 +184,24 @@
     <div class="mb-4"></div>
     <div class="row">
         <div class="col-md-6">
-            <a href="https://www.worten.pt" target="_blank">
+            <a href="storeView/4">
                 <img src="/images/groupWorten.svg" alt="Worten" class="img-fluid w-100">
             </a>
         </div>
         <div class="col-md-6 d-flex flex-column">
             <div class="mb-3">
-                <a href="https://www.stradivarius.pt" target="_blank">
+                <a href="storeView/3">
                     <img src="/images/stradivarius.svg" alt="Stradivarius" class="img-fluid w-100">
                 </a>
             </div>
             <div class="d-flex">
                 <div class="col-md-6">
-                    <a href="https://www.auchan.pt" target="_blank">
+                    <a href="storeView/1">
                         <img src="/images/auchan.svg" alt="Auchan" class="img-fluid w-100">
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="https://www.pullandbear.com/pt" target="_blank">
+                    <a href="storeView/2">
                         <img src="/images/pullAndBear.svg" alt="Pull&Bear" class="img-fluid w-100">
                     </a>
                 </div>

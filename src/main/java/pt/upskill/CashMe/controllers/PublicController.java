@@ -37,7 +37,8 @@ public class PublicController {
     private CartServiceImpl cartService;
 
     @GetMapping("/")
-    public String homePage() {
+    public String homePage(Model model) {
+        model.addAttribute("stores", storeService.findAllStores());
         return "home";
     }
 

@@ -85,7 +85,6 @@
                         <img src="/images/${store.imageUrl}" alt="${store.name}" class="img-store">
                     </a>
                     <p class="mt-3 text-left"><b>${store.name}</b></p>
-
                 </div>
             </c:forEach>
         </div>
@@ -264,24 +263,24 @@
     <div class="mb-4"></div>
     <div class="row">
         <div class="col-md-6">
-            <a href="storeView/4" target="_blank">
+            <a href="storeView/4">
                 <img src="/images/groupWorten.svg" alt="Worten" class="img-fluid w-100">
             </a>
         </div>
         <div class="col-md-6 d-flex flex-column">
             <div class="mb-3">
-                <a href="storeView/3" target="_blank">
+                <a href="storeView/3">
                     <img src="/images/stradivarius.svg" alt="Stradivarius" class="img-fluid w-100">
                 </a>
             </div>
             <div class="d-flex">
                 <div class="col-md-6">
-                    <a href="storeView/1" target="_blank">
+                    <a href="storeView/1">
                         <img src="/images/auchan.svg" alt="Auchan" class="img-fluid w-100">
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="storeView/2" target="_blank">
+                    <a href="storeView/2">
                         <img src="/images/pullAndBear.svg" alt="Pull&Bear" class="img-fluid w-100">
                     </a>
                 </div>
