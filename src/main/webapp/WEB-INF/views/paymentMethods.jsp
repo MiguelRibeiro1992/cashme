@@ -63,9 +63,9 @@
         <div class="col-md-9">
             <div class="p-4 border rounded shadow-sm w-100">
                 <h4 class="fw-bold text-orange">Métodos de Pagamento</h4>
-                <p class="mt-4 text-center">Disponível em breve!</p>
-                <br>
-                <div class="row opacity-50">
+
+
+                <div class="row">
                     <!-- Cartões Atuais e Formulário Para Novo Cartão -->
                     <div class="col-md-6 border-end">
                         <c:choose>
