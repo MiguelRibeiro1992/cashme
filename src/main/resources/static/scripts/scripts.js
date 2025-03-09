@@ -165,7 +165,7 @@ function rateItem(itemId, value) {
     }
 
     let rating = document.getElementById(`rating-${itemId}`);
-    let ratingValue = rating.querySelector(".rating-value");
+    let ratingValue = rating.querySelector(".rating-value") + `Reviews`;
 
     rating.setAttribute("data-selected", value);
     highlightStars(rating, value);
