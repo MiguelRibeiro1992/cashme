@@ -69,21 +69,6 @@
 
 <!-- Dashboard Container -->
 
-<!--
-<div class="container login-container">
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-        </div>
-        <div class="col-md-6">
-            <h2 class="mb-4">Login - Admin</h2>
-            <h1><p>INSERIR COISAS AQUI</p></h1>
-
-            <-- Dashboard -->
-            <p></p>
-        </div>
-    </div>
-</div>
-
 <div class="container-fluid">
     <div class="row">
 
@@ -118,6 +103,7 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
             <p>Selecione uma opção no menu à esquerda.</p>
+        </main>
 
     </div>
 </div>
@@ -126,57 +112,4 @@
 <%@ include file="includes/footer.jsp"%>
 
 </body>
-</html><!-- Dashboard Container -->
-
-<!--
-<div class="container login-container">
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-        </div>
-        <div class="col-md-6">
-            <h2 class="mb-4">Login - Admin</h2>
-            <h1><p>INSERIR COISAS AQUI</p></h1>
-
-            <-- Dashboard -->
-            <p></p>
-        </div>
-    </div>
-</div>
--->
-
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <h4>Admin Dashboard</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="adminDashboard">Dashboard</a>
-                    </li>
-                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR LOJAS -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="manageStores">Lojas</a>
-                    </li>
-                    <!--PARA UPDATE: ADICIONAR/EDITAR/EXCLUIR PRODUTOS -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="manageItems">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="logout">Terminar Sessão</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Área de Conteúdo -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <h2 class="mt-4">Bem-vindo ao Painel de Administração</h2>
-            <p>Selecione uma opção no menu à esquerda.</p>
-
-    </div>
-</div>
-
-<!-- Footer -->
-<%@ include file="includes/footer.jsp"%>
+</html>

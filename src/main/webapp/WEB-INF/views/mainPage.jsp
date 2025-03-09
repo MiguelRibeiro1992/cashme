@@ -42,7 +42,7 @@
             <img src="/images/verticalLine.svg" alt="Linha vertical" class="img-fluid h-100">
         </div>
         <div class="col-sm-8 d-flex flex-column align-items-end">
-            <a href="/storeView/152" target="_blank" class="mt-5">
+            <a href="/storeView/152" class="mt-5">
                 <img src="/images/saldosZara.svg" alt="Saldos Zara" class="img-fluid"
                      style="height: auto; margin-right: 70px;">
             </a>
